@@ -1,2 +1,2 @@
-# Food-Delivery-Road_Frontend
-배달 어플 Frontend(IOS)
+# StockPortfolio_Frontend
+주식 포트폴리오 Frontend(IOS)
