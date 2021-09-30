@@ -1,3 +1,14 @@
+
+
+
+//import SwiftUI
+//
+//struct ContentView: View {
+//    var body: some View {
+//        HomeView()
+//    }
+//}
+
 import SwiftUI
 //import Foundation
 
@@ -48,16 +59,17 @@ struct ContentView: View {
                 VStack{
 
 
-                    NavigationLink(destination: NavigatedView()){
+//                    NavigationLink(destination: NavigatedView()){
                         VStack{
-                            Text("Chat Screen")
-                                .font(.largeTitle)
+                          HomeView()
+//                                .font(.largeTitle)
 
 
-                        }.navigationBarHidden(true)
+//                        }.navigationBarHidden(true)
                     }
                 }
                 .tabItem {
+//                    HomeView()
                     Image(systemName: "message")
                     Text("채팅")
 

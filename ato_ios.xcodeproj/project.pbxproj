@@ -15,6 +15,7 @@
 		3B02C97026F47328001A6295 /* EventSearchTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02C96F26F47328001A6295 /* EventSearchTab.swift */; };
 		3B02C97326F4772F001A6295 /* SearchTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02C97226F4772F001A6295 /* SearchTabBarButton.swift */; };
 		3B02C97726F478D7001A6295 /* CategoryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02C97626F478D7001A6295 /* CategoryTopBar.swift */; };
+		3B1355B82704A98D00A446E5 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1355B72704A98D00A446E5 /* Event.swift */; };
 		3B55931D26F174EE004E0A64 /* MarketMainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B55931C26F174EE004E0A64 /* MarketMainScreen.swift */; };
 		3B55931F26F17540004E0A64 /* GoodsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B55931E26F17540004E0A64 /* GoodsItem.swift */; };
 		3B55932126F17BD1004E0A64 /* EdgeBorderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B55932026F17BD1004E0A64 /* EdgeBorderExtension.swift */; };
@@ -35,7 +36,11 @@
 		3BD0BAFD26ED9B9300DB847C /* NavigatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD0BAFC26ED9B9300DB847C /* NavigatedView.swift */; };
 		3BE4D31026F76465001D1DD7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE4D30F26F76465001D1DD7 /* Category.swift */; };
 		3BE4D31226F767FE001D1DD7 /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE4D31126F767FE001D1DD7 /* Keyword.swift */; };
-		3BE9B4E026FEB42F00120776 /* chipsSwiftUiDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE9B4DF26FEB42F00120776 /* chipsSwiftUiDemo.swift */; };
+		3BE9B4E226FF146A00120776 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE9B4E126FF146A00120776 /* Models.swift */; };
+		3BE9B4E426FF210000120776 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE9B4E326FF210000120776 /* ViewModel.swift */; };
+		3BE9B4E626FF29F500120776 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE9B4E526FF29F500120776 /* HomeView.swift */; };
+		3BE9B4E826FF2A1500120776 /* NewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE9B4E726FF2A1500120776 /* NewPostView.swift */; };
+		3BE9B4EA26FF333600120776 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE9B4E926FF333600120776 /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +52,7 @@
 		3B02C96F26F47328001A6295 /* EventSearchTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSearchTab.swift; sourceTree = "<group>"; };
 		3B02C97226F4772F001A6295 /* SearchTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabBarButton.swift; sourceTree = "<group>"; };
 		3B02C97626F478D7001A6295 /* CategoryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTopBar.swift; sourceTree = "<group>"; };
+		3B1355B72704A98D00A446E5 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		3B55931C26F174EE004E0A64 /* MarketMainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketMainScreen.swift; sourceTree = "<group>"; };
 		3B55931E26F17540004E0A64 /* GoodsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsItem.swift; sourceTree = "<group>"; };
 		3B55932026F17BD1004E0A64 /* EdgeBorderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBorderExtension.swift; sourceTree = "<group>"; };
@@ -69,7 +75,13 @@
 		3BD0BAFC26ED9B9300DB847C /* NavigatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatedView.swift; sourceTree = "<group>"; };
 		3BE4D30F26F76465001D1DD7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3BE4D31126F767FE001D1DD7 /* Keyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyword.swift; sourceTree = "<group>"; };
-		3BE9B4DF26FEB42F00120776 /* chipsSwiftUiDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chipsSwiftUiDemo.swift; sourceTree = "<group>"; };
+		3BE9B4E126FF146A00120776 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		3BE9B4E326FF210000120776 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		3BE9B4E526FF29F500120776 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		3BE9B4E726FF2A1500120776 /* NewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostView.swift; sourceTree = "<group>"; };
+		3BE9B4E926FF333600120776 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		A7E16D22A2CD810A1716EAC4 /* Pods-ato_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ato_ios.debug.xcconfig"; path = "Target Support Files/Pods-ato_ios/Pods-ato_ios.debug.xcconfig"; sourceTree = "<group>"; };
+		CBD9B84F323596D6BB8672F8 /* Pods-ato_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ato_ios.release.xcconfig"; path = "Target Support Files/Pods-ato_ios/Pods-ato_ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +116,8 @@
 			children = (
 				3B02C96426F31057001A6295 /* Goods.swift */,
 				3B02C96626F310A9001A6295 /* Books.swift */,
+				3B1355B72704A98D00A446E5 /* Event.swift */,
+				3BE9B4E126FF146A00120776 /* Models.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -132,6 +146,8 @@
 			children = (
 				3BAB6E6F26E85E800070F844 /* ato_ios */,
 				3BAB6E6E26E85E800070F844 /* Products */,
+				C3F22C5856A35CB30931C9FC /* Pods */,
+				996522914A1709D396A0C05D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -150,9 +166,12 @@
 				3BD0BAF826ED91D900DB847C /* stateBottomBar.swift */,
 				3BD0BAF026EB897E00DB847C /* views */,
 				3BAB6E7226E85E800070F844 /* ContentView.swift */,
-				3BE9B4DF26FEB42F00120776 /* chipsSwiftUiDemo.swift */,
 				3BD0BAFC26ED9B9300DB847C /* NavigatedView.swift */,
 				3BD0BAF626EBA01400DB847C /* BottomBar.swift */,
+				3BE9B4E526FF29F500120776 /* HomeView.swift */,
+				3BE9B4E926FF333600120776 /* DetailView.swift */,
+				3BE9B4E726FF2A1500120776 /* NewPostView.swift */,
+				3BE9B4E326FF210000120776 /* ViewModel.swift */,
 				3B02C96126F2EB33001A6295 /* Extension */,
 				3BD0BAFA26ED983A00DB847C /* mmain.swift */,
 				3B02C96326F31026001A6295 /* Model */,
@@ -208,6 +227,22 @@
 			path = screen;
 			sourceTree = "<group>";
 		};
+		996522914A1709D396A0C05D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C3F22C5856A35CB30931C9FC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A7E16D22A2CD810A1716EAC4 /* Pods-ato_ios.debug.xcconfig */,
+				CBD9B84F323596D6BB8672F8 /* Pods-ato_ios.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -215,6 +250,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BAB6E7C26E85E880070F844 /* Build configuration list for PBXNativeTarget "ato_ios" */;
 			buildPhases = (
+				FEA46F83A044918C345DD410 /* [CP] Check Pods Manifest.lock */,
 				3BAB6E6926E85E800070F844 /* Sources */,
 				3BAB6E6A26E85E800070F844 /* Frameworks */,
 				3BAB6E6B26E85E800070F844 /* Resources */,
@@ -272,6 +308,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		FEA46F83A044918C345DD410 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ato_ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3BAB6E6926E85E800070F844 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -283,23 +344,28 @@
 				3BBBBF4D26FCB581000E48C8 /* MarcketWriteChips.swift in Sources */,
 				3B02C97026F47328001A6295 /* EventSearchTab.swift in Sources */,
 				3B02C96B26F433AF001A6295 /* SearchScreen.swift in Sources */,
+				3BE9B4E426FF210000120776 /* ViewModel.swift in Sources */,
 				3BD0BAF526EB991D00DB847C /* RegisterScreen.swift in Sources */,
+				3B1355B82704A98D00A446E5 /* Event.swift in Sources */,
 				3BAB6E7326E85E800070F844 /* ContentView.swift in Sources */,
+				3BE9B4E826FF2A1500120776 /* NewPostView.swift in Sources */,
 				3BD0BAFD26ED9B9300DB847C /* NavigatedView.swift in Sources */,
 				3BBBBF4B26FC8D43000E48C8 /* WriteGoodsScreen.swift in Sources */,
 				3BD0BAFB26ED983A00DB847C /* mmain.swift in Sources */,
+				3BE9B4E626FF29F500120776 /* HomeView.swift in Sources */,
 				3B02C96726F310A9001A6295 /* Books.swift in Sources */,
 				3BD0BAF926ED91D900DB847C /* stateBottomBar.swift in Sources */,
+				3BE9B4EA26FF333600120776 /* DetailView.swift in Sources */,
 				3B02C97326F4772F001A6295 /* SearchTabBarButton.swift in Sources */,
 				3BD0BAF326EB8A0700DB847C /* LoginScreen.swift in Sources */,
 				3BAB6E7126E85E800070F844 /* ato_iosApp.swift in Sources */,
 				3BD0BAF726EBA01400DB847C /* BottomBar.swift in Sources */,
 				3BAB6E8126E8695F0070F844 /* Mycard.swift in Sources */,
 				3B02C97726F478D7001A6295 /* CategoryTopBar.swift in Sources */,
-				3BE9B4E026FEB42F00120776 /* chipsSwiftUiDemo.swift in Sources */,
 				3B55931F26F17540004E0A64 /* GoodsItem.swift in Sources */,
 				3B55932326F17E0C004E0A64 /* MarketTag.swift in Sources */,
 				3BD0BAEE26EB769F00DB847C /* ColorExtension.swift in Sources */,
+				3BE9B4E226FF146A00120776 /* Models.swift in Sources */,
 				3B55931D26F174EE004E0A64 /* MarketMainScreen.swift in Sources */,
 				3BE4D31226F767FE001D1DD7 /* Keyword.swift in Sources */,
 				3B02C96526F31057001A6295 /* Goods.swift in Sources */,
@@ -428,6 +494,7 @@
 		};
 		3BAB6E7D26E85E880070F844 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7E16D22A2CD810A1716EAC4 /* Pods-ato_ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -450,6 +517,7 @@
 		};
 		3BAB6E7E26E85E880070F844 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CBD9B84F323596D6BB8672F8 /* Pods-ato_ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

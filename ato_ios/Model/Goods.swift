@@ -6,6 +6,18 @@
 //
 
 import Foundation
+
+
+struct GoodsModel: Decodable {
+    let _id:String
+    let title: String
+    let content: String
+    let state: String
+    let price: Int
+    let tags: Array<String>
+//    let enrollTime: Date
+//    let updateTime: Date
+}
 //
 //class Api : ObservableObject{
 //    @Published var books = [Book]()
