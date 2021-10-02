@@ -45,11 +45,12 @@ class ViewModel: ObservableObject {
 //      let api = "https://jsonplaceholder.typicode.com/todos"
         let api = "http://localhost:4000/post"
       guard let url = URL(string: api) else { return }
-        print("-----")
       URLSession.shared.dataTask(with: url) { (data, response, error) in
         do {
            if let data = data {
              let result = try JSONDecoder().decode([PostModel].self, from: data)
+               
+                 print("\nresult------------\n\t", result)
              DispatchQueue.main.async {
                 self.items = result
              }
@@ -65,11 +66,12 @@ class ViewModel: ObservableObject {
 //      let api = "https://jsonplaceholder.typicode.com/todos"
         let api = "http://localhost:4000/goods"
       guard let url = URL(string: api) else { return }
-        print("-----")
+        print("-----fetch All Goods-----")
       URLSession.shared.dataTask(with: url) { (data, response, error) in
         do {
            if let data = data {
              let result = try JSONDecoder().decode([GoodsModel].self, from: data)
+               print("\nresult------------\n", result)
              DispatchQueue.main.async {
                 self.goodsItems = result
              }

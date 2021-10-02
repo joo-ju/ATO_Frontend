@@ -17,6 +17,7 @@ struct ContentView: View {
         case tab1, tab2, myAto, chat, search, home
     }
     @State private var tabSelection = 0
+    @State var tags = [""]
     //    @State var tabSelection: Tabs = 0
     @State var books = [Book]()
     init() {
