@@ -61,13 +61,13 @@ struct ContentView: View {
 
 
 //                    NavigationLink(destination: NavigatedView()){
-                        VStack{
+//                        VStack{
                           HomeView()
 //                                .font(.largeTitle)
 
 
 //                        }.navigationBarHidden(true)
-                    }
+//                    }
                 }
                 .tabItem {
 //                    HomeView()

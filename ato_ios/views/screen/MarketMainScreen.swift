@@ -19,7 +19,7 @@ struct MarketMain : View {
     @State var tags = [""]
     
     var body: some View {
-        NavigationView{
+//        NavigationView{
             ZStack{
                 // 전체 화면 색상 변경
                 Color(hex: "C3D3FE").edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
@@ -34,7 +34,7 @@ struct MarketMain : View {
                     List{
                         ForEach(viewModel.goodsItems, id: \._id){ goodsItem in
                             
-                            NavigationLink(destination: Login(), label: {
+                            NavigationLink(destination: GoodsDetailViewScreen(goodsItem: goodsItem), label: {
                                 //                                        print("goodsItem: ", goodsItem)
                                 VStack(alignment: .leading){
                                     HStack{
@@ -126,9 +126,10 @@ struct MarketMain : View {
                     }
                 }
             }// end ZStack
-        } // end NavigationView
-        .navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)
+//        } // end NavigationView
+//        .navigationBarHidden(true)
+//        .navigationBarBackButtonHidden(true)
+        // 이 화면을 NavigationView로 감싸니까 다음 페이지로 넘어갔을 때 하단 탭뷰가 없어지지 않음.
         
         
     } // end View

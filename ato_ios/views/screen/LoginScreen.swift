@@ -61,7 +61,7 @@ struct Login : View {
             NavigationLink(destination: Register()){
                 VStack{
                     Rectangle().frame(height: 0)
-                    Text("회원가입 하기")
+                    Text("회원가입하기")
                         .fontWeight(.bold)
                 }
                 .padding(.bottom, 20)
