@@ -18,7 +18,6 @@ struct ContentView: View {
     }
     @State private var tabSelection = 0
     @State var tags = [""]
-    //    @State var tabSelection: Tabs = 0
     @State var books = [Book]()
     init() {
         let navBarAppearance = UINavigationBar.appearance()
@@ -70,7 +69,6 @@ struct ContentView: View {
 //                    }
                 }
                 .tabItem {
-//                    HomeView()
                     Image(systemName: "message")
                     Text("채팅")
 

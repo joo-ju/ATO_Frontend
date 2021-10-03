@@ -17,12 +17,8 @@ struct NewGoodsScreen : View {
     @Binding var tags: Array<String>
     @State var text:String = ""
     @State var isAlert = false
-    //    @State var chips : [[ChipData]] = [
-    //        //Sample Data For Testing...
-    //        [ChipData(chipText: "hello"),ChipData(chipText: "world"),ChipData(chipText: "guys")]
-    //
-    //    ]
     
+    // price의 Int 형을 입력받기 위한 formatter
     let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -112,6 +108,7 @@ struct NewGoodsScreen : View {
     var trailing: some View{
         Button(action:{
             if title != "" && content != ""{
+                tags.removeFirst()
                 let parameters: [String: Any] = ["title": title, "content": content, "price": price, "tags": tags ]
                 print("tags : ", tags)
                 viewModel.createGoods(parameters: parameters)

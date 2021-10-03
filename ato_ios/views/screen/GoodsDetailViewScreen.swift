@@ -22,11 +22,9 @@ struct GoodsDetailViewScreen: View {
 //    let chips = TagsToChips(GoodsDetailViewScreen)
     
     var body: some View {
-//        TagsToChips()
-//
-//        return
         VStack(alignment: .leading, spacing: 10) {
-            
+            HStack{
+                // 상단바 - 닫기, 수정
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
@@ -35,6 +33,20 @@ struct GoodsDetailViewScreen: View {
                     .padding()
             })
                 .accentColor(.black)
+                Spacer()
+//                Button(action: {
+//
+//                }, label: {
+                    NavigationLink(destination: EditGoodsDetailScreen(goodsItem: goodsItem), label: {
+                        Text("수정")
+                               .fontWeight(.bold)
+                               .padding([.leading, .trailing])
+                               .padding([.top, .bottom], 15)
+                               .foregroundColor(Color(hex: "6279B8"))
+                    })
+//                })
+                    .accentColor(.black)
+            }
             ScrollView{
                 VStack(alignment: .leading, spacing: 10) {
                     Rectangle().frame(height:0)
@@ -113,8 +125,7 @@ struct GoodsDetailViewScreen: View {
                             }
                         }
                     }
-//                    .padding([.trailing, .leading], 20)
-//                    Divider()
+
                     Spacer()
                     
                 } // end of VStack

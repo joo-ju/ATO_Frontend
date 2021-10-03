@@ -83,6 +83,39 @@ class ViewModel: ObservableObject {
         }
        }.resume()
     }
+    
+    func fetchOneGoodsId(parameters: [String: Any]){
+        guard let url = URL(string: "\(prefixUrl)/goods/fetchOne") else {
+            print("Not Found url")
+            return
+        }
+        let data = try! JSONSerialization.data(withJSONObject: parameters)
+ 
+        var request = URLRequest(url:url)
+        request.httpMethod = "GET"
+        request.httpBody = data
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        URLSession.shared.dataTask(with: request) { (data, res, error) in
+            if error != nil {
+                print("error", error?.localizedDescription ?? "")
+                return
+            }
+
+            do {
+                if let data = data {
+                    let result = try JSONDecoder().decode(GoodsModel.self, from: data)
+                    DispatchQueue.main.async {
+                        print(result)
+                    }
+                } else {
+                    print("No Data")
+                }
+            } catch let JsonError {
+                print("fetchOneGoodsId json error : ", JsonError.localizedDescription)
+            }
+        }.resume()
+    }
   
 //    func fetchPosts(){
 //        guard let url = URL(string: "\(prefixUrl)/post") else { return }
@@ -218,6 +251,38 @@ class ViewModel: ObservableObject {
     }
     
     // Update Data...
+    func updateGoods(parameters: [String: Any]){
+        guard let url = URL(string: "\(prefixUrl)/goods/updateGoods") else {
+            print("Not Found url")
+            return
+        }
+        let data = try! JSONSerialization.data(withJSONObject: parameters)
+ 
+        var request = URLRequest(url:url)
+        request.httpMethod = "PUT"
+        request.httpBody = data
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        URLSession.shared.dataTask(with: request) { (data, res, error) in
+            if error != nil {
+                print("error", error?.localizedDescription ?? "")
+                return
+            }
+
+            do {
+                if let data = data {
+                    let result = try JSONDecoder().decode(GoodsModel.self, from: data)
+                    DispatchQueue.main.async {
+                        print(result)
+                    }
+                } else {
+                    print("No Data")
+                }
+            } catch let JsonError {
+                print("update fetch json error : ", JsonError.localizedDescription)
+            }
+        }.resume()
+    }
     func updatePosts(parameters: [String: Any]){
         guard let url = URL(string: "\(prefixUrl)/post/updatepost") else {
             print("Not Found url")

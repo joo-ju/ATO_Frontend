@@ -25,6 +25,9 @@
 		3BAB6E7526E85E880070F844 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7426E85E880070F844 /* Assets.xcassets */; };
 		3BAB6E7826E85E880070F844 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7726E85E880070F844 /* Preview Assets.xcassets */; };
 		3BAB6E8126E8695F0070F844 /* Mycard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB6E8026E8695F0070F844 /* Mycard.swift */; };
+		3BB1ADCE27096674009A23F1 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1ADCD27096674009A23F1 /* ImagePicker.swift */; };
+		3BB1ADD027096FA0009A23F1 /* EditGoodsDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1ADCF27096FA0009A23F1 /* EditGoodsDetailScreen.swift */; };
+		3BB1ADD227098EC1009A23F1 /* KRefreshScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1ADD127098EC1009A23F1 /* KRefreshScrollView.swift */; };
 		3BBBBF4B26FC8D43000E48C8 /* NewGoodsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBBBF4A26FC8D43000E48C8 /* NewGoodsScreen.swift */; };
 		3BBBBF4D26FCB581000E48C8 /* MarcketWriteChips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBBBF4C26FCB581000E48C8 /* MarcketWriteChips.swift */; };
 		3BC8C7422708698600CD1DB8 /* NavigationConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8C7412708698600CD1DB8 /* NavigationConfigurator.swift */; };
@@ -66,6 +69,9 @@
 		3BAB6E7726E85E880070F844 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3BAB6E7926E85E880070F844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BAB6E8026E8695F0070F844 /* Mycard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mycard.swift; sourceTree = "<group>"; };
+		3BB1ADCD27096674009A23F1 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		3BB1ADCF27096FA0009A23F1 /* EditGoodsDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoodsDetailScreen.swift; sourceTree = "<group>"; };
+		3BB1ADD127098EC1009A23F1 /* KRefreshScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KRefreshScrollView.swift; path = ../../../../Downloads/Pull/Pull/KRefreshScrollView.swift; sourceTree = "<group>"; };
 		3BBBBF4A26FC8D43000E48C8 /* NewGoodsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGoodsScreen.swift; sourceTree = "<group>"; };
 		3BBBBF4C26FCB581000E48C8 /* MarcketWriteChips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarcketWriteChips.swift; sourceTree = "<group>"; };
 		3BC8C7412708698600CD1DB8 /* NavigationConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationConfigurator.swift; sourceTree = "<group>"; };
@@ -172,8 +178,10 @@
 				3BAB6E7226E85E800070F844 /* ContentView.swift */,
 				3BD0BAFC26ED9B9300DB847C /* NavigatedView.swift */,
 				3BD0BAF626EBA01400DB847C /* BottomBar.swift */,
+				3BB1ADD127098EC1009A23F1 /* KRefreshScrollView.swift */,
 				3BE9B4E526FF29F500120776 /* HomeView.swift */,
 				3BE9B4E926FF333600120776 /* DetailView.swift */,
+				3BB1ADCD27096674009A23F1 /* ImagePicker.swift */,
 				3BE9B4E726FF2A1500120776 /* NewPostView.swift */,
 				3BC8C7412708698600CD1DB8 /* NavigationConfigurator.swift */,
 				3BE9B4E326FF210000120776 /* ViewModel.swift */,
@@ -227,6 +235,7 @@
 				3BD0BAF426EB991D00DB847C /* RegisterScreen.swift */,
 				3BBBBF4A26FC8D43000E48C8 /* NewGoodsScreen.swift */,
 				3BC8C743270873FD00CD1DB8 /* GoodsDetailViewScreen.swift */,
+				3BB1ADCF27096FA0009A23F1 /* EditGoodsDetailScreen.swift */,
 				3B55931C26F174EE004E0A64 /* MarketMainScreen.swift */,
 				3B02C96A26F433AF001A6295 /* SearchScreen.swift */,
 			);
@@ -345,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BE4D31026F76465001D1DD7 /* Category.swift in Sources */,
+				3BB1ADD227098EC1009A23F1 /* KRefreshScrollView.swift in Sources */,
 				3B02C96D26F4720B001A6295 /* MarketSearchTab.swift in Sources */,
 				3B02C96926F32D73001A6295 /* MarketMainSearch.swift in Sources */,
 				3BBBBF4D26FCB581000E48C8 /* MarcketWriteChips.swift in Sources */,
@@ -361,6 +371,7 @@
 				3BE9B4E626FF29F500120776 /* HomeView.swift in Sources */,
 				3B02C96726F310A9001A6295 /* Books.swift in Sources */,
 				3BD0BAF926ED91D900DB847C /* stateBottomBar.swift in Sources */,
+				3BB1ADCE27096674009A23F1 /* ImagePicker.swift in Sources */,
 				3BE9B4EA26FF333600120776 /* DetailView.swift in Sources */,
 				3B02C97326F4772F001A6295 /* SearchTabBarButton.swift in Sources */,
 				3BD0BAF326EB8A0700DB847C /* LoginScreen.swift in Sources */,
@@ -374,6 +385,7 @@
 				3BE9B4E226FF146A00120776 /* Models.swift in Sources */,
 				3BC8C7422708698600CD1DB8 /* NavigationConfigurator.swift in Sources */,
 				3BC8C744270873FD00CD1DB8 /* GoodsDetailViewScreen.swift in Sources */,
+				3BB1ADD027096FA0009A23F1 /* EditGoodsDetailScreen.swift in Sources */,
 				3B55931D26F174EE004E0A64 /* MarketMainScreen.swift in Sources */,
 				3BE4D31226F767FE001D1DD7 /* Keyword.swift in Sources */,
 				3B02C96526F31057001A6295 /* Goods.swift in Sources */,

@@ -112,17 +112,7 @@ struct MarcketWriteChips: View {
                 .frame(alignment: .topLeading)
                 .padding(10)
                 .padding([.leading, .trailing], 20)
-            
-             // Border With Fixed Size...
-//                 .frame(height: 150)
-//            TextField("태그를 입력해주세요",text: $text)
-//
-//            // Border With Fixed Size...
-//                .frame(height: 150)
-//                .background(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.4),lineWidth: 4.5))
-            
             // Add Button...
-            
             Button(action: {
 
                 // Adding Empty Array if there is Nothing....
@@ -137,6 +127,7 @@ struct MarcketWriteChips: View {
                 tags.append(text)
                 
                 print("\n--------- add tags : \n\t", tags)
+            
                 // Clearing Old Text In Editor
                 text = ""
                 
