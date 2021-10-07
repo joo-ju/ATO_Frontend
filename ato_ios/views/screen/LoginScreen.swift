@@ -70,7 +70,9 @@ struct Login : View {
                 .cornerRadius(10)
                 .foregroundColor(.white)
                 .padding(30)
-            }.navigationBarHidden(true)
+            }
+//            .navigationBarHidden(true)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

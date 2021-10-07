@@ -84,8 +84,8 @@ class ViewModel: ObservableObject {
        }.resume()
     }
     
-    func fetchOneGoodsId(parameters: [String: Any]){
-        guard let url = URL(string: "\(prefixUrl)/goods/fetchOne") else {
+    func fetchOneGoodsId(parameters: String){
+        guard let url = URL(string: "\(prefixUrl)/goods/fetchOne/" + parameters) else {
             print("Not Found url")
             return
         }

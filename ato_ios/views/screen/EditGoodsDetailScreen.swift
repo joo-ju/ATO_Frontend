@@ -28,7 +28,9 @@ struct EditGoodsDetailScreen: View {
     }()
     
     var body: some View {
+        
         VStack(spacing: 0){
+      
             Rectangle().frame(height:0)
             HStack{
                 // 상단바 - 닫기, 저장
@@ -51,7 +53,7 @@ struct EditGoodsDetailScreen: View {
                         let parameters: [String: Any] = ["id": goodsItem._id, "title": title, "content": content, "price": price, "tags": tags ]
                         print("\nprameters : ", parameters)
                         viewModel.updateGoods(parameters: parameters)
-                        viewModel.fetchOneGoodsId(parameters: ["id": goodsItem._id])
+//                        viewModel.fetchOneGoodsId(parameters:  goodsItem._id)
                         presentationMode.wrappedValue.dismiss()
                     }
                 }, label: {
@@ -120,15 +122,6 @@ struct EditGoodsDetailScreen: View {
                                     // some times it asks us to specify hashable in Data Model...
                                     ForEach(chips[index].indices,id: \.self){chipIndex in
                                         MarketTag(tag:chips[index][chipIndex].chipText)
-        //                                Text(chips[index][chipIndex].chipText)
-        //                                    .font(.system(size: 15))
-        //                                    .fontWeight(.semibold)
-        //                                    .padding(.vertical,10)
-        //                                    .padding(.horizontal, 10)
-        //                                    .background(Capsule().stroke(Color(hex: "C3D3FE"),lineWidth: 1))
-        //                                    .background(Color(hex: "C3D3FE"))
-        //                                    .foregroundColor(Color.white)
-        //                                    .lineLimit(1)
                                         // Main Logic......
                                             .overlay(
                                             

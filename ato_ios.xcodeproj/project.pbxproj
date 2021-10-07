@@ -20,6 +20,11 @@
 		3B55931F26F17540004E0A64 /* GoodsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B55931E26F17540004E0A64 /* GoodsItem.swift */; };
 		3B55932126F17BD1004E0A64 /* EdgeBorderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B55932026F17BD1004E0A64 /* EdgeBorderExtension.swift */; };
 		3B55932326F17E0C004E0A64 /* MarketTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B55932226F17E0C004E0A64 /* MarketTag.swift */; };
+		3B663D91270E9E6C008EA509 /* MyAtoMainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D90270E9E6C008EA509 /* MyAtoMainScreen.swift */; };
+		3B663D93270EA204008EA509 /* MyAtoMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D92270EA204008EA509 /* MyAtoMenuButton.swift */; };
+		3B663D95270EAF2C008EA509 /* WishlistScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D94270EAF2C008EA509 /* WishlistScreen.swift */; };
+		3B663D97270ECAFC008EA509 /* WishlistTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D96270ECAFC008EA509 /* WishlistTabbar.swift */; };
+		3B663D99270ECB3C008EA509 /* WishlistTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D98270ECB3C008EA509 /* WishlistTabBarButton.swift */; };
 		3BAB6E7126E85E800070F844 /* ato_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7026E85E800070F844 /* ato_iosApp.swift */; };
 		3BAB6E7326E85E800070F844 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7226E85E800070F844 /* ContentView.swift */; };
 		3BAB6E7526E85E880070F844 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7426E85E880070F844 /* Assets.xcassets */; };
@@ -62,6 +67,11 @@
 		3B55931E26F17540004E0A64 /* GoodsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsItem.swift; sourceTree = "<group>"; };
 		3B55932026F17BD1004E0A64 /* EdgeBorderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBorderExtension.swift; sourceTree = "<group>"; };
 		3B55932226F17E0C004E0A64 /* MarketTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketTag.swift; sourceTree = "<group>"; };
+		3B663D90270E9E6C008EA509 /* MyAtoMainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAtoMainScreen.swift; sourceTree = "<group>"; };
+		3B663D92270EA204008EA509 /* MyAtoMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAtoMenuButton.swift; sourceTree = "<group>"; };
+		3B663D94270EAF2C008EA509 /* WishlistScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistScreen.swift; sourceTree = "<group>"; };
+		3B663D96270ECAFC008EA509 /* WishlistTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistTabbar.swift; sourceTree = "<group>"; };
+		3B663D98270ECB3C008EA509 /* WishlistTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistTabBarButton.swift; sourceTree = "<group>"; };
 		3BAB6E6D26E85E800070F844 /* ato_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ato_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BAB6E7026E85E800070F844 /* ato_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ato_iosApp.swift; sourceTree = "<group>"; };
 		3BAB6E7226E85E800070F844 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -146,7 +156,10 @@
 				3BE4D31126F767FE001D1DD7 /* Keyword.swift */,
 				3BE4D30F26F76465001D1DD7 /* Category.swift */,
 				3B02C97226F4772F001A6295 /* SearchTabBarButton.swift */,
+				3B663D98270ECB3C008EA509 /* WishlistTabBarButton.swift */,
 				3B02C97626F478D7001A6295 /* CategoryTopBar.swift */,
+				3B663D96270ECAFC008EA509 /* WishlistTabbar.swift */,
+				3B663D92270EA204008EA509 /* MyAtoMenuButton.swift */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -233,6 +246,8 @@
 			children = (
 				3BD0BAF226EB8A0700DB847C /* LoginScreen.swift */,
 				3BD0BAF426EB991D00DB847C /* RegisterScreen.swift */,
+				3B663D90270E9E6C008EA509 /* MyAtoMainScreen.swift */,
+				3B663D94270EAF2C008EA509 /* WishlistScreen.swift */,
 				3BBBBF4A26FC8D43000E48C8 /* NewGoodsScreen.swift */,
 				3BC8C743270873FD00CD1DB8 /* GoodsDetailViewScreen.swift */,
 				3BB1ADCF27096FA0009A23F1 /* EditGoodsDetailScreen.swift */,
@@ -370,6 +385,7 @@
 				3BD0BAFB26ED983A00DB847C /* mmain.swift in Sources */,
 				3BE9B4E626FF29F500120776 /* HomeView.swift in Sources */,
 				3B02C96726F310A9001A6295 /* Books.swift in Sources */,
+				3B663D93270EA204008EA509 /* MyAtoMenuButton.swift in Sources */,
 				3BD0BAF926ED91D900DB847C /* stateBottomBar.swift in Sources */,
 				3BB1ADCE27096674009A23F1 /* ImagePicker.swift in Sources */,
 				3BE9B4EA26FF333600120776 /* DetailView.swift in Sources */,
@@ -382,12 +398,16 @@
 				3B55931F26F17540004E0A64 /* GoodsItem.swift in Sources */,
 				3B55932326F17E0C004E0A64 /* MarketTag.swift in Sources */,
 				3BD0BAEE26EB769F00DB847C /* ColorExtension.swift in Sources */,
+				3B663D95270EAF2C008EA509 /* WishlistScreen.swift in Sources */,
 				3BE9B4E226FF146A00120776 /* Models.swift in Sources */,
 				3BC8C7422708698600CD1DB8 /* NavigationConfigurator.swift in Sources */,
+				3B663D97270ECAFC008EA509 /* WishlistTabbar.swift in Sources */,
+				3B663D99270ECB3C008EA509 /* WishlistTabBarButton.swift in Sources */,
 				3BC8C744270873FD00CD1DB8 /* GoodsDetailViewScreen.swift in Sources */,
 				3BB1ADD027096FA0009A23F1 /* EditGoodsDetailScreen.swift in Sources */,
 				3B55931D26F174EE004E0A64 /* MarketMainScreen.swift in Sources */,
 				3BE4D31226F767FE001D1DD7 /* Keyword.swift in Sources */,
+				3B663D91270E9E6C008EA509 /* MyAtoMainScreen.swift in Sources */,
 				3B02C96526F31057001A6295 /* Goods.swift in Sources */,
 				3B55932126F17BD1004E0A64 /* EdgeBorderExtension.swift in Sources */,
 			);

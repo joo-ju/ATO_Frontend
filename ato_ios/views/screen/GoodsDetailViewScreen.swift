@@ -47,6 +47,7 @@ struct GoodsDetailViewScreen: View {
 //                })
                     .accentColor(.black)
             }
+//            KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
             ScrollView{
                 VStack(alignment: .leading, spacing: 10) {
                     Rectangle().frame(height:0)
@@ -129,10 +130,15 @@ struct GoodsDetailViewScreen: View {
                     Spacer()
                     
                 } // end of VStack
+                .padding([.leading, .trailing], 20)
                 
-            } // end of ScrollView
+            }
+            // end of ScrollView
             
-            .padding([.leading, .trailing], 20)
+    
+//        onUpdate:{
+//                viewModel.fetchOneGoodsId(parameters:goodsItem._id)
+//            }
             
             HStack{
                 Image(systemName: "heart")

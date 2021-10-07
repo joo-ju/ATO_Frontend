@@ -26,16 +26,21 @@ struct MarketMain : View {
                 
                 VStack(spacing: 15){
                     // 검색바
+                    
                     MarketMainSearch()
+                        .navigationBarHidden(true)
+                        .navigationBarBackButtonHidden(true)
                     
                     // 상품 목록
                     //                    VStack(spacing: 0){
-                    
+                
                     List{
-                        ForEach(viewModel.goodsItems, id: \._id){ goodsItem in
+                        KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
+                            ForEach(viewModel.goodsItems.reversed(), id: \._id){ goodsItem in
                             
                             NavigationLink(destination: GoodsDetailViewScreen(goodsItem: goodsItem), label: {
                                 //                                        print("goodsItem: ", goodsItem)
+                                
                                 VStack(alignment: .leading){
                                     HStack{
                                         Rectangle().frame(width: 110, height: 120)
@@ -85,12 +90,17 @@ struct MarketMain : View {
                                 }
                             })
                         }
+                        } onUpdate: {
+                            viewModel.fetchAllGoods()
+                        }
                     }
                     .listStyle(InsetListStyle())
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
+                    .foregroundColor(Color.black)
                     //                                            .navigationBarTitle("Posts")
                     //                                            .navigationBarItems(trailing: plusButton)
+                
                 }
                 .sheet(isPresented: $isPresentedNewPost, content: {
                     NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags)

@@ -30,62 +30,83 @@ struct ContentView: View {
         navBarAppearance.setBackgroundImage(UIImage(), for: .default)
     }
     var body: some View {
-
-        NavigationView{
-            TabView(selection: $tabSelection){
-                //                NavigationView{ //if you write the NavigationView here, you cannot remove TabBar after navigation
-                VStack{
+        
+        //        NavigationView{
+        ZStack{
+        TabView(selection: $tabSelection){
+            //                NavigationView{ //if you write the NavigationView here, you cannot remove TabBar after navigation
+            VStack{
+                NavigationView{
                     MarketMain()
                 }
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("홈")
-                }
-                .tag(Tabs.home)
-
-                VStack{
-
-                    VStack{
-                        SearchScreen()
-
-                    }.navigationBarHidden(true)
-
-                }
-                .tabItem {
-                    Image(systemName: "magnifyingglass")
-                    Text("검색")
-                }
-                .tag(Tabs.home)
-                VStack{
-
-
-//                    NavigationLink(destination: NavigatedView()){
-//                        VStack{
-                          HomeView()
-//                                .font(.largeTitle)
-
-
-//                        }.navigationBarHidden(true)
-//                    }
-                }
-                .tabItem {
-                    Image(systemName: "message")
-                    Text("채팅")
-
-                }
-                .tag(Tabs.chat)
-
-
-                VStack{
-                    Login()
-                }
-                .tabItem {
-                    Image(systemName: "gift")
-                    Text("나의 아토")
-                }
-                .tag(Tabs.myAto)
+                .navigationBarHidden(true)
+                .navigationBarBackButtonHidden(true)
             }
+            .tabItem {
+                Image(systemName: "house")
+                Text("홈")
+            }
+            
+            .tag(Tabs.home)
+            
+            VStack{
+                
+                VStack{
+                    SearchScreen()
+                    
+                }.navigationBarHidden(true)
+                
+            }
+            .tabItem {
+                Image(systemName: "magnifyingglass")
+                Text("검색")
+            }
+            .tag(Tabs.home)
+            VStack{
+                
+                
+                //                    NavigationLink(destination: NavigatedView()){
+                //                        VStack{
+                HomeView()
+                //                                .font(.largeTitle)
+                
+                
+                //                        }.navigationBarHidden(true)
+                //                    }
+            }
+            .tabItem {
+                Image(systemName: "message")
+                Text("채팅")
+                
+            }
+            .tag(Tabs.chat)
+            
+            
+            VStack{
+                //                    Login()
+                NavigationView{
+                    MyAtoMainScreen()
+                }
+                .navigationBarHidden(true)
+//                .navigationBarBackButtonHidden(true)
+            }
+            .tabItem {
+                Image(systemName: "gift")
+                Text("나의 아토")
+            }
+            .tag(Tabs.myAto)
         }
+        
+        //            .navigationBarHidden(true)
+        //            .navigationBarBackButtonHidden(true)
+        //            .navigationBarHidden(true)
+        //            .navigationBarBackButtonHidden()
+        //
+        //            .onAppear() {
+        //                                    UITabBar.appearance().barTintColor = .black
+        //                                       }
+        
+                }
     }
 }
 
