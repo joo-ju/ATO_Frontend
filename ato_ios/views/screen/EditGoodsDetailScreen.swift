@@ -16,6 +16,11 @@ struct EditGoodsDetailScreen: View {
     @State var content = ""
     @State var price = 0
     @State var tags = [""]
+    @State var sellerId = "joo"
+    @State var buyerId = ""
+    @State var categoryId = ""
+    @State var score = 0
+    @State var count = 0
     @State var text = ""
     @State var idx = 0
     @State var chips : [[ChipData]] = []

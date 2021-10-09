@@ -17,7 +17,7 @@ struct MyAtoMenuButton: View {
             
             Image(systemName: image)
                 .resizable()
-                .frame(width:30, height: 30)
+                .frame(width:25, height: 25)
                 .padding(20)
                 .foregroundColor(isGoods ? Color(hex: "6279B8") : Color(hex: "496F5D"))
                 .background(isGoods ? Color(hex: "E1E9FF") : Color(hex: "D5F0E1"))

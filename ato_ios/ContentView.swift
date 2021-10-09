@@ -19,83 +19,91 @@ struct ContentView: View {
     @State private var tabSelection = 0
     @State var tags = [""]
     @State var books = [Book]()
-    init() {
-        let navBarAppearance = UINavigationBar.appearance()
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-        navBarAppearance.barTintColor = .white
-        navBarAppearance.backgroundColor = .clear
-        // 이하 두 줄이 Navigation Bar 구분 선 없애는 코드
-        navBarAppearance.shadowImage = UIImage()
-        navBarAppearance.setBackgroundImage(UIImage(), for: .default)
-    }
+//    init() {
+//        let navBarAppearance = UINavigationBar.appearance()
+//        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+//        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+//        navBarAppearance.barTintColor = .white
+//        navBarAppearance.backgroundColor = .clear
+//        // 이하 두 줄이 Navigation Bar 구분 선 없애는 코드
+//        navBarAppearance.shadowImage = UIImage()
+//        navBarAppearance.setBackgroundImage(UIImage(), for: .default)
+//    }
     var body: some View {
-        
-        //        NavigationView{
-        ZStack{
-        TabView(selection: $tabSelection){
-            //                NavigationView{ //if you write the NavigationView here, you cannot remove TabBar after navigation
-            VStack{
-                NavigationView{
-                    MarketMain()
-                }
+        NavigationView{
+            
+            MainView()
+                .navigationTitle("")
+                .navigationBarTitleDisplayMode(.inline)
                 .navigationBarHidden(true)
-                .navigationBarBackButtonHidden(true)
-            }
-            .tabItem {
-                Image(systemName: "house")
-                Text("홈")
-            }
-            
-            .tag(Tabs.home)
-            
-            VStack{
-                
-                VStack{
-                    SearchScreen()
-                    
-                }.navigationBarHidden(true)
-                
-            }
-            .tabItem {
-                Image(systemName: "magnifyingglass")
-                Text("검색")
-            }
-            .tag(Tabs.home)
-            VStack{
-                
-                
-                //                    NavigationLink(destination: NavigatedView()){
-                //                        VStack{
-                HomeView()
-                //                                .font(.largeTitle)
-                
-                
-                //                        }.navigationBarHidden(true)
-                //                    }
-            }
-            .tabItem {
-                Image(systemName: "message")
-                Text("채팅")
-                
-            }
-            .tag(Tabs.chat)
-            
-            
-            VStack{
-                //                    Login()
-                NavigationView{
-                    MyAtoMainScreen()
-                }
-                .navigationBarHidden(true)
-//                .navigationBarBackButtonHidden(true)
-            }
-            .tabItem {
-                Image(systemName: "gift")
-                Text("나의 아토")
-            }
-            .tag(Tabs.myAto)
         }
+        .accentColor( .black)
+        
+//                NavigationView{
+//        ZStack{
+//        TabView(selection: $tabSelection){
+//            //                NavigationView{ //if you write the NavigationView here, you cannot remove TabBar after navigation
+//            VStack{
+//                NavigationView{
+//                    MarketMain()
+//                }
+//                .navigationBarHidden(true)
+//                .navigationBarBackButtonHidden(true)
+//            }
+//            .tabItem {
+//                Image(systemName: "house")
+//                Text("홈")
+//            }
+//
+//            .tag(Tabs.home)
+//
+//            VStack{
+//
+//                VStack{
+//                    SearchScreen()
+//
+//                }.navigationBarHidden(true)
+//
+//            }
+//            .tabItem {
+//                Image(systemName: "magnifyingglass")
+//                Text("검색")
+//            }
+//            .tag(Tabs.home)
+//            VStack{
+//
+//
+//                //                    NavigationLink(destination: NavigatedView()){
+//                //                        VStack{
+//                HomeView()
+//                //                                .font(.largeTitle)
+//
+//
+//                //                        }.navigationBarHidden(true)
+//                //                    }
+//            }
+//            .tabItem {
+//                Image(systemName: "message")
+//                Text("채팅")
+//
+//            }
+//            .tag(Tabs.chat)
+//
+//
+//            VStack{
+//                //                    Login()
+//                NavigationView{
+//                    MyAtoMainScreen()
+//                }
+//                .navigationBarHidden(true)
+////                .navigationBarBackButtonHidden(true)
+//            }
+//            .tabItem {
+//                Image(systemName: "gift")
+//                Text("나의 아토")
+//            }
+//            .tag(Tabs.myAto)
+//        }
         
         //            .navigationBarHidden(true)
         //            .navigationBarBackButtonHidden(true)
@@ -105,8 +113,11 @@ struct ContentView: View {
         //            .onAppear() {
         //                                    UITabBar.appearance().barTintColor = .black
         //                                       }
-        
-                }
+//        }
+//
+////                }
+//                .navigationBarTitleDisplayMode(.inline)
+//                .navigationBarHidden(true)
     }
 }
 

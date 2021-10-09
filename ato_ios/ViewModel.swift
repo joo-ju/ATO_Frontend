@@ -36,6 +36,7 @@ class ViewModel: ObservableObject {
     @Published var goodsItems = [GoodsModel]()
     
     let prefixUrl = "http://localhost:4000"
+   // let prefixUrl = "http://3.34.140.23:4000"
 
     init() {
         fetchData()
@@ -64,6 +65,7 @@ class ViewModel: ObservableObject {
     }
     func fetchAllGoods() {
 //      let api = "https://jsonplaceholder.typicode.com/todos"
+       // let api = "http://3.34.140.23:4000/goods"
         let api = "http://localhost:4000/goods"
       guard let url = URL(string: api) else { return }
         print("-----fetch All Goods-----")
@@ -76,7 +78,7 @@ class ViewModel: ObservableObject {
                 self.goodsItems = result
              }
            } else {
-             print("No data")
+             print("No data--- all goods")
            }
         } catch (let error) {
            print("-------------", error.localizedDescription)
@@ -116,74 +118,36 @@ class ViewModel: ObservableObject {
             }
         }.resume()
     }
+    
+    // 로그인한 사용자의 판매중인 제품 List
+    // 로그인 구현 전 : joo로 고정
+    func fetchGoodsSaleSellerId(parameters: String){
+//        func fetchAllGoods() {
+    //      let api = "https://jsonplaceholder.typicode.com/todos"
+           // let api = "http://3.34.140.23:4000/goods"
+            let api = "http://localhost:4000/goods"
+        guard let url = URL(string: "\(prefixUrl)/goods/sale/all/" + parameters) else {
+            print("Not Found url")
+            return
+        }
+            print("\n-----fetch All Goods joo-----")
+          URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+               if let data = data {
+                 let result = try JSONDecoder().decode([GoodsModel].self, from: data)
+                   print("** result **\n", result)
+                 DispatchQueue.main.async {
+                    self.goodsItems = result
+                 }
+               } else {
+                 print("No data")
+               }
+            } catch (let error) {
+               print( error.localizedDescription)
+            }
+           }.resume()
+        }
   
-//    func fetchPosts(){
-//        guard let url = URL(string: "\(prefixUrl)/post") else { return }
-//
-//
-//        URLSession.shared.dataTask(with: url) { (data, res, error) in
-//
-//
-//            do {
-//
-//
-//                if let data = data {
-//                    let result = try JSONDecoder().decode([PostModel].self, from: data)
-//                    DispatchQueue.main.async {
-//                        self.items = result
-//                    }
-//                } else {
-//                    print("No Data")
-//                }
-//            } catch let JsonError {
-//                print("fetch : fetch json error : ", JsonError.localizedDescription)
-////                print("-------------_", result)
-//            }
-//        }.resume()
-//
-//    }
-//    func fetchPosts(){
-//        guard let url = URL(string: "\(prefixUrl)/post/") else {
-//            print("Not Found url")
-//            return
-//        }
-//
-//        URLSession.shared.dataTask(with: url) { (data, res, error) in
-//            if error != nil {
-//                print("error", error?.localizedDescription ?? "")
-//                return
-//            }
-////            @Published var result
-//
-//            do {
-//
-//                print("-------__", data, res, error)
-//                if let data = data {
-//
-//                    let result = try JSONDecoder().decode(DataModel.self, from: data)
-//                    print("=========", result)
-//                }
-//                else {
-//                    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-//                }
-//
-//                if let data = data {
-//                    let result = try JSONDecoder().decode(DataModel.self, from: data)
-//                    print("-------------_", result)
-//                    DispatchQueue.main.async {
-//                        self.items = result.data
-//                        print("-------------_",result.data)
-//                    }
-//                } else {
-//                    print("No Data")
-//                }
-//            } catch let JsonError {
-//                print("fetch json error : ", JsonError.localizedDescription)
-////                print("-------------_", result)
-//            }
-//        }.resume()
-//    }
-//
     // Create Data...
     func createPosts(parameters: [String: Any]){
         guard let url = URL(string: "\(prefixUrl)/post/createpost") else {

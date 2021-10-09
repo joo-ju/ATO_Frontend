@@ -23,8 +23,12 @@
 		3B663D91270E9E6C008EA509 /* MyAtoMainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D90270E9E6C008EA509 /* MyAtoMainScreen.swift */; };
 		3B663D93270EA204008EA509 /* MyAtoMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D92270EA204008EA509 /* MyAtoMenuButton.swift */; };
 		3B663D95270EAF2C008EA509 /* WishlistScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D94270EAF2C008EA509 /* WishlistScreen.swift */; };
-		3B663D97270ECAFC008EA509 /* WishlistTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D96270ECAFC008EA509 /* WishlistTabbar.swift */; };
-		3B663D99270ECB3C008EA509 /* WishlistTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D98270ECB3C008EA509 /* WishlistTabBarButton.swift */; };
+		3B663D97270ECAFC008EA509 /* SaleHistoryTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D96270ECAFC008EA509 /* SaleHistoryTabbar.swift */; };
+		3B663D99270ECB3C008EA509 /* SaleHistoryTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D98270ECB3C008EA509 /* SaleHistoryTabBarButton.swift */; };
+		3B663D9B270ECF57008EA509 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D9A270ECF57008EA509 /* MainView.swift */; };
+		3B663D9D270FE8EE008EA509 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D9C270FE8ED008EA509 /* Extension.swift */; };
+		3B663D9F270FE9D5008EA509 /* SaleHistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663D9E270FE9D5008EA509 /* SaleHistoryScreen.swift */; };
+		3B663DA1270FFBEE008EA509 /* BuyHistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B663DA0270FFBEE008EA509 /* BuyHistoryScreen.swift */; };
 		3BAB6E7126E85E800070F844 /* ato_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7026E85E800070F844 /* ato_iosApp.swift */; };
 		3BAB6E7326E85E800070F844 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7226E85E800070F844 /* ContentView.swift */; };
 		3BAB6E7526E85E880070F844 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7426E85E880070F844 /* Assets.xcassets */; };
@@ -70,8 +74,12 @@
 		3B663D90270E9E6C008EA509 /* MyAtoMainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAtoMainScreen.swift; sourceTree = "<group>"; };
 		3B663D92270EA204008EA509 /* MyAtoMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAtoMenuButton.swift; sourceTree = "<group>"; };
 		3B663D94270EAF2C008EA509 /* WishlistScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistScreen.swift; sourceTree = "<group>"; };
-		3B663D96270ECAFC008EA509 /* WishlistTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistTabbar.swift; sourceTree = "<group>"; };
-		3B663D98270ECB3C008EA509 /* WishlistTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistTabBarButton.swift; sourceTree = "<group>"; };
+		3B663D96270ECAFC008EA509 /* SaleHistoryTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleHistoryTabbar.swift; sourceTree = "<group>"; };
+		3B663D98270ECB3C008EA509 /* SaleHistoryTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleHistoryTabBarButton.swift; sourceTree = "<group>"; };
+		3B663D9A270ECF57008EA509 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		3B663D9C270FE8ED008EA509 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		3B663D9E270FE9D5008EA509 /* SaleHistoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleHistoryScreen.swift; sourceTree = "<group>"; };
+		3B663DA0270FFBEE008EA509 /* BuyHistoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyHistoryScreen.swift; sourceTree = "<group>"; };
 		3BAB6E6D26E85E800070F844 /* ato_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ato_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BAB6E7026E85E800070F844 /* ato_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ato_iosApp.swift; sourceTree = "<group>"; };
 		3BAB6E7226E85E800070F844 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -120,6 +128,7 @@
 			children = (
 				3BD0BAED26EB769F00DB847C /* ColorExtension.swift */,
 				3B55932026F17BD1004E0A64 /* EdgeBorderExtension.swift */,
+				3B663D9C270FE8ED008EA509 /* Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -156,9 +165,9 @@
 				3BE4D31126F767FE001D1DD7 /* Keyword.swift */,
 				3BE4D30F26F76465001D1DD7 /* Category.swift */,
 				3B02C97226F4772F001A6295 /* SearchTabBarButton.swift */,
-				3B663D98270ECB3C008EA509 /* WishlistTabBarButton.swift */,
+				3B663D98270ECB3C008EA509 /* SaleHistoryTabBarButton.swift */,
 				3B02C97626F478D7001A6295 /* CategoryTopBar.swift */,
-				3B663D96270ECAFC008EA509 /* WishlistTabbar.swift */,
+				3B663D96270ECAFC008EA509 /* SaleHistoryTabbar.swift */,
 				3B663D92270EA204008EA509 /* MyAtoMenuButton.swift */,
 			);
 			path = common;
@@ -190,6 +199,7 @@
 				3BD0BAF026EB897E00DB847C /* views */,
 				3BAB6E7226E85E800070F844 /* ContentView.swift */,
 				3BD0BAFC26ED9B9300DB847C /* NavigatedView.swift */,
+				3B663D9A270ECF57008EA509 /* MainView.swift */,
 				3BD0BAF626EBA01400DB847C /* BottomBar.swift */,
 				3BB1ADD127098EC1009A23F1 /* KRefreshScrollView.swift */,
 				3BE9B4E526FF29F500120776 /* HomeView.swift */,
@@ -250,6 +260,8 @@
 				3B663D94270EAF2C008EA509 /* WishlistScreen.swift */,
 				3BBBBF4A26FC8D43000E48C8 /* NewGoodsScreen.swift */,
 				3BC8C743270873FD00CD1DB8 /* GoodsDetailViewScreen.swift */,
+				3B663D9E270FE9D5008EA509 /* SaleHistoryScreen.swift */,
+				3B663DA0270FFBEE008EA509 /* BuyHistoryScreen.swift */,
 				3BB1ADCF27096FA0009A23F1 /* EditGoodsDetailScreen.swift */,
 				3B55931C26F174EE004E0A64 /* MarketMainScreen.swift */,
 				3B02C96A26F433AF001A6295 /* SearchScreen.swift */,
@@ -369,6 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BE4D31026F76465001D1DD7 /* Category.swift in Sources */,
+				3B663DA1270FFBEE008EA509 /* BuyHistoryScreen.swift in Sources */,
 				3BB1ADD227098EC1009A23F1 /* KRefreshScrollView.swift in Sources */,
 				3B02C96D26F4720B001A6295 /* MarketSearchTab.swift in Sources */,
 				3B02C96926F32D73001A6295 /* MarketMainSearch.swift in Sources */,
@@ -376,6 +389,7 @@
 				3B02C97026F47328001A6295 /* EventSearchTab.swift in Sources */,
 				3B02C96B26F433AF001A6295 /* SearchScreen.swift in Sources */,
 				3BE9B4E426FF210000120776 /* ViewModel.swift in Sources */,
+				3B663D9F270FE9D5008EA509 /* SaleHistoryScreen.swift in Sources */,
 				3BD0BAF526EB991D00DB847C /* RegisterScreen.swift in Sources */,
 				3B1355B82704A98D00A446E5 /* Event.swift in Sources */,
 				3BAB6E7326E85E800070F844 /* ContentView.swift in Sources */,
@@ -383,6 +397,7 @@
 				3BD0BAFD26ED9B9300DB847C /* NavigatedView.swift in Sources */,
 				3BBBBF4B26FC8D43000E48C8 /* NewGoodsScreen.swift in Sources */,
 				3BD0BAFB26ED983A00DB847C /* mmain.swift in Sources */,
+				3B663D9D270FE8EE008EA509 /* Extension.swift in Sources */,
 				3BE9B4E626FF29F500120776 /* HomeView.swift in Sources */,
 				3B02C96726F310A9001A6295 /* Books.swift in Sources */,
 				3B663D93270EA204008EA509 /* MyAtoMenuButton.swift in Sources */,
@@ -401,11 +416,12 @@
 				3B663D95270EAF2C008EA509 /* WishlistScreen.swift in Sources */,
 				3BE9B4E226FF146A00120776 /* Models.swift in Sources */,
 				3BC8C7422708698600CD1DB8 /* NavigationConfigurator.swift in Sources */,
-				3B663D97270ECAFC008EA509 /* WishlistTabbar.swift in Sources */,
-				3B663D99270ECB3C008EA509 /* WishlistTabBarButton.swift in Sources */,
+				3B663D97270ECAFC008EA509 /* SaleHistoryTabbar.swift in Sources */,
+				3B663D99270ECB3C008EA509 /* SaleHistoryTabBarButton.swift in Sources */,
 				3BC8C744270873FD00CD1DB8 /* GoodsDetailViewScreen.swift in Sources */,
 				3BB1ADD027096FA0009A23F1 /* EditGoodsDetailScreen.swift in Sources */,
 				3B55931D26F174EE004E0A64 /* MarketMainScreen.swift in Sources */,
+				3B663D9B270ECF57008EA509 /* MainView.swift in Sources */,
 				3BE4D31226F767FE001D1DD7 /* Keyword.swift in Sources */,
 				3B663D91270E9E6C008EA509 /* MyAtoMainScreen.swift in Sources */,
 				3B02C96526F31057001A6295 /* Goods.swift in Sources */,

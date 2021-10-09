@@ -17,12 +17,18 @@ struct MarketMain : View {
     @State var content = ""
     @State var price = 0
     @State var tags = [""]
+    @State var sellerId = ""
+    @State var buyerId = ""
+    @State var categoryId = ""
+    @State var count = 0
+    @State var score = 0
+//    @State var buyerId = ""
     
     var body: some View {
 //        NavigationView{
             ZStack{
                 // 전체 화면 색상 변경
-                Color(hex: "C3D3FE").edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                Color(hex: "C3D3FE").edgesIgnoringSafeArea(.all)
                 
                 VStack(spacing: 15){
                     // 검색바
@@ -103,7 +109,7 @@ struct MarketMain : View {
                 
                 }
                 .sheet(isPresented: $isPresentedNewPost, content: {
-                    NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags)
+                    NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score)
                 })
                 .onAppear(perform: {
                     viewModel.fetchAllGoods()
@@ -115,7 +121,7 @@ struct MarketMain : View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NavigationLink(destination: NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags)){
+                        NavigationLink(destination: NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score)){
                             plusButton
                             //                    Text("+")
                             //                        .font(.system(.largeTitle))
@@ -130,10 +136,13 @@ struct MarketMain : View {
                             //                                x: 3,
                             //                                y: 3)
                         }// end Navigation Link
+                
                         //                .navigationBarHidden(true)
                         //                .navigationBarBackButtonHidden(true)
                         
                     }
+                    Text("")
+                        .padding(.vertical, 20)
                 }
             }// end ZStack
 //        } // end NavigationView

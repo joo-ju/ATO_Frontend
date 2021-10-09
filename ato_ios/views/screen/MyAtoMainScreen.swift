@@ -45,7 +45,11 @@ struct MyAtoMainScreen: View {
                 Divider()
                 Spacer()
                 HStack(spacing: 20){
+                    NavigationLink(destination: SaleHistoryScreen().navigationBarTitleDisplayMode(.inline)){
                     MyAtoMenuButton(name: "판매내역", image: "scroll", isGoods: true)
+                    }
+                    .navigationBarHidden(true)
+                    .navigationBarBackButtonHidden(true)
                     MyAtoMenuButton(name: "구매내역", image: "bag", isGoods: true)
                     //                    MyAtoMenuButton(name: "", image: "bag", isGoods: true)
                     NavigationLink(destination: WishlistScreen().navigationBarTitleDisplayMode(.inline)){
@@ -73,6 +77,7 @@ struct MyAtoMainScreen: View {
                     } // end HStack
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
+                   
                 }
                     HStack(spacing: 20){
                         MyAtoMenuButton(name: "전시회내역", image: "photo", isGoods: false)
