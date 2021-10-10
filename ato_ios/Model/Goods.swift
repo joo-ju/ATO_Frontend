@@ -20,6 +20,9 @@ struct GoodsModel: Decodable {
     let score: Int
     let tags: Array<String>
     let count: Int
+    let wish: Int
+    let chat: Int
+    let review: Bool
 //    let enrollTime: Date
 //    let enrollTime: Date
 //    let updateTime: Date

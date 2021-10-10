@@ -22,6 +22,9 @@ struct GoodsDetailViewScreen: View {
     @State var categoryId = ""
     @State var score = 0
     @State var count = 0
+    @State var wish = 0
+    @State var chat = 0
+    @State var review = false
     @State var idx = 0
     @State var chips : [[ChipData]] = []
 //    let chips = TagsToChips(GoodsDetailViewScreen)

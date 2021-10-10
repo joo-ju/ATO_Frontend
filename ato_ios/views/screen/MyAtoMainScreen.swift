@@ -50,8 +50,12 @@ struct MyAtoMainScreen: View {
                     }
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
+                    NavigationLink(destination: BuyHistoryScreen().navigationBarTitleDisplayMode(.inline)){
                     MyAtoMenuButton(name: "구매내역", image: "bag", isGoods: true)
                     //                    MyAtoMenuButton(name: "", image: "bag", isGoods: true)
+                    }
+                    .navigationBarHidden(true)
+                    .navigationBarBackButtonHidden(true)
                     NavigationLink(destination: WishlistScreen().navigationBarTitleDisplayMode(.inline)){
                         VStack(spacing: 0){
                             //            Rectangle().frame(height: 0)

@@ -22,6 +22,9 @@ struct MarketMain : View {
     @State var categoryId = ""
     @State var count = 0
     @State var score = 0
+    @State var wish = 0
+    @State var chat = 0
+    @State var review = false
 //    @State var buyerId = ""
     
     var body: some View {
@@ -45,55 +48,54 @@ struct MarketMain : View {
                             ForEach(viewModel.goodsItems.reversed(), id: \._id){ goodsItem in
                             
                             NavigationLink(destination: GoodsDetailViewScreen(goodsItem: goodsItem), label: {
-                                //                                        print("goodsItem: ", goodsItem)
-                                
-                                VStack(alignment: .leading){
-                                    HStack{
-                                        Rectangle().frame(width: 110, height: 120)
-                                            .background(Color(hex: "C4C4C4"))
-                                            .cornerRadius(20)
-                                            .padding(.trailing, 7)
-                                        
-                                        VStack(alignment: .leading){
-                                            Text(goodsItem.title)
-                                                .font(.system(size: 15))
-                                            //                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                                                .padding(.bottom, 3)
-                                            Text("3분전")
-                                                .font(.system(size: 13))
-                                                .foregroundColor(Color(hex: "828282"))
-                                            HStack{
-                                                MarketTag(tag: "EXIT")
-                                                MarketTag(tag: "앨범")
-                                            }// end HStack
-                                            HStack(alignment: .bottom){
-                                                Text("\(goodsItem.price)")
-                                                    .font(.system(size: 16))
-                                                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                                                //                        .padding(.top, 10)
-                                                Spacer()
-                                                HStack(spacing:2){
-                                                    Image(systemName: "suit.heart")
-                                                        .resizable()
-                                                        .frame(width:15, height: 13)
-                                                    Text("10")
-                                                        .font(.system(size: 14))
-                                                        .padding(.trailing, 5)
-                                                    Image(systemName: "message")
-                                                        .resizable()
-                                                        .frame(width:15, height: 13)
-                                                    Text("4")
-                                                        .font(.system(size: 14))
-                                                        .padding(.trailing, 7)
-                                                }
-                                            }
-                                        }
-                                        
-                                    }// end HStack
-                                    //                                    Text(goodsItem.title)
-                                    //                                    Text(goodsItem.content)
-                                    //                                        .font(.caption).foregroundColor(.gray)
-                                }
+                                GoodsItemView(title: goodsItem.title, price: goodsItem.price)
+//                                VStack(alignment: .leading){
+//                                    HStack{
+//                                        Rectangle().frame(width: 110, height: 120)
+//                                            .background(Color(hex: "C4C4C4"))
+//                                            .cornerRadius(20)
+//                                            .padding(.trailing, 7)
+//
+//                                        VStack(alignment: .leading){
+//                                            Text(goodsItem.title)
+//                                                .font(.system(size: 15))
+//                                            //                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+//                                                .padding(.bottom, 3)
+//                                            Text("3분전")
+//                                                .font(.system(size: 13))
+//                                                .foregroundColor(Color(hex: "828282"))
+//                                            HStack{
+//                                                MarketTag(tag: "EXIT")
+//                                                MarketTag(tag: "앨범")
+//                                            }// end HStack
+//                                            HStack(alignment: .bottom){
+//                                                Text("\(goodsItem.price)")
+//                                                    .font(.system(size: 16))
+//                                                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+//                                                //                        .padding(.top, 10)
+//                                                Spacer()
+//                                                HStack(spacing:2){
+//                                                    Image(systemName: "suit.heart")
+//                                                        .resizable()
+//                                                        .frame(width:15, height: 13)
+//                                                    Text("10")
+//                                                        .font(.system(size: 14))
+//                                                        .padding(.trailing, 5)
+//                                                    Image(systemName: "message")
+//                                                        .resizable()
+//                                                        .frame(width:15, height: 13)
+//                                                    Text("4")
+//                                                        .font(.system(size: 14))
+//                                                        .padding(.trailing, 7)
+//                                                }
+//                                            }
+//                                        }
+//
+//                                    }// end HStack
+//                                    //                                    Text(goodsItem.title)
+//                                    //                                    Text(goodsItem.content)
+//                                    //                                        .font(.caption).foregroundColor(.gray)
+//                                }
                             })
                         }
                         } onUpdate: {
@@ -109,7 +111,7 @@ struct MarketMain : View {
                 
                 }
                 .sheet(isPresented: $isPresentedNewPost, content: {
-                    NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score)
+                    NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wish: $wish, chat: $chat, review: $review)
                 })
                 .onAppear(perform: {
                     viewModel.fetchAllGoods()
@@ -121,7 +123,7 @@ struct MarketMain : View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NavigationLink(destination: NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score)){
+                        NavigationLink(destination: NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wish: $wish, chat: $chat, review: $review)){
                             plusButton
                             //                    Text("+")
                             //                        .font(.system(.largeTitle))

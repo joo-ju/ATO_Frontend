@@ -37,6 +37,7 @@ class ViewModel: ObservableObject {
     @Published var soldGoodsItems = [GoodsModel]()          // 유저가 판매완료한 게시물
     @Published var saleGoodsItems = [GoodsModel]()          // 유저가 판매중인 게시물
     @Published var hidingGoodsItems = [GoodsModel]()          // 유저가 숨김한 게시물
+    @Published var buyGoodsItems = [GoodsModel]()          // 유저가 구매한 게시물
     
     let prefixUrl = "http://localhost:4000"
     // let prefixUrl = "http://3.34.140.23:4000"
@@ -187,6 +188,31 @@ class ViewModel: ObservableObject {
                     print("** result **\n", result)
                     DispatchQueue.main.async {
                         self.hidingGoodsItems = result
+                    }
+                } else {
+                    print("No data")
+                }
+            } catch (let error) {
+                print("!! ERROR !!\n", error.localizedDescription)
+            }
+        }.resume()
+    }
+    
+    // 로그인한 사용자의 구매완료 제품 List
+    // 로그인 구현 전 : joo로 고정
+    func fetchGoodsBuyBuyerId(parameters: String){
+        guard let url = URL(string: "\(prefixUrl)/goods/user/buy/all/" + parameters) else {
+            print("Not Found url")
+            return
+        }
+        print("\n-----fetch User Buy Goods-----")
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+                if let data = data {
+                    let result = try JSONDecoder().decode([GoodsModel].self, from: data)
+                    print("** result **\n", result)
+                    DispatchQueue.main.async {
+                        self.buyGoodsItems = result
                     }
                 } else {
                     print("No data")

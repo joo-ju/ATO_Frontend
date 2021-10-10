@@ -20,6 +20,9 @@ struct NewGoodsScreen : View {
     @Binding var categoryId: String
     @Binding var count: Int
     @Binding var score: Int
+    @Binding var wish: Int
+    @Binding var chat: Int
+    @Binding var review: Bool
     
     @State var text:String = ""
     @State var isAlert = false
@@ -115,7 +118,7 @@ struct NewGoodsScreen : View {
         Button(action:{
             if title != "" && content != ""{
                 tags.removeFirst()
-                let parameters: [String: Any] = ["title": title, "content": content, "price": price, "tags": tags, "sellerId":"joo", "buyerId": "aa", "score": score, "count": count, "categoryId": categoryId]
+                let parameters: [String: Any] = ["title": title, "content": content, "price": price, "tags": tags, "sellerId":"joo", "buyerId": "aa", "score": score, "count": count, "categoryId": categoryId, "wish":wish, "chat":chat, "review":review]
                 print("tags : ", tags)
                 viewModel.createGoods(parameters: parameters)
                 viewModel.fetchAllGoods()
