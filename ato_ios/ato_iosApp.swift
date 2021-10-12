@@ -11,7 +11,9 @@ import SwiftUI
 struct ato_iosApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(ViewModel())
+            ContentView()
+                .environmentObject(ViewModel())
+                .environmentObject(ReviewViewModel())
         }
     }
 }

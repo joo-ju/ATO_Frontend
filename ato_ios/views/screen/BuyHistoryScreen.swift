@@ -26,6 +26,13 @@ struct BuyHistoryScreen: View {
     @State var review = false
     @State var tags = [""]
     
+    @State var writer = "joo"
+    @State var goodsId = ""
+//    @State var score = 0
+    @State var isPresentedNewGoodsReview = false
+//    @State var tags = [""]
+    
+    
     var body: some View {
         
         VStack{
@@ -43,6 +50,8 @@ struct BuyHistoryScreen: View {
                                     GoodsItemView(title: buyGoodsItem.title, price: buyGoodsItem.price)
                                     })
                                     if !buyGoodsItem.review {
+                                    
+                                        NavigationLink(destination: NewGoodsReviewScreen(isPresented: $isPresentedNewGoodsReview, writer: $writer, content: $content, goodsId: buyGoodsItem._id, score: $score, tags: $tags)){
                                         VStack{
                                             HStack{
                                                 Spacer()
@@ -54,6 +63,7 @@ struct BuyHistoryScreen: View {
                                                 
                                                 
                                                 Spacer()}
+                                        }
                                         }
                                         //                                        .frame(width:.infinity)
                                         .background(Color(hex: "A9BCE8"))

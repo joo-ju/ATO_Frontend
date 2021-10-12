@@ -30,9 +30,4 @@ struct SaleHistoryTabbar : View {
     }
 }
 
-//
-//struct WishlistTapbar_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WishlistTabbar(tabIndex: 0)
-//    }
-//}
+
