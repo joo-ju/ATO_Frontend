@@ -16,10 +16,14 @@ struct ContentView: View {
     enum Tabs{
         case tab1, tab2, myAto, chat, search, home
     }
+    
+    @ObservedObject var userInfo = UserInfo()
+    @EnvironmentObject var userViewModel: UserViewModel
     @State private var tabSelection = 0
     @State var tags = [""]
     @State var books = [Book]()
-//    init() {
+    init() {
+     
 //        let navBarAppearance = UINavigationBar.appearance()
 //        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
 //        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
@@ -28,7 +32,7 @@ struct ContentView: View {
 //        // 이하 두 줄이 Navigation Bar 구분 선 없애는 코드
 //        navBarAppearance.shadowImage = UIImage()
 //        navBarAppearance.setBackgroundImage(UIImage(), for: .default)
-//    }
+    }
     var body: some View {
         NavigationView{
             

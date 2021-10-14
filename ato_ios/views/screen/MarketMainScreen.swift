@@ -11,7 +11,9 @@ import SwiftUI
 struct MarketMain : View {
     
     
+    @ObservedObject var userInfo = UserInfo()
     @EnvironmentObject var viewModel: ViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     @State var isPresentedNewPost = false
     @State var title = ""
     @State var content = ""
@@ -22,11 +24,14 @@ struct MarketMain : View {
     @State var categoryId = ""
     @State var count = 0
     @State var score = 0
-    @State var wish = 0
+    @State var wishCount = 0
     @State var chat = 0
     @State var review = false
 //    @State var buyerId = ""
     
+    init() {
+       
+    }
     var body: some View {
 //        NavigationView{
             ZStack{
@@ -48,7 +53,7 @@ struct MarketMain : View {
                             ForEach(viewModel.goodsItems.reversed(), id: \._id){ goodsItem in
                             
                             NavigationLink(destination: GoodsDetailViewScreen(goodsItem: goodsItem), label: {
-                                GoodsItemView(title: goodsItem.title, price: goodsItem.price)
+                                GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
 //                                VStack(alignment: .leading){
 //                                    HStack{
 //                                        Rectangle().frame(width: 110, height: 120)
@@ -102,28 +107,34 @@ struct MarketMain : View {
                             viewModel.fetchAllGoods()
                         }
                     }
+                    .onAppear {
+                     UITableView.appearance().separatorStyle = .none
+                    }
+                    .listSeparatorStyle(style: .none)
                     .listStyle(InsetListStyle())
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
                     .foregroundColor(Color.black)
-                    //                                            .navigationBarTitle("Posts")
-                    //                                            .navigationBarItems(trailing: plusButton)
+                    .padding(.bottom, 40)
+                   
                 
                 }
                 .sheet(isPresented: $isPresentedNewPost, content: {
-                    NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wish: $wish, chat: $chat, review: $review)
+                    NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wishCount: $wishCount, chat: $chat, review: $review)
                 })
                 .onAppear(perform: {
                     viewModel.fetchAllGoods()
+                    userViewModel.fetchUserHistory(parameters: self.userInfo.id)
                 })
       
                 Spacer()
+//                    .padding(.vertical, 50)
                 
                 VStack {
                     Spacer()
                     HStack {
                         Spacer()
-                        NavigationLink(destination: NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wish: $wish, chat: $chat, review: $review)){
+                        NavigationLink(destination: NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wishCount: $wishCount, chat: $chat, review: $review)){
                             plusButton
                             //                    Text("+")
                             //                        .font(.system(.largeTitle))

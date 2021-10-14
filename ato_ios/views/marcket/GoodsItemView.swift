@@ -12,10 +12,14 @@ struct GoodsItemView: View {
     
     @State var title = ""
     @State var price = 0
+    @State var tags = [""]
+    @State var wishCount = 0
+    @State var chat = 0
+    @State var state = ""
     
     var body: some View {
         VStack(alignment: .leading){
-            HStack{
+            HStack (alignment: .top){
                 Rectangle().frame(width: 110, height: 120)
                     .background(Color(hex: "C4C4C4"))
                     .cornerRadius(20)
@@ -25,42 +29,67 @@ struct GoodsItemView: View {
                 VStack(alignment: .leading){
                     Text(title)
                         .font(.system(size: 15))
+                        .padding(.top, 10)
                     //                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                         .padding(.bottom, 3)
                     Text("3분전")
                         .font(.system(size: 13))
                         .foregroundColor(Color(hex: "828282"))
                     HStack{
-                        MarketTag(tag: "EXIT")
-                        MarketTag(tag: "앨범")
+                        if tags.count > 0{
+                        ForEach(tags,id: \.self){index in
+                        MarketTag(tag: index)
+                        
+                        }
+                        }
+                         
                     }// end HStack
-                    HStack(alignment: .bottom){
-                        Text("\(price)")
+                    .padding(.bottom, 3)
+                    HStack(alignment: .center, spacing: 7){
+                        if state == "판매완료" {
+                            Text("거래완료")
+                                .font(.system(size: 13))
+                                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                .padding(5)
+                                .background(Color(hex: "253153"))
+                                .foregroundColor(Color.white)
+                                .cornerRadius(5)
+                        }
+                        Text("\(price)원")
                             .font(.system(size: 16))
                             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                         //                        .padding(.top, 10)
-                        Spacer()
-                        HStack(spacing:2){
-                            Image(systemName: "suit.heart")
-                                .resizable()
-                                .frame(width:15, height: 13)
-                            Text("10")
-                                .font(.system(size: 14))
-                                .padding(.trailing, 5)
-                            Image(systemName: "message")
-                                .resizable()
-                                .frame(width:15, height: 13)
-                            Text("4")
-                                .font(.system(size: 14))
-                                .padding(.trailing, 7)
-                        }
                     }
+                    Spacer()
+                    
+                             HStack(spacing:2){
+                                 Spacer()
+                           
+                                     Image(systemName: "suit.heart")
+                                         .resizable()
+                                         .frame(width:15, height: 13)
+                                     Text("\(wishCount)")
+                                         .font(.system(size: 14))
+                                         .padding(.trailing, 5)
+                                     Image(systemName: "message")
+                                         .resizable()
+                                         .frame(width:15, height: 13)
+                                     Text("\(chat)")
+                                         .font(.system(size: 14))
+                                         .padding(.trailing, 7)
+                                 }
+                   
                 }
                 
             }// end HStack
+//            .frame(ma)
             //                                    Text(goodsItem.title)
             //                                    Text(goodsItem.content)
             //                                        .font(.caption).foregroundColor(.gray)
+//            .background(Color.yellow)
+   
+//            Divider()
+           
         }
         
     }

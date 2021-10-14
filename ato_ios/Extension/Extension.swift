@@ -10,6 +10,10 @@ extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )
     }
+    
+    func listSeparatorStyle(style: UITableViewCell.SeparatorStyle) -> some View {
+         ModifiedContent(content: self, modifier: ListSeparatorStyle(style: style))
+     }
 }
 
 struct RoundedCorner: Shape {
@@ -20,5 +24,17 @@ struct RoundedCorner: Shape {
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         return Path(path.cgPath)
+    }
+}
+
+struct ListSeparatorStyle: ViewModifier {
+    
+    let style: UITableViewCell.SeparatorStyle
+    
+    func body(content: Content) -> some View {
+        content
+            .onAppear() {
+                UITableView.appearance().separatorStyle = self.style
+            }
     }
 }

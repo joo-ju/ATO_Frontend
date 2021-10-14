@@ -39,12 +39,13 @@ class ViewModel: ObservableObject {
     @Published var hidingGoodsItems = [GoodsModel]()          // 유저가 숨김한 게시물
     @Published var buyGoodsItems = [GoodsModel]()          // 유저가 구매한 게시물
     
+    @Published var wishGoodsItem = [GoodsModel]()
     let prefixUrl = "http://localhost:4000"
     // let prefixUrl = "http://3.34.140.23:4000"
     
-    init() {
-        fetchData()
-    }
+//    init() {
+//        fetchData()
+//    }
     
     func fetchData() {
         //      let api = "https://jsonplaceholder.typicode.com/todos"
@@ -70,7 +71,7 @@ class ViewModel: ObservableObject {
     func fetchAllGoods() {
         //      let api = "https://jsonplaceholder.typicode.com/todos"
         // let api = "http://3.34.140.23:4000/goods"
-        let api = "http://localhost:4000/goods"
+        let api = "http://localhost:4000/goods/sale/all"
         guard let url = URL(string: api) else { return }
         print("-----fetch All Goods-----")
         URLSession.shared.dataTask(with: url) { (data, response, error) in

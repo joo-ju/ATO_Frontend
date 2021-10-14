@@ -46,7 +46,7 @@ struct SaleTab: View {
     @State var categoryId = ""
     @State var score = 0
     @State var count = 0
-    @State var wish = 0
+    @State var wishCount = 0
     @State var chat = 0
     @State var review = false
     @State var tags = [""]
@@ -62,7 +62,7 @@ struct SaleTab: View {
                         ForEach(viewModel.saleGoodsItems.reversed(), id: \._id){ saleGoodsItem in
                             
                             NavigationLink(destination: GoodsDetailViewScreen(goodsItem: saleGoodsItem), label: {
-                                GoodsItemView(title: saleGoodsItem.title, price: saleGoodsItem.price)
+                                GoodsItemView(title: saleGoodsItem.title, price: saleGoodsItem.price, tags: saleGoodsItem.tags, wishCount: saleGoodsItem.wishCount, chat: saleGoodsItem.chat, state: saleGoodsItem.state)
                             })
                         }
                         
@@ -118,7 +118,7 @@ struct SoldTab: View {
                         ForEach(viewModel.soldGoodsItems.reversed(), id: \._id){ soldGoodsItem in
                             
                             NavigationLink(destination: GoodsDetailViewScreen(goodsItem: soldGoodsItem), label: {
-                                GoodsItemView(title: soldGoodsItem.title, price: soldGoodsItem.price)
+                                GoodsItemView(title: soldGoodsItem.title, price: soldGoodsItem.price, tags: soldGoodsItem.tags, wishCount: soldGoodsItem.wishCount, chat: soldGoodsItem.chat, state: soldGoodsItem.state)
                             })
                         }
                         
@@ -157,8 +157,8 @@ struct HidingTab: View {
     @State var buyerId = ""
     @State var categoryId = ""
     @State var score = 0
-    @State var count = 0
-    @State var wish = 0
+//    @State var count = 0
+    @State var wishCount = 0
     @State var chat = 0
     @State var review = false
     @State var tags = [""]
@@ -174,7 +174,7 @@ struct HidingTab: View {
                         ForEach(viewModel.hidingGoodsItems.reversed(), id: \._id){ hidingGoodsItem in
                             
                             NavigationLink(destination: GoodsDetailViewScreen(goodsItem: hidingGoodsItem), label: {
-                                GoodsItemView(title: hidingGoodsItem.title, price: hidingGoodsItem.price)
+                                GoodsItemView(title: hidingGoodsItem.title, price: hidingGoodsItem.price, tags: hidingGoodsItem.tags, wishCount: hidingGoodsItem.wishCount, chat: hidingGoodsItem.chat, state: hidingGoodsItem.state)
                             })
                         }
                         

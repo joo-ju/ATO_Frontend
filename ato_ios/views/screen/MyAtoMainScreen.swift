@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyAtoMainScreen: View {
-  
+    @ObservedObject var userInfo = UserInfo()
     var body: some View {
         VStack(alignment: .leading){
             HStack{
@@ -20,14 +20,14 @@ struct MyAtoMainScreen: View {
             Divider()
             ScrollView{
                 
-                NavigationLink(destination: Login()){
+                NavigationLink(destination: EditAccountScreen()){
                     // 계정정보
                     HStack{
                         Image("3")
                             .resizable()
                             .frame(width: 50, height: 50)
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                        Text("joo-ju")
+                        Text(userInfo.username)
                             .font(.system(size: 25))
                             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
                             .padding(10)

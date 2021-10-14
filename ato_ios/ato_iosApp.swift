@@ -14,6 +14,7 @@ struct ato_iosApp: App {
             ContentView()
                 .environmentObject(ViewModel())
                 .environmentObject(ReviewViewModel())
+                .environmentObject(UserViewModel())
         }
     }
 }

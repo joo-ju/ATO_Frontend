@@ -21,7 +21,7 @@ struct BuyHistoryScreen: View {
     @State var categoryId = ""
     @State var score = 0
     @State var count = 0
-    @State var wish = 0
+    @State var wishCount = 0
     @State var chat = 0
     @State var review = false
     @State var tags = [""]
@@ -47,7 +47,7 @@ struct BuyHistoryScreen: View {
                                 VStack{
                                     Divider()
                                     NavigationLink(destination: GoodsDetailViewScreen(goodsItem: buyGoodsItem), label: {
-                                    GoodsItemView(title: buyGoodsItem.title, price: buyGoodsItem.price)
+                                        GoodsItemView(title: buyGoodsItem.title, price: buyGoodsItem.price, tags: buyGoodsItem.tags, wishCount: buyGoodsItem.wishCount, chat: buyGoodsItem.chat, state: buyGoodsItem.state)
                                     })
                                     if !buyGoodsItem.review {
                                     

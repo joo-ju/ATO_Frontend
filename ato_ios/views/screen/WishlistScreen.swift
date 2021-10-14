@@ -12,34 +12,103 @@ struct WishlistScreen: View {
     @State var tabIndex = 0
     var body: some View {
         VStack{
-//            WishlistTabbar(tabIndex: $tabIndex)
-//            if tabIndex == 0 {
-//                MarketSearchTab()
-//            }
-//            else if tabIndex == 1{
-//                SoldTab()
-//            }
+            WishListTabBar(tabIndex: $tabIndex)
+            if tabIndex == 0 {
+                MarketTab()
+            }
+            else if tabIndex == 1{
+                TicketTab()
+            }
 //            else {
 //                MarketSearchTab()
 //            }
         }
         
-//        .navigationTitle("판매내역")
-//        .navigationBarBackButtonHidden(false)
+        .navigationTitle("관심목록")
+        .navigationBarBackButtonHidden(false)
     }
     
 }
 
+
+struct MarketTab: View {
+    
+    @State var tabIndex = 0
+    var body: some View {
+        VStack{
+            
+        }
+    }
+    
+}
+struct TicketTab: View {
+    
+    @ObservedObject var userInfo = UserInfo()
+    @State var tabIndex = 0
+    @EnvironmentObject var viewModel: ViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
+    @State var isPresentedNewPost = false
+    @State var title = ""
+    @State var content = ""
+    @State var price = 0
+    @State var sellerId = "joo"
+    @State var buyerId = ""
+    @State var categoryId = ""
+    @State var score = 0
+    @State var count = 0
+    @State var wishCount = 0
+    @State var chat = 0
+    @State var review = false
+    @State var tags = [""]
+//    var wish = UserHistoryModel.self
+    var body: some View {
+        VStack{
+            
+//            if !userViewModel.userHistoryItem.isEmpty  {
+//                List{
+//                    KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
+                        
+//                        ForEach(userViewModel.userHistoryItem, id: \._id){ wishGood in
+////                            viewModel.fetchOneGoodsId(parameters: wishGood)
+//                            VStack {
+//                                Text(wishGood.userId)
+//                            }.onAppear(perform: {
+////                                print("wishGoods[0]: ", wishGoods[0])
+//                               
+//                                
+//                               
+//                            })
+////                            NavigationLink(destination: GoodsDetailViewScreen(goodsItem: wishGood), label: {
+////                                GoodsItemView(title: saleGoodsItem.title, price: saleGoodsItem.price)
+////                            })
+//                        }
+                        
+//                    } onUpdate: {
+////                        viewModel.fetchGoodsSaleSellerId(parameters: sellerId)
+//                    }
 //
-//struct SaleTab: View {
-//    
-//    @State var tabIndex = 0
-//    var body: some View {
-//        VStack{
-//        }
-//    }
-//    
-//}
+//                }
+//                .listStyle(InsetListStyle())
+//                .foregroundColor(Color.black)
+//            } else {
+//                Spacer()
+//                VStack{
+//                    Text("판매중인 게시물이 없습니다.")
+//                        .foregroundColor(Color(hex:"c4c4c4"))
+//                }
+//                Spacer()
+//            }
+        }
+        .onAppear(perform: {
+            userViewModel.fetchUserHistory(parameters: self.userInfo.id)
+//            print(userViewModel.userHistoryItem)
+            viewModel.fetchOneGoodsId(parameters: "61610e9b8cf5f894d6597eee")
+        })
+            
+        }
+    }
+    
+
 //struct SoldTab: View {
 //    
 //    @State var tabIndex = 0

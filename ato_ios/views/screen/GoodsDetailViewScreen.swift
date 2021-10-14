@@ -10,8 +10,11 @@ import SwiftUI
 struct GoodsDetailViewScreen: View {
     //    @State var tags = [String]()
     
+    @ObservedObject var userInfo = UserInfo()
     @EnvironmentObject var viewModel: ViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
+    
     let goodsItem: GoodsModel
     @State var title = ""
     @State var content = ""
@@ -22,11 +25,12 @@ struct GoodsDetailViewScreen: View {
     @State var categoryId = ""
     @State var score = 0
     @State var count = 0
-    @State var wish = 0
+    @State var wishCount = 0
     @State var chat = 0
     @State var review = false
     @State var idx = 0
     @State var chips : [[ChipData]] = []
+    @State var isWished = false
 //    let chips = TagsToChips(GoodsDetailViewScreen)
     
     var body: some View {
@@ -83,15 +87,6 @@ struct GoodsDetailViewScreen: View {
                                 // some times it asks us to specify hashable in Data Model...
                                 ForEach(chips[index].indices,id: \.self){chipIndex in
                                     MarketTag(tag:chips[index][chipIndex].chipText)
-                                    //                                Text(chips[index][chipIndex].chipText)
-                                    //                                    .font(.system(size: 15))
-                                    //                                    .fontWeight(.semibold)
-                                    //                                    .padding(.vertical,10)
-                                    //                                    .padding(.horizontal, 10)
-                                    //                                    .background(Capsule().stroke(Color(hex: "C3D3FE"),lineWidth: 1))
-                                    //                                    .background(Color(hex: "C3D3FE"))
-                                    //                                    .foregroundColor(Color.white)
-                                    //                                    .lineLimit(1)
                                     // Main Logic......
                                         .overlay(
                                             
@@ -149,14 +144,43 @@ struct GoodsDetailViewScreen: View {
 //            }
             
             HStack{
+                Button(action:{
+                    // 찜 했던 Goods를 취소
+                    if isWished == true {
+                        isWished = false
+                        userViewModel.deleteUserHistoryWish(parameters: ["userId": self.userInfo.id, "goodsId": goodsItem._id])
+                    }
+                    // 새로운 Goods를 찜
+                    else {
+                        isWished = true
+                        userViewModel.createUserHistoryWish(parameters: ["userId": self.userInfo.id, "goodsId": goodsItem._id])
+                        
+                    }
+                }, label: {
+                    if isWished {
+                        Image(systemName: "heart.fill")
+                            .resizable()
+                            .frame(width:20, height: 15)
+                            .foregroundColor(Color(hex: "A9BCE8"))
+                    } else {
                 Image(systemName: "heart")
                     .resizable()
                     .frame(width:20, height: 15)
                     .foregroundColor(Color(hex: "c4c4c4"))
+                    }
+                })
+                    .onAppear(perform: {
+                        // userHistory 조회해서 찜 했는지 안했는지 확인
+                        if ((userViewModel.userHistoryItem?.wishGoods.contains(goodsItem._id)) == true) {
+                         
+                            isWished = true
+                        }
+                    })
                 Divider()
                     .padding(.leading, 5)
                     .padding(.trailing, 5)
                 //                Text("20,000원")
+             
                 Text("\(price)")
                     .fontWeight(.bold)
                 Spacer()
@@ -200,6 +224,8 @@ struct GoodsDetailViewScreen: View {
                 print("chips.count : ", chips.count)
                 print("text: ", text)
                 print("tags: ", tags)
+                print("_id: ", goodsItem._id)
+                print(userViewModel.userHistoryItem?.wishGoods.contains(goodsItem._id))
     //            chips[chips.count - 1].append(ChipData(chipText: text, idx: idx))
                 chips[chips.count-1].append(ChipData(chipText: text, idx: idx))
                 idx = idx + 1
