@@ -31,77 +31,105 @@ struct MarketMain : View {
     
     @State var chat = 0
     @State var review = false
-//    @State var buyerId = ""
     
-    init() {
-       
-    }
+    @State var keyword = ""
+    
+    //    @State var buyerId = ""
+
     var body: some View {
-//        NavigationView{
-            ZStack{
-                // 전체 화면 색상 변경
-                Color(hex: "C3D3FE").edgesIgnoringSafeArea(.all)
+        //        NavigationView{
+        ZStack{
+            // 전체 화면 색상 변경
+            Color(hex: "C3D3FE").edgesIgnoringSafeArea(.all)
+            
+            VStack(spacing: 15){
+                // 검색바
                 
-                VStack(spacing: 15){
-                    // 검색바
-                    
-                    MarketMainSearch()
-                        .navigationBarHidden(true)
-                        .navigationBarBackButtonHidden(true)
-                    
-                    // 상품 목록
-                    //                    VStack(spacing: 0){
                 
-                    List{
+                VStack{
+                    TextField("검색어를 입력해주세요.", text: $keyword)
+                        .padding()
+                        .padding(.leading, 10)
+                        .background(Color(hex: "F0F4FF"))
+                        .clipShape(RoundedRectangle(cornerRadius: 50), style: /*@START_MENU_TOKEN@*/FillStyle()/*@END_MENU_TOKEN@*/)
+                    
+                } // end VStack
+                .padding([.leading, .trailing], 10)
+                .padding(.top, 20)
+                .navigationBarHidden(true)
+                .navigationBarBackButtonHidden(true)
+                
+                // 상품 목록
+                //                    VStack(spacing: 0){
+                if keyword == "" {
+                List{
+                  
                         KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
                             ForEach(viewModel.goodsItems.reversed(), id: \._id){ goodsItem in
-                            
-                            NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
-                                GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
-                            })
-                        }
+                                
+                                NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
+                                    GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
+                                })
+                            }
                         } onUpdate: {
                             viewModel.fetchAllGoods()
-//                            viewModel.fetchOneGoodsId(parameters: "61610b848cf5f894d6597ee8")
                         }
-                    }
-                    .onAppear {
-                     UITableView.appearance().separatorStyle = .none
-                    }
-                    .listSeparatorStyle(style: .none)
-                    .listStyle(InsetListStyle())
-                    .navigationBarHidden(true)
-                    .navigationBarBackButtonHidden(true)
-                    .foregroundColor(Color.black)
-                    .padding(.bottom, 40)
-                   
-                
+                    
                 }
-                .sheet(isPresented: $isPresentedNewPost, content: {
-                    NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wishCount: $wishCount, chat: $chat, review: $review)
-                })
-                .onAppear(perform: {
-                    viewModel.fetchAllGoods()
-                    userViewModel.fetchUserHistory(parameters: self.userInfo.id)
-                })
-      
+                .onAppear {
+                    UITableView.appearance().separatorStyle = .none
+                }
+                .listSeparatorStyle(style: .none)
+                .listStyle(InsetListStyle())
+                .navigationBarHidden(true)
+                .navigationBarBackButtonHidden(true)
+                .foregroundColor(Color.black)
+                .padding(.bottom, 40)
+                
+            }
+//                List(viewModel.goodsItems.reversed().filter({$0.name.contains(keyword)}))
+//
+                else {
+                List{
+                ForEach(viewModel.goodsItems.filter({$0.title.contains(keyword) }), id: \._id){ goodsItem in
+                    
+                    NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
+                        GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
+                    })
+                }
+                }
+                .listStyle(InsetListStyle())
+                }
+//                List(viewModel.goodsItems.filter({$0.title.contains(keyword) })) { item in
+//                    Text(item.title)
+//                }
+                
+            }
+            .sheet(isPresented: $isPresentedNewPost, content: {
+                NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wishCount: $wishCount, chat: $chat, review: $review)
+            })
+            .onAppear(perform: {
+                viewModel.fetchAllGoods()
+                userViewModel.fetchUserHistory(parameters: self.userInfo.id)
+            })
+            
+            Spacer()
+            
+            VStack {
                 Spacer()
-                
-                VStack {
+                HStack {
                     Spacer()
-                    HStack {
-                        Spacer()
-                        NavigationLink(destination: NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wishCount: $wishCount, chat: $chat, review: $review)){
-                            plusButton
-                        }// end Navigation Link
-                
-                        
-                    }
-                    Text("")
-                        .padding(.vertical, 20)
+                    NavigationLink(destination: NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wishCount: $wishCount, chat: $chat, review: $review)){
+                        plusButton
+                    }// end Navigation Link
+                    
+                    
                 }
-            }// end ZStack
-//        } // end NavigationView
+                Text("")
+                    .padding(.vertical, 20)
+            }
+        }// end ZStack
+        //        } // end NavigationView
         
     } // end View
     
