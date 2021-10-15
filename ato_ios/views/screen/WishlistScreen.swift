@@ -31,17 +31,17 @@ struct WishlistScreen: View {
 }
 
 
-struct MarketTab: View {
+struct TicketTab: View {
     
     @State var tabIndex = 0
     var body: some View {
         VStack{
-            
+            Spacer()
         }
     }
     
 }
-struct TicketTab: View {
+struct MarketTab: View {
     
     @ObservedObject var userInfo = UserInfo()
     @State var tabIndex = 0
@@ -61,48 +61,39 @@ struct TicketTab: View {
     @State var review = false
     @State var tags = [""]
 //    var wish = UserHistoryModel.self
+   
     var body: some View {
         VStack{
             
-//            if !userViewModel.userHistoryItem.isEmpty  {
-//                List{
-//                    KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
+            if viewModel.wishedGoodsItems.count != 0 {
+                List{
+                    KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
                         
-//                        ForEach(userViewModel.userHistoryItem, id: \._id){ wishGood in
-////                            viewModel.fetchOneGoodsId(parameters: wishGood)
-//                            VStack {
-//                                Text(wishGood.userId)
-//                            }.onAppear(perform: {
-////                                print("wishGoods[0]: ", wishGoods[0])
-//                               
-//                                
-//                               
-//                            })
-////                            NavigationLink(destination: GoodsDetailViewScreen(goodsItem: wishGood), label: {
-////                                GoodsItemView(title: saleGoodsItem.title, price: saleGoodsItem.price)
-////                            })
-//                        }
+                        ForEach(viewModel.wishedGoodsItems.reversed(), id: \._id){ wishedGoodsItem in
+                            
+                            NavigationLink(destination: GoodsDetailViewScreen(goodsItem: wishedGoodsItem), label: {
+                                GoodsItemView(title: wishedGoodsItem.title, price: wishedGoodsItem.price, tags: wishedGoodsItem.tags, wishCount: wishedGoodsItem.wishCount, chat: wishedGoodsItem.chat, state: wishedGoodsItem.state)
+                            })
+                        }
                         
-//                    } onUpdate: {
-////                        viewModel.fetchGoodsSaleSellerId(parameters: sellerId)
-//                    }
-//
-//                }
-//                .listStyle(InsetListStyle())
-//                .foregroundColor(Color.black)
-//            } else {
-//                Spacer()
-//                VStack{
-//                    Text("판매중인 게시물이 없습니다.")
-//                        .foregroundColor(Color(hex:"c4c4c4"))
-//                }
-//                Spacer()
-//            }
+                    } onUpdate: {
+                        viewModel.fetchWishGoodsId(parameters: self.userInfo.id)
+                    }
+                    
+                }
+                .listStyle(InsetListStyle())
+                .foregroundColor(Color.black)
+            } else {
+                Spacer()
+                VStack{
+                    Text("관심있는 Goods가 없습니다.")
+                        .foregroundColor(Color(hex:"c4c4c4"))
+                }
+                Spacer()
+            }
         }
         .onAppear(perform: {
-            userViewModel.fetchUserHistory(parameters: self.userInfo.id)
-//            print(userViewModel.userHistoryItem)
-            viewModel.fetchOneGoodsId(parameters: "61610e9b8cf5f894d6597eee")
+            viewModel.fetchWishGoodsId(parameters: self.userInfo.id)
         })
             
         }

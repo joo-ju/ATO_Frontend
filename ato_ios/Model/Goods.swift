@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct GoodsModel: Decodable {
+struct GoodsModel: Codable {
     let _id:String
     let title: String
     let categoryId: String
@@ -25,6 +25,7 @@ struct GoodsModel: Decodable {
     let review: Bool
     let wishUser: Array<String>
     let enrollTime: String
+//    let enrollTime: Date
     let updateTime: String
 }
 

@@ -111,7 +111,7 @@ class UserViewModel: ObservableObject {
     func fetchUserHistory(parameters: String) {
         //      let api = "https://jsonplaceholder.typicode.com/todos"
         // let api = "http://3.34.140.23:4000/goods"
-        let api = "http://localhost:4000/userHistory/user/wishGoods/" + parameters
+        let api = "http://localhost:4000/userHistory/user/" + parameters
         guard let url = URL(string: api) else { return }
         print("-----fetch UserHistory-----")
         URLSession.shared.dataTask(with: url) { (data, response, error) in

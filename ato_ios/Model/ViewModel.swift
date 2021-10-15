@@ -31,6 +31,9 @@ import SwiftUI
 //}
 
 class ViewModel: ObservableObject {
+    
+    @EnvironmentObject var userViewModel: UserViewModel
+    @ObservedObject var userInfo = UserInfo()
     @Published var items = [PostModel]()
     @Published var testitems = [Model]()
     @Published var goodsItems = [GoodsModel]()
@@ -39,17 +42,55 @@ class ViewModel: ObservableObject {
     @Published var hidingGoodsItems = [GoodsModel]()          // 유저가 숨김한 게시물
     @Published var buyGoodsItems = [GoodsModel]()          // 유저가 구매한 게시물
     
-    @Published var wishGoodsItem = [GoodsModel]()
     @Published var detailGoodsItem = [GoodsModel]()
     @Published var oneGoodsItem: GoodsModel?
     
+//    @Published var wishedGoodsItem: GoodsModel()
+    
+    @Published var wishGoodsItem = [GoodsModel]()           // 찜목록을 만들기위해 1개씩 받는 Goods
+    @Published var wishedGoodsItems = [GoodsModel]()
+//    @State var wishGoods: Array<String>
+//    @State var userId: String
 //    @Published var userHistoryItem: UserHistoryModel?
     let prefixUrl = "http://localhost:4000"
     // let prefixUrl = "http://3.34.140.23:4000"
-    
-//    init() {
-//        fetchData()
-//    }
+
+    // 찜 목록-> 파라미터는 유저 아이디
+    func fetchWishGoodsId(parameters: String) {
+        //      let api = "https://jsonplaceholder.typicode.com/todos"
+        // let api = "http://3.34.140.23:4000/goods"
+        let api = "http://localhost:4000/userHistory/user/wishGoods/" + parameters
+        guard let url = URL(string: api) else { return }
+        print("----- fetch wish goods -----")
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+                if let data = data {
+                    let result = try JSONDecoder().decode([GoodsModel].self, from: data)
+                    print("\nresult------------\n", result)
+                    DispatchQueue.main.async {
+                        self.wishedGoodsItems = result
+                        print("wishedGoodsItem ------------\n", self.wishedGoodsItems)
+                        
+                    }
+                } else {
+                    print("No data--- wishedGoodsItems")
+                }
+            } catch let DecodingError.dataCorrupted(context) {
+                    print(context)
+                } catch let DecodingError.keyNotFound(key, context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.valueNotFound(value, context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.typeMismatch(type, context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+        }.resume()
+    }
     func fetchOneGoodsId(parameters: String) {
         //      let api = "https://jsonplaceholder.typicode.com/todos"
         // let api = "http://3.34.140.23:4000/goods"
@@ -368,3 +409,5 @@ class ViewModel: ObservableObject {
         }.resume()
     }
 }
+
+//.environmentObject(UserViewModel())

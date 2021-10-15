@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct NewGoodsScreen : View {
+    
+    @ObservedObject var userInfo = UserInfo()
     @EnvironmentObject var viewModel: ViewModel
     @Binding var isPresented: Bool
     @Binding var title: String
@@ -97,10 +99,6 @@ struct NewGoodsScreen : View {
             }// end Vstack
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
-            //        .navigationTitle("판매 글쓰기")
-            //        .navigationBarTitleDisplayMode(.inline)
-            //        .navigationBarItems(leading: leading, trailing: trailing)
-            
         } // end NavigationView
     } // end View
     
@@ -118,7 +116,7 @@ struct NewGoodsScreen : View {
         Button(action:{
             if title != "" && content != ""{
                 tags.removeFirst()
-                let parameters: [String: Any] = ["title": title, "content": content, "price": price, "tags": tags, "sellerId":"joo", "buyerId": "aa", "score": score, "count": count, "categoryId": categoryId, "wishCount":wishCount, "chat":chat, "review":review]
+                let parameters: [String: Any] = ["title": title, "content": content, "price": price, "tags": tags, "sellerId":self.userInfo.id, "buyerId": "", "score": score, "count": count, "categoryId": categoryId, "wishCount":wishCount, "chat":chat, "review":review]
                 print("tags : ", tags)
                 viewModel.createGoods(parameters: parameters)
                 viewModel.fetchAllGoods()

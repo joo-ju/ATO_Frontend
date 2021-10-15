@@ -61,7 +61,6 @@ struct EditGoodsDetailScreen: View {
                         let parameters: [String: Any] = ["id": goodsItem._id, "title": title, "content": content, "price": price, "tags": tags ]
                         print("\nprameters : ", parameters)
                         viewModel.updateGoods(parameters: parameters)
-//                        viewModel.fetchOneGoodsId(parameters:  goodsItem._id)
                         presentationMode.wrappedValue.dismiss()
                     }
                 }, label: {
@@ -149,7 +148,9 @@ struct EditGoodsDetailScreen: View {
                                                         // It is updating to each user interaction....
                                                         
                                                         DispatchQueue.main.async {
+                                                            print(chips)
                                                             print(index, chipIndex)
+                                                            print("chips[index][chipIndex] : ", chips[index][chipIndex])
                                                             // Toggling That...
                                                             chips[index][chipIndex].isExceeded = true
                                                             
@@ -206,18 +207,18 @@ struct EditGoodsDetailScreen: View {
 
                         // Adding Empty Array if there is Nothing....
                         if chips.isEmpty{
-                            chips.append([])
+//                            chips.append([])
         //                    tags.append("")
                         }
                         
                         // Adding Chip To Last Array....
-                        chips[chips.count - 1].append(ChipData(chipText: text, idx: idx))
+                        self.chips[chips.count-1].append(ChipData(chipText: text, idx: idx))
                         idx = idx + 1
                         tags.append(text)
                   
                         
                         print("\n--------- add tags : \n\t", tags)
-                        print("\n", chips)
+                        print("\nchips : ", chips)
                         // Clearing Old Text In Editor
                         text = ""
                         

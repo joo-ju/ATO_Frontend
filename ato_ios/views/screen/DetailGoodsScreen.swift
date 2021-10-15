@@ -14,13 +14,13 @@ struct DetailGoodsScreen: View {
     @EnvironmentObject var viewModel: ViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
+    
     let goodsItem: GoodsModel
-    @State var price: String? //= “\(recordItem?.odometer ?? 0)”
+    @State var price: String?
     @State var title:String?
     @State var content = ""
-//    @State var price = 0
     @State var tags = [""]
-    @State var sellerId = "joo"
+    @State var sellerId = ""
     @State var buyerId = ""
     @State var categoryId = ""
     @State var score = 0
@@ -32,6 +32,9 @@ struct DetailGoodsScreen: View {
     @State var chips : [[ChipData]] = []
     @State var isWished = false
     
+    //    init(){
+    //        viewModel.fetchOneGoodsId(parameters: self.goodsItem._id)
+    //    }
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack{
@@ -45,30 +48,25 @@ struct DetailGoodsScreen: View {
                 })
                     .accentColor(.black)
                 Spacer()
-                //                Button(action: {
-                //
-                //                }, label: {
-                NavigationLink(destination: EditGoodsDetailScreen(goodsItem: viewModel.oneGoodsItem ?? goodsItem), label: {
-                    Text("수정")
-                        .fontWeight(.bold)
-                        .padding([.leading, .trailing])
-                        .padding([.top, .bottom], 15)
-                        .foregroundColor(Color(hex: "6279B8"))
-                })
-                //                })
-                    .accentColor(.black)
+                // seller 와 로그인한 유저가 같으면 수정 버튼 활성화
+                if goodsItem.sellerId == self.userInfo.id {
+                    NavigationLink(destination: EditGoodsDetailScreen(goodsItem: viewModel.oneGoodsItem ?? goodsItem), label: {
+                        Text("수정")
+                            .fontWeight(.bold)
+                            .padding([.leading, .trailing])
+                            .padding([.top, .bottom], 15)
+                            .foregroundColor(Color(hex: "6279B8"))
+                    })
+                        .accentColor(.black)
+                }
             }
             KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
-                //            ScrollView{
                 VStack(alignment: .leading, spacing: 10) {
                     Rectangle().frame(height:0)
-                    //                    if title != nil {
-                    //                        Text(title ?? "")
                     Text(viewModel.oneGoodsItem?.title ?? "게시물을 가져오지 못했습니다.")
                         .fontWeight(.bold)
                         .font(.system(size: 20))
                         .padding([.top, .bottom], 10)
-                    //                    }
                     Divider()
                     
                     
@@ -80,23 +78,6 @@ struct DetailGoodsScreen: View {
                     Divider()
                     
                     LazyVStack(alignment: .leading,spacing: 10){
-//                        if viewModel.oneGoodsItem?.tags != nil {
-//                        for text in viewModel.oneGoodsItem?.tags ?? ["default value"] {
-//                            if chips.isEmpty{
-//                                chips.append([])
-//                            }
-//                            print("Chips : ", chips)
-//                            print("chips.count : ", chips.count)
-//                            print("text: ", text)
-//                            print("tags: ", tags)
-//                            print("_id: ", goodsItem._id)
-//
-//                            chips[chips.count-1].append(ChipData(chipText: text, idx: idx))
-//                            idx = idx + 1
-//
-//                        }
-//
-//                        }
                         // Since Were Using Indices So WE Need To Specify Id....
                         ForEach(chips.indices,id: \.self){index in
                             
@@ -162,9 +143,10 @@ struct DetailGoodsScreen: View {
             
             self.title = viewModel.oneGoodsItem?.title
             self.tags = viewModel.oneGoodsItem?.tags ?? ["default value"]
-//            self.price = viewModel.oneGoodsItem?.price ?? 0
+            //            self.price = viewModel.oneGoodsItem?.price ?? 0
             
             self.price = "\(viewModel.oneGoodsItem?.price ?? 0)"
+            self.chips  = []
             for text in tags {
                 if chips.isEmpty{
                     chips.append([])
@@ -179,6 +161,7 @@ struct DetailGoodsScreen: View {
                 idx = idx + 1
                 
             }
+            print(chips)
         }
             
             HStack{
@@ -218,7 +201,7 @@ struct DetailGoodsScreen: View {
                     .padding(.leading, 5)
                     .padding(.trailing, 5)
                 Text("\(viewModel.oneGoodsItem?.price ?? 0 )원")
-//                Text(price ?? "")
+                //                Text(price ?? "")
                     .fontWeight(.bold)
                 Spacer()
                 Button(action:{ }, label: {
@@ -243,19 +226,33 @@ struct DetailGoodsScreen: View {
             .padding(.leading, 5)
             
         } // end of VStack
-        .navigationBarHidden(true)
+        
         .onAppear(perform: {
-            //            self.title = goodsItem.title
-            //            self.content = goodsItem.content
-            //            self.price = goodsItem.price
-            //            self.tags = goodsItem.tags
-            
+            self.tags = [""]
+            self.tags = goodsItem.tags
+            self.chips  = []
+            for text in tags {
+                //            for text in viewModel.oneGoodsItem?.tags ?? ["default value"] {
+                if chips.isEmpty{
+                    chips.append([])
+                }
+                print("Chips : ", chips)
+                print("chips.count : ", chips.count)
+                print("text: ", text)
+                print("tags: ", tags)
+                print("_id: ", goodsItem._id)
+                
+                chips[chips.count-1].append(ChipData(chipText: text, idx: idx))
+                idx = idx + 1
+                
+            }
             viewModel.fetchOneGoodsId(parameters: goodsItem._id)
             self.title = viewModel.oneGoodsItem?.title
-//            self.tags = viewModel.oneGoodsItem?.tags ?? ["default value"]
-//            self.price = viewModel.oneGoodsItem?.price ?? 0
+            //            self.tags = viewModel.oneGoodsItem?.tags ?? ["default value"]
+            //            self.price = viewModel.oneGoodsItem?.price ?? 0
             self.price = "\(viewModel.oneGoodsItem?.price ?? 0)"
-   
+            
         })
+        .navigationBarHidden(true)
     }
 }
