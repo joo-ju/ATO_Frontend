@@ -31,35 +31,35 @@ struct GoodsDetailViewScreen: View {
     @State var idx = 0
     @State var chips : [[ChipData]] = []
     @State var isWished = false
-//    let chips = TagsToChips(GoodsDetailViewScreen)
+    //    let chips = TagsToChips(GoodsDetailViewScreen)
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack{
                 // 상단바 - 닫기, 수정
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }, label: {
-                Image(systemName: "xmark")
-                    .imageScale(.large)
-                    .padding()
-            })
-                .accentColor(.black)
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Image(systemName: "xmark")
+                        .imageScale(.large)
+                        .padding()
+                })
+                    .accentColor(.black)
                 Spacer()
-//                Button(action: {
-//
-//                }, label: {
-                    NavigationLink(destination: EditGoodsDetailScreen(goodsItem: goodsItem), label: {
-                        Text("수정")
-                               .fontWeight(.bold)
-                               .padding([.leading, .trailing])
-                               .padding([.top, .bottom], 15)
-                               .foregroundColor(Color(hex: "6279B8"))
-                    })
-//                })
+                //                Button(action: {
+                //
+                //                }, label: {
+                NavigationLink(destination: EditGoodsDetailScreen(goodsItem: goodsItem), label: {
+                    Text("수정")
+                        .fontWeight(.bold)
+                        .padding([.leading, .trailing])
+                        .padding([.top, .bottom], 15)
+                        .foregroundColor(Color(hex: "6279B8"))
+                })
+                //                })
                     .accentColor(.black)
             }
-//            KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
+            //            KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
             ScrollView{
                 VStack(alignment: .leading, spacing: 10) {
                     Rectangle().frame(height:0)
@@ -76,7 +76,7 @@ struct GoodsDetailViewScreen: View {
                         .lineSpacing(5)
                     
                     Divider()
-         
+                    
                     LazyVStack(alignment: .leading,spacing: 10){
                         
                         // Since Were Using Indices So WE Need To Specify Id....
@@ -129,7 +129,7 @@ struct GoodsDetailViewScreen: View {
                             }
                         }
                     }
-
+                    
                     Spacer()
                     
                 } // end of VStack
@@ -138,10 +138,10 @@ struct GoodsDetailViewScreen: View {
             }
             // end of ScrollView
             
-    
-//        onUpdate:{
-//                viewModel.fetchOneGoodsId(parameters:goodsItem._id)
-//            }
+            
+            //        onUpdate:{
+            //                viewModel.fetchOneGoodsId(parameters:goodsItem._id)
+            //            }
             
             HStack{
                 Button(action:{
@@ -163,16 +163,16 @@ struct GoodsDetailViewScreen: View {
                             .frame(width:20, height: 15)
                             .foregroundColor(Color(hex: "A9BCE8"))
                     } else {
-                Image(systemName: "heart")
-                    .resizable()
-                    .frame(width:20, height: 15)
-                    .foregroundColor(Color(hex: "c4c4c4"))
+                        Image(systemName: "heart")
+                            .resizable()
+                            .frame(width:20, height: 15)
+                            .foregroundColor(Color(hex: "c4c4c4"))
                     }
                 })
                     .onAppear(perform: {
                         // userHistory 조회해서 찜 했는지 안했는지 확인
                         if ((userViewModel.userHistoryItem?.wishGoods.contains(goodsItem._id)) == true) {
-                         
+                            
                             isWished = true
                         }
                     })
@@ -180,7 +180,7 @@ struct GoodsDetailViewScreen: View {
                     .padding(.leading, 5)
                     .padding(.trailing, 5)
                 //                Text("20,000원")
-             
+                
                 Text("\(price)")
                     .fontWeight(.bold)
                 Spacer()
@@ -226,39 +226,12 @@ struct GoodsDetailViewScreen: View {
                 print("tags: ", tags)
                 print("_id: ", goodsItem._id)
                 print(userViewModel.userHistoryItem?.wishGoods.contains(goodsItem._id))
-    //            chips[chips.count - 1].append(ChipData(chipText: text, idx: idx))
+                //            chips[chips.count - 1].append(ChipData(chipText: text, idx: idx))
                 chips[chips.count-1].append(ChipData(chipText: text, idx: idx))
                 idx = idx + 1
             }
             
         })
-        
-        
-        //            } // end of ZStack
-        
     }
-    
-//    func TagsToChips() {
-//
-//        for text in tags {
-//            if chips.isEmpty{
-//                chips.append([])
-//            }
-//            print("Chips : ", chips)
-//            print("chips.count : ", chips.count)
-//            print("text: ", text)
-//            print("tags: ", tags)
-////            chips[chips.count - 1].append(ChipData(chipText: text, idx: idx))
-//            chips[chips.count].append(ChipData(chipText: text, idx: idx))
-//            idx = idx + 1
-//        }
-//        print("Chips : ", chips)
-//    }
-    
+
 }
-//
-//struct GoodsViewScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GoodsDetailViewScreen()
-//    }
-//}

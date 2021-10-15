@@ -52,59 +52,13 @@ struct MarketMain : View {
                         KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
                             ForEach(viewModel.goodsItems.reversed(), id: \._id){ goodsItem in
                             
-                            NavigationLink(destination: GoodsDetailViewScreen(goodsItem: goodsItem), label: {
+                            NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
                                 GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
-//                                VStack(alignment: .leading){
-//                                    HStack{
-//                                        Rectangle().frame(width: 110, height: 120)
-//                                            .background(Color(hex: "C4C4C4"))
-//                                            .cornerRadius(20)
-//                                            .padding(.trailing, 7)
-//
-//                                        VStack(alignment: .leading){
-//                                            Text(goodsItem.title)
-//                                                .font(.system(size: 15))
-//                                            //                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-//                                                .padding(.bottom, 3)
-//                                            Text("3분전")
-//                                                .font(.system(size: 13))
-//                                                .foregroundColor(Color(hex: "828282"))
-//                                            HStack{
-//                                                MarketTag(tag: "EXIT")
-//                                                MarketTag(tag: "앨범")
-//                                            }// end HStack
-//                                            HStack(alignment: .bottom){
-//                                                Text("\(goodsItem.price)")
-//                                                    .font(.system(size: 16))
-//                                                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-//                                                //                        .padding(.top, 10)
-//                                                Spacer()
-//                                                HStack(spacing:2){
-//                                                    Image(systemName: "suit.heart")
-//                                                        .resizable()
-//                                                        .frame(width:15, height: 13)
-//                                                    Text("10")
-//                                                        .font(.system(size: 14))
-//                                                        .padding(.trailing, 5)
-//                                                    Image(systemName: "message")
-//                                                        .resizable()
-//                                                        .frame(width:15, height: 13)
-//                                                    Text("4")
-//                                                        .font(.system(size: 14))
-//                                                        .padding(.trailing, 7)
-//                                                }
-//                                            }
-//                                        }
-//
-//                                    }// end HStack
-//                                    //                                    Text(goodsItem.title)
-//                                    //                                    Text(goodsItem.content)
-//                                    //                                        .font(.caption).foregroundColor(.gray)
-//                                }
                             })
                         }
                         } onUpdate: {
                             viewModel.fetchAllGoods()
+//                            viewModel.fetchOneGoodsId(parameters: "61610b848cf5f894d6597ee8")
                         }
                     }
                     .onAppear {
@@ -128,7 +82,6 @@ struct MarketMain : View {
                 })
       
                 Spacer()
-//                    .padding(.vertical, 50)
                 
                 VStack {
                     Spacer()
@@ -136,22 +89,8 @@ struct MarketMain : View {
                         Spacer()
                         NavigationLink(destination: NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wishCount: $wishCount, chat: $chat, review: $review)){
                             plusButton
-                            //                    Text("+")
-                            //                        .font(.system(.largeTitle))
-                            //                        .frame(width: 66, height: 60)
-                            //                        .foregroundColor(Color.white)
-                            //                        .padding(.bottom, 7)
-                            //                        .background(Color(hex:"6279B8"))
-                            //                        .cornerRadius(38.5)
-                            //                        .padding()
-                            //                        .shadow(color: Color.black.opacity(0.3),
-                            //                                radius: 3,
-                            //                                x: 3,
-                            //                                y: 3)
                         }// end Navigation Link
                 
-                        //                .navigationBarHidden(true)
-                        //                .navigationBarBackButtonHidden(true)
                         
                     }
                     Text("")
@@ -159,10 +98,6 @@ struct MarketMain : View {
                 }
             }// end ZStack
 //        } // end NavigationView
-//        .navigationBarHidden(true)
-//        .navigationBarBackButtonHidden(true)
-        // 이 화면을 NavigationView로 감싸니까 다음 페이지로 넘어갔을 때 하단 탭뷰가 없어지지 않음.
-        
         
     } // end View
     
@@ -185,9 +120,3 @@ struct MarketMain : View {
     }
     
 }
-
-//struct MarketMain_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MarketMain()
-//    }
-//}

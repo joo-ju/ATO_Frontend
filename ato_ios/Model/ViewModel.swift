@@ -40,13 +40,56 @@ class ViewModel: ObservableObject {
     @Published var buyGoodsItems = [GoodsModel]()          // 유저가 구매한 게시물
     
     @Published var wishGoodsItem = [GoodsModel]()
+    @Published var detailGoodsItem = [GoodsModel]()
+    @Published var oneGoodsItem: GoodsModel?
+    
+//    @Published var userHistoryItem: UserHistoryModel?
     let prefixUrl = "http://localhost:4000"
     // let prefixUrl = "http://3.34.140.23:4000"
     
 //    init() {
 //        fetchData()
 //    }
-    
+    func fetchOneGoodsId(parameters: String) {
+        //      let api = "https://jsonplaceholder.typicode.com/todos"
+        // let api = "http://3.34.140.23:4000/goods"
+        let api = "http://localhost:4000/goods/fetchOne/" + parameters
+        guard let url = URL(string: api) else { return }
+        print("----- fetch one goods -----")
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+                if let data = data {
+                    let result = try JSONDecoder().decode(GoodsModel.self, from: data)
+                    print("\nresult------------\n", result)
+                    DispatchQueue.main.async {
+//                        result.forEach {
+//                            print($0._id)
+//                        }
+                        self.oneGoodsItem = result
+                        print("oneGoodsItem ------------\n", self.oneGoodsItem)
+                    }
+                } else {
+                    print("No data--- oneGoodsItem")
+                }
+//            } catch (let error) {
+//                print("-------------", error.localizedDescription)
+//            }
+            } catch let DecodingError.dataCorrupted(context) {
+                    print(context)
+                } catch let DecodingError.keyNotFound(key, context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.valueNotFound(value, context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.typeMismatch(type, context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+        }.resume()
+    }
     func fetchData() {
         //      let api = "https://jsonplaceholder.typicode.com/todos"
         let api = "http://localhost:4000/post"
@@ -91,38 +134,6 @@ class ViewModel: ObservableObject {
         }.resume()
     }
     
-    func fetchOneGoodsId(parameters: String){
-        guard let url = URL(string: "\(prefixUrl)/goods/fetchOne/" + parameters) else {
-            print("Not Found url")
-            return
-        }
-        let data = try! JSONSerialization.data(withJSONObject: parameters)
-        
-        var request = URLRequest(url:url)
-        request.httpMethod = "GET"
-        request.httpBody = data
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        URLSession.shared.dataTask(with: request) { (data, res, error) in
-            if error != nil {
-                print("error", error?.localizedDescription ?? "")
-                return
-            }
-            
-            do {
-                if let data = data {
-                    let result = try JSONDecoder().decode(GoodsModel.self, from: data)
-                    DispatchQueue.main.async {
-                        print(result)
-                    }
-                } else {
-                    print("No Data")
-                }
-            } catch let JsonError {
-                print("fetchOneGoodsId json error : ", JsonError.localizedDescription)
-            }
-        }.resume()
-    }
     
     // 로그인한 사용자의 판매중인 제품 List
     // 로그인 구현 전 : joo로 고정
