@@ -35,7 +35,7 @@ struct MarketMain : View {
     @State var keyword = ""
     
     //    @State var buyerId = ""
-
+    
     var body: some View {
         //        NavigationView{
         ZStack{
@@ -60,10 +60,9 @@ struct MarketMain : View {
                 .navigationBarBackButtonHidden(true)
                 
                 // 상품 목록
-                //                    VStack(spacing: 0){
                 if keyword == "" {
-                List{
-                  
+                    List{
+                        
                         KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
                             ForEach(viewModel.goodsItems.reversed(), id: \._id){ goodsItem in
                                 
@@ -74,35 +73,35 @@ struct MarketMain : View {
                         } onUpdate: {
                             viewModel.fetchAllGoods()
                         }
+                        
+                    }
+                    .onAppear {
+                        UITableView.appearance().separatorStyle = .none
+                    }
+//                    .listSeparatorStyle(style: .none)
+                    .listStyle(InsetListStyle())
+                    .navigationBarHidden(true)
+                    .navigationBarBackButtonHidden(true)
+                    .foregroundColor(Color.black)
+                    .padding(.bottom, 40)
                     
                 }
-                .onAppear {
-                    UITableView.appearance().separatorStyle = .none
-                }
-                .listSeparatorStyle(style: .none)
-                .listStyle(InsetListStyle())
-                .navigationBarHidden(true)
-                .navigationBarBackButtonHidden(true)
-                .foregroundColor(Color.black)
-                .padding(.bottom, 40)
-                
-            }
-//                List(viewModel.goodsItems.reversed().filter({$0.name.contains(keyword)}))
-//
+                //                List(viewModel.goodsItems.reversed().filter({$0.name.contains(keyword)}))
+                //
                 else {
-                List{
-                ForEach(viewModel.goodsItems.filter({$0.title.contains(keyword) }), id: \._id){ goodsItem in
-                    
-                    NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
-                        GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
-                    })
+                    List{
+                        ForEach(viewModel.goodsItems.filter({$0.title.contains(keyword) }), id: \._id){ goodsItem in
+                            
+                            NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
+                                GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
+                            })
+                        }
+                    }
+                    .listStyle(InsetListStyle())
                 }
-                }
-                .listStyle(InsetListStyle())
-                }
-//                List(viewModel.goodsItems.filter({$0.title.contains(keyword) })) { item in
-//                    Text(item.title)
-//                }
+                //                List(viewModel.goodsItems.filter({$0.title.contains(keyword) })) { item in
+                //                    Text(item.title)
+                //                }
                 
             }
             .sheet(isPresented: $isPresentedNewPost, content: {

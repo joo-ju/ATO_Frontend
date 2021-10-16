@@ -15,6 +15,7 @@ struct ato_iosApp: App {
                 .environmentObject(ViewModel())
                 .environmentObject(ReviewViewModel())
                 .environmentObject(UserViewModel())
+                .environmentObject(ChatService())
         }
     }
 }

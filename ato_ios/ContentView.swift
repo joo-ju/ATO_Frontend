@@ -23,7 +23,7 @@ struct ContentView: View {
     @State var tags = [""]
     @State var books = [Book]()
     init() {
-     
+//        print(self.userInfo.username)
 //        let navBarAppearance = UINavigationBar.appearance()
 //        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
 //        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]

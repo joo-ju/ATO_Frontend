@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,10 @@
 		3B02C97326F4772F001A6295 /* SearchTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02C97226F4772F001A6295 /* SearchTabBarButton.swift */; };
 		3B02C97726F478D7001A6295 /* CategoryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02C97626F478D7001A6295 /* CategoryTopBar.swift */; };
 		3B1355B82704A98D00A446E5 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1355B72704A98D00A446E5 /* Event.swift */; };
+		3B3B5E33271B0731003E26EF /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 3B3B5E32271B0731003E26EF /* SocketIO */; };
+		3B3B5E35271B079F003E26EF /* TestChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B5E34271B079F003E26EF /* TestChatView.swift */; };
+		3B3B5E37271B08E9003E26EF /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B5E36271B08E9003E26EF /* ChatViewModel.swift */; };
+		3B3B5E39271B1EF4003E26EF /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B5E38271B1EF4003E26EF /* Chat.swift */; };
 		3B55931D26F174EE004E0A64 /* MarketMainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B55931C26F174EE004E0A64 /* MarketMainScreen.swift */; };
 		3B55931F26F17540004E0A64 /* GoodsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B55931E26F17540004E0A64 /* GoodsItemView.swift */; };
 		3B55932126F17BD1004E0A64 /* EdgeBorderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B55932026F17BD1004E0A64 /* EdgeBorderExtension.swift */; };
@@ -79,6 +83,9 @@
 		3B02C97226F4772F001A6295 /* SearchTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabBarButton.swift; sourceTree = "<group>"; };
 		3B02C97626F478D7001A6295 /* CategoryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTopBar.swift; sourceTree = "<group>"; };
 		3B1355B72704A98D00A446E5 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		3B3B5E34271B079F003E26EF /* TestChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChatView.swift; sourceTree = "<group>"; };
+		3B3B5E36271B08E9003E26EF /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		3B3B5E38271B1EF4003E26EF /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		3B55931C26F174EE004E0A64 /* MarketMainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketMainScreen.swift; sourceTree = "<group>"; };
 		3B55931E26F17540004E0A64 /* GoodsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsItemView.swift; sourceTree = "<group>"; };
 		3B55932026F17BD1004E0A64 /* EdgeBorderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBorderExtension.swift; sourceTree = "<group>"; };
@@ -141,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B3B5E33271B0731003E26EF /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,9 +176,11 @@
 			isa = PBXGroup;
 			children = (
 				3BE9B4E326FF210000120776 /* ViewModel.swift */,
+				3B3B5E36271B08E9003E26EF /* ChatViewModel.swift */,
 				3B7219E12715AC8800396AA0 /* UserViewModel.swift */,
 				3B663DAD2712D3A9008EA509 /* ReviewViewModel.swift */,
 				3B02C96426F31057001A6295 /* Goods.swift */,
+				3B3B5E38271B1EF4003E26EF /* Chat.swift */,
 				3B663DA62712BBF2008EA509 /* ReviewGoods.swift */,
 				3B02C96626F310A9001A6295 /* Books.swift */,
 				3B7219DF2715AACC00396AA0 /* User.swift */,
@@ -234,6 +244,7 @@
 				3BB1ADD127098EC1009A23F1 /* KRefreshScrollView.swift */,
 				3BE9B4E526FF29F500120776 /* HomeView.swift */,
 				3BE9B4E926FF333600120776 /* DetailView.swift */,
+				3B3B5E34271B079F003E26EF /* TestChatView.swift */,
 				3BB1ADCD27096674009A23F1 /* ImagePicker.swift */,
 				3BE9B4E726FF2A1500120776 /* NewPostView.swift */,
 				3BC8C7412708698600CD1DB8 /* NavigationConfigurator.swift */,
@@ -338,6 +349,9 @@
 			dependencies = (
 			);
 			name = ato_ios;
+			packageProductDependencies = (
+				3B3B5E32271B0731003E26EF /* SocketIO */,
+			);
 			productName = ato_ios;
 			productReference = 3BAB6E6D26E85E800070F844 /* ato_ios.app */;
 			productType = "com.apple.product-type.application";
@@ -365,6 +379,9 @@
 				Base,
 			);
 			mainGroup = 3BAB6E6426E85E800070F844;
+			packageReferences = (
+				3B3B5E31271B0731003E26EF /* XCRemoteSwiftPackageReference "socket" */,
+			);
 			productRefGroup = 3BAB6E6E26E85E800070F844 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -440,6 +457,7 @@
 				3B663D9D270FE8EE008EA509 /* Extension.swift in Sources */,
 				3BE9B4E626FF29F500120776 /* HomeView.swift in Sources */,
 				3B663DAC2712C893008EA509 /* Feedback.swift in Sources */,
+				3B3B5E35271B079F003E26EF /* TestChatView.swift in Sources */,
 				3B02C96726F310A9001A6295 /* Books.swift in Sources */,
 				3B663D93270EA204008EA509 /* MyAtoMenuButton.swift in Sources */,
 				3BD0BAF926ED91D900DB847C /* stateBottomBar.swift in Sources */,
@@ -470,9 +488,11 @@
 				3B55931D26F174EE004E0A64 /* MarketMainScreen.swift in Sources */,
 				3B663DA52712B4D2008EA509 /* NewGoodsReviewScreen.swift in Sources */,
 				3B663D9B270ECF57008EA509 /* MainView.swift in Sources */,
+				3B3B5E39271B1EF4003E26EF /* Chat.swift in Sources */,
 				3BE4D31226F767FE001D1DD7 /* Keyword.swift in Sources */,
 				3B663D91270E9E6C008EA509 /* MyAtoMainScreen.swift in Sources */,
 				3B02C96526F31057001A6295 /* Goods.swift in Sources */,
+				3B3B5E37271B08E9003E26EF /* ChatViewModel.swift in Sources */,
 				3B55932126F17BD1004E0A64 /* EdgeBorderExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -664,6 +684,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3B3B5E31271B0731003E26EF /* XCRemoteSwiftPackageReference "socket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3B3B5E32271B0731003E26EF /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B3B5E31271B0731003E26EF /* XCRemoteSwiftPackageReference "socket" */;
+			productName = SocketIO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3BAB6E6526E85E800070F844 /* Project object */;
 }

@@ -68,7 +68,7 @@ struct Login : View {
                     userViewModel.loginUser(parameters: parameters)
                     print(parameters)
                     ContentView()
-                    presentationMode.wrappedValue.dismiss()
+//                    presentationMode.wrappedValue.dismiss()
 //                            viewModel.fetchAllGoods()
                     
                 }

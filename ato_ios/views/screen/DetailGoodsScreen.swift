@@ -12,6 +12,7 @@ struct DetailGoodsScreen: View {
     
     @ObservedObject var userInfo = UserInfo()
     @EnvironmentObject var viewModel: ViewModel
+    @EnvironmentObject var chatViewModel: ChatService
     @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
     
@@ -204,26 +205,77 @@ struct DetailGoodsScreen: View {
                 //                Text(price ?? "")
                     .fontWeight(.bold)
                 Spacer()
-                Button(action:{ }, label: {
-                    HStack{
-                        Image(systemName: "envelope.fill")
-                            .resizable()
-                            .frame(width:20, height: 15)
-                            .foregroundColor(Color(hex: "ffffff"))
-                            .padding(.trailing, 10)
-                        Text("대화하기")
-                            .fontWeight(.bold)
-                    }
-                    .frame(width: 120)
-                    .padding(10)
-                    .background(Color(hex: "A9BCE8"))
-                    .cornerRadius(10)
-                    .foregroundColor(.white)
-                })
+                if goodsItem.sellerId == self.userInfo.id {
+                    Button(action:{ }, label: {
+                            HStack{
+                                Text("채팅 목록 보기")
+                                    .fontWeight(.bold)
+                            }
+                            .frame(width: 120)
+                            .padding(10)
+                            .background(Color(hex: "A9BCE8"))
+                            .cornerRadius(10)
+                            .foregroundColor(.white)
+                       
+                    })
+                } else {
+                    Button(action:{
+                        let parameters: [String:Any] = ["sellerId" : goodsItem.sellerId, "customerId": self.userInfo.id]
+                        chatViewModel.createRoom(parameters: parameters)
+                        
+                    }, label: {
+                     
+                            HStack{
+                                Image(systemName: "envelope.fill")
+                                    .resizable()
+                                    .frame(width:20, height: 15)
+                                    .foregroundColor(Color(hex: "ffffff"))
+                                    .padding(.trailing, 10)
+                                Text("대화하기")
+                                    .fontWeight(.bold)
+                            }
+                            .frame(width: 120)
+                            .padding(10)
+                            .background(Color(hex: "A9BCE8"))
+                            .cornerRadius(10)
+                            .foregroundColor(.white)
+                        
+                    })
+                }
+                
+//                Button(action:{ }, label: {
+//                    if goodsItem.sellerId == self.userInfo.id {
+//                        HStack{
+//                            Text("채팅 목록 보기")
+//                                .fontWeight(.bold)
+//                        }
+//                        .frame(width: 120)
+//                        .padding(10)
+//                        .background(Color(hex: "A9BCE8"))
+//                        .cornerRadius(10)
+//                        .foregroundColor(.white)
+//                    } else {
+//                        HStack{
+//                            Image(systemName: "envelope.fill")
+//                                .resizable()
+//                                .frame(width:20, height: 15)
+//                                .foregroundColor(Color(hex: "ffffff"))
+//                                .padding(.trailing, 10)
+//                            Text("대화하기")
+//                                .fontWeight(.bold)
+//                        }
+//                        .frame(width: 120)
+//                        .padding(10)
+//                        .background(Color(hex: "A9BCE8"))
+//                        .cornerRadius(10)
+//                        .foregroundColor(.white)
+//                    }
+//                })
             } // end of HStack
             .frame(height: 50, alignment: .center)
             .padding([.leading, .trailing], 15)
             .padding(.leading, 5)
+            
             
         } // end of VStack
         
@@ -232,7 +284,7 @@ struct DetailGoodsScreen: View {
             self.tags = goodsItem.tags
             self.chips  = []
             for text in tags {
-                //            for text in viewModel.oneGoodsItem?.tags ?? ["default value"] {
+         
                 if chips.isEmpty{
                     chips.append([])
                 }

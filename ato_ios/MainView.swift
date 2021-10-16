@@ -15,6 +15,7 @@ struct MainView: View {
     @State private var tabSelection = 0
 
     
+    @ObservedObject var userInfo = UserInfo()
  
     @State var selectedTab = "house"
     @State var edge = UIApplication.shared.windows.first?.safeAreaInsets
@@ -45,14 +46,16 @@ struct MainView: View {
                 MarketMain()
                     .tag("house")
                 
-                SearchScreen()
+//                SearchScreen()
+                TestChatView()
                     .tag("magnifyingglass")
                     
                 HomeView()
                     .tag("message")
                 
-                MyAtoMainScreen()
-                    .tag("gift")
+                if self.userInfo.username == "" { Login() .tag("gift")}
+                else {MyAtoMainScreen() .tag("gift")}
+//                    .tag("gift")
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 //            .ignoresSafeArea(.all, edges: .bottom)
