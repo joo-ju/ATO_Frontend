@@ -22,22 +22,32 @@ import SocketIO
      @ObservedObject var userInfo = UserInfo()
      @Published var roomItem = [RoomModel]()
     init() {
-//        let socket = manager.defaultSocket
-//        socket.on(clientEvent: .connect) {
-//            (data, ack) in
-//            print("Connected")
-//            socket.emit("NodeJS Server Port", "Hi NodeJS Server!")
-//        }
-//
-//        socket.on("iOS Client Port"){ [weak self] (data,ack) in
-//            if let data = data[0] as? [String: String],
-//               let rawMessage = data["message"] {
-//                DispatchQueue.main.async {
-//                    self?.messages.append(rawMessage)
-//
-//                }
-//            }
-//        }
+        let socket = manager.defaultSocket
+        socket.on(clientEvent: .connect) {
+            (data, ack) in
+            print("Connected")
+            socket.emit("NodeJS Server Port", "Hi NodeJS Server!")
+        }
+
+        socket.on("iOS Client Port"){ [weak self] (data,ack) in
+            if let data = data[0] as? [String: String],
+               let rawMessage = data["message"] {
+                DispatchQueue.main.async {
+                    self?.messages.append(rawMessage)
+
+                }
+            }
+        }
+        socket.on("joinedRoom"){ [weak self] (data,ack) in
+                    if let data = data[0] as? [String: String],
+                       let rawMessage = data["message"] {
+                        DispatchQueue.main.async {
+                            print(rawMessage)
+                            self?.messages.append(rawMessage)
+        
+                        }
+                    }
+                }
 //        socket.on("e1"){ [weak self] (data,ack) in
 //            if let data = data[0] as? [String: String],
 //               let rawMessage = data["message"] {
@@ -47,7 +57,7 @@ import SocketIO
 //                }
 //            }
 //        }
-//        socket.connect()
+        socket.connect()
     }
      
      func sendMessage(message: String){
@@ -59,6 +69,29 @@ import SocketIO
          
              let socket = manager.defaultSocket
          socket.emit("e1", message)
+     }
+     
+//     func joinRoom(sellerId: String, customerId){
+     func joinRoom(parameters: [String: Any]){
+         let socket = manager.defaultSocket
+//         socket.emit("create", parameters)
+//         socket.on("iOS Client Port"){ [weak self] (data,ack) in
+//             if let data = data[0] as? [String: String],
+//                let rawMessage = data["message"] {
+//                 DispatchQueue.main.async {
+//                     self?.messages.append(rawMessage)
+//
+//                 }
+//             }
+//         }
+         
+      
+//         socket.emit("joinRoom", "join ROOM")
+//         socket.emit("testJoin", "조오오오이이이인 룸 채팅방 들어가고 싶다고!")
+                  socket.emit("joinRoom", parameters)
+         print("emit joinRoom")
+         
+ 
      }
      
      

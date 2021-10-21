@@ -14,7 +14,7 @@ struct TestChatView: View {
         VStack{
             Text("Received messages from NodeJS : ")
                 .font(.title)
-            
+            ScrollView{
             ForEach(service.messages, id: \.self) { msg in
                 Text(msg)
                     .padding()
@@ -22,7 +22,7 @@ struct TestChatView: View {
             }.onAppear(perform: {
                 
             })
-            Spacer()
+                Spacer()}
             HStack{
                 TextField("Enter Message...", text: $msg)
                     .padding()

@@ -22,6 +22,7 @@ struct DetailGoodsScreen: View {
     @State var content = ""
     @State var tags = [""]
     @State var sellerId = ""
+    @State var customerId = ""
     @State var buyerId = ""
     @State var categoryId = ""
     @State var score = 0
@@ -206,25 +207,33 @@ struct DetailGoodsScreen: View {
                     .fontWeight(.bold)
                 Spacer()
                 if goodsItem.sellerId == self.userInfo.id {
-                    Button(action:{ }, label: {
-                            HStack{
-                                Text("채팅 목록 보기")
-                                    .fontWeight(.bold)
-                            }
-                            .frame(width: 120)
-                            .padding(10)
-                            .background(Color(hex: "A9BCE8"))
-                            .cornerRadius(10)
-                            .foregroundColor(.white)
-                       
-                    })
-                } else {
                     Button(action:{
-                        let parameters: [String:Any] = ["sellerId" : goodsItem.sellerId, "customerId": self.userInfo.id]
-                        chatViewModel.createRoom(parameters: parameters)
                         
                     }, label: {
-                     
+                        HStack{
+                            Text("채팅 목록 보기")
+                                .fontWeight(.bold)
+                        }
+                        .frame(width: 120)
+                        .padding(10)
+                        .background(Color(hex: "A9BCE8"))
+                        .cornerRadius(10)
+                        .foregroundColor(.white)
+                        
+                    })
+                } else {
+//                    NavigationLink(destination: MarketMain(), label: {
+                        Button(action:{
+                            
+                            let parameters: [String:Any] = ["sellerId" : goodsItem.sellerId, "customerId": self.userInfo.id]
+                            print("\nparameters : ", parameters)
+//                            chatViewModel.createRoom(parameters: parameters)
+                            chatViewModel.joinRoom(parameters: parameters)
+//                            NavigationLink(
+                            
+                            
+                        }, label: {
+                            
                             HStack{
                                 Image(systemName: "envelope.fill")
                                     .resizable()
@@ -239,38 +248,41 @@ struct DetailGoodsScreen: View {
                             .background(Color(hex: "A9BCE8"))
                             .cornerRadius(10)
                             .foregroundColor(.white)
-                        
-                    })
+                         
+                            
+                        })
+                       
+//                    })
                 }
                 
-//                Button(action:{ }, label: {
-//                    if goodsItem.sellerId == self.userInfo.id {
-//                        HStack{
-//                            Text("채팅 목록 보기")
-//                                .fontWeight(.bold)
-//                        }
-//                        .frame(width: 120)
-//                        .padding(10)
-//                        .background(Color(hex: "A9BCE8"))
-//                        .cornerRadius(10)
-//                        .foregroundColor(.white)
-//                    } else {
-//                        HStack{
-//                            Image(systemName: "envelope.fill")
-//                                .resizable()
-//                                .frame(width:20, height: 15)
-//                                .foregroundColor(Color(hex: "ffffff"))
-//                                .padding(.trailing, 10)
-//                            Text("대화하기")
-//                                .fontWeight(.bold)
-//                        }
-//                        .frame(width: 120)
-//                        .padding(10)
-//                        .background(Color(hex: "A9BCE8"))
-//                        .cornerRadius(10)
-//                        .foregroundColor(.white)
-//                    }
-//                })
+                //                Button(action:{ }, label: {
+                //                    if goodsItem.sellerId == self.userInfo.id {
+                //                        HStack{
+                //                            Text("채팅 목록 보기")
+                //                                .fontWeight(.bold)
+                //                        }
+                //                        .frame(width: 120)
+                //                        .padding(10)
+                //                        .background(Color(hex: "A9BCE8"))
+                //                        .cornerRadius(10)
+                //                        .foregroundColor(.white)
+                //                    } else {
+                //                        HStack{
+                //                            Image(systemName: "envelope.fill")
+                //                                .resizable()
+                //                                .frame(width:20, height: 15)
+                //                                .foregroundColor(Color(hex: "ffffff"))
+                //                                .padding(.trailing, 10)
+                //                            Text("대화하기")
+                //                                .fontWeight(.bold)
+                //                        }
+                //                        .frame(width: 120)
+                //                        .padding(10)
+                //                        .background(Color(hex: "A9BCE8"))
+                //                        .cornerRadius(10)
+                //                        .foregroundColor(.white)
+                //                    }
+                //                })
             } // end of HStack
             .frame(height: 50, alignment: .center)
             .padding([.leading, .trailing], 15)
@@ -284,7 +296,7 @@ struct DetailGoodsScreen: View {
             self.tags = goodsItem.tags
             self.chips  = []
             for text in tags {
-         
+                
                 if chips.isEmpty{
                     chips.append([])
                 }
