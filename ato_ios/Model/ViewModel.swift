@@ -36,7 +36,6 @@ class ViewModel: ObservableObject {
 
     // 찜 목록-> 파라미터는 유저 아이디
     func fetchWishGoodsId(parameters: String) {
-        //      let api = "https://jsonplaceholder.typicode.com/todos"
         // let api = "http://3.34.140.23:4000/goods"
         let api = "http://localhost:4000/userHistory/user/wishGoods/" + parameters
         guard let url = URL(string: api) else { return }

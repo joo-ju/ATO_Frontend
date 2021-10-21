@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B0077102721D119001A2390 /* DialogScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B00770F2721D119001A2390 /* DialogScreen.swift */; };
 		3B02C96526F31057001A6295 /* Goods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02C96426F31057001A6295 /* Goods.swift */; };
 		3B02C96726F310A9001A6295 /* Books.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02C96626F310A9001A6295 /* Books.swift */; };
 		3B02C96926F32D73001A6295 /* MarketMainSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02C96826F32D73001A6295 /* MarketMainSearch.swift */; };
@@ -74,6 +75,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B00770F2721D119001A2390 /* DialogScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogScreen.swift; sourceTree = "<group>"; };
 		3B02C96426F31057001A6295 /* Goods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goods.swift; sourceTree = "<group>"; };
 		3B02C96626F310A9001A6295 /* Books.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Books.swift; sourceTree = "<group>"; };
 		3B02C96826F32D73001A6295 /* MarketMainSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketMainSearch.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				3B663D9E270FE9D5008EA509 /* SaleHistoryScreen.swift */,
 				3B663DA0270FFBEE008EA509 /* BuyHistoryScreen.swift */,
 				3BB1ADCF27096FA0009A23F1 /* EditGoodsDetailScreen.swift */,
+				3B00770F2721D119001A2390 /* DialogScreen.swift */,
 				3B55931C26F174EE004E0A64 /* MarketMainScreen.swift */,
 				3B02C96A26F433AF001A6295 /* SearchScreen.swift */,
 			);
@@ -480,6 +483,7 @@
 				3BE9B4E226FF146A00120776 /* Models.swift in Sources */,
 				3BC8C7422708698600CD1DB8 /* NavigationConfigurator.swift in Sources */,
 				3B7219EE2716FB4C00396AA0 /* UserHistory.swift in Sources */,
+				3B0077102721D119001A2390 /* DialogScreen.swift in Sources */,
 				3B663D97270ECAFC008EA509 /* SaleHistoryTabbar.swift in Sources */,
 				3BC8C744270873FD00CD1DB8 /* GoodsDetailViewScreen.swift in Sources */,
 				3B7219E82715C2CA00396AA0 /* SaleHistoryTabBarButton.swift in Sources */,

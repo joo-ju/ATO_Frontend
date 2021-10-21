@@ -222,67 +222,23 @@ struct DetailGoodsScreen: View {
                         
                     })
                 } else {
-//                    NavigationLink(destination: MarketMain(), label: {
-                        Button(action:{
-                            
-                            let parameters: [String:Any] = ["sellerId" : goodsItem.sellerId, "customerId": self.userInfo.id, "goodsId": goodsItem._id]
-                            print("\nparameters : ", parameters)
-                            chatViewModel.createRoom(parameters: parameters)
-//                            chatViewModel.joinRoom(parameters: parameters)
-//                            NavigationLink(
-                            
-                            
-                        }, label: {
-                            
-                            HStack{
-                                Image(systemName: "envelope.fill")
-                                    .resizable()
-                                    .frame(width:20, height: 15)
-                                    .foregroundColor(Color(hex: "ffffff"))
-                                    .padding(.trailing, 10)
-                                Text("대화하기")
-                                    .fontWeight(.bold)
-                            }
-                            .frame(width: 120)
-                            .padding(10)
-                            .background(Color(hex: "A9BCE8"))
-                            .cornerRadius(10)
-                            .foregroundColor(.white)
-                         
-                            
-                        })
-                       
-//                    })
+                    NavigationLink(destination: DialogScreen(goodsId: goodsItem._id, sellerId: goodsItem.sellerId), label: {
+                        HStack{
+                            Image(systemName: "envelope.fill")
+                                .resizable()
+                                .frame(width:20, height: 15)
+                                .foregroundColor(Color(hex: "ffffff"))
+                                .padding(.trailing, 10)
+                            Text("대화하기")
+                                .fontWeight(.bold)
+                        }
+                        .frame(width: 120)
+                        .padding(10)
+                        .background(Color(hex: "A9BCE8"))
+                        .cornerRadius(10)
+                        .foregroundColor(.white)
+                    })
                 }
-                
-                //                Button(action:{ }, label: {
-                //                    if goodsItem.sellerId == self.userInfo.id {
-                //                        HStack{
-                //                            Text("채팅 목록 보기")
-                //                                .fontWeight(.bold)
-                //                        }
-                //                        .frame(width: 120)
-                //                        .padding(10)
-                //                        .background(Color(hex: "A9BCE8"))
-                //                        .cornerRadius(10)
-                //                        .foregroundColor(.white)
-                //                    } else {
-                //                        HStack{
-                //                            Image(systemName: "envelope.fill")
-                //                                .resizable()
-                //                                .frame(width:20, height: 15)
-                //                                .foregroundColor(Color(hex: "ffffff"))
-                //                                .padding(.trailing, 10)
-                //                            Text("대화하기")
-                //                                .fontWeight(.bold)
-                //                        }
-                //                        .frame(width: 120)
-                //                        .padding(10)
-                //                        .background(Color(hex: "A9BCE8"))
-                //                        .cornerRadius(10)
-                //                        .foregroundColor(.white)
-                //                    }
-                //                })
             } // end of HStack
             .frame(height: 50, alignment: .center)
             .padding([.leading, .trailing], 15)
