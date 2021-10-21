@@ -11,4 +11,5 @@ struct UserHistoryModel: Decodable {
     let _id: String
     let userId:String
     let wishGoods: Array<String>
+    let chatRooms: Array<RoomModel>
 }

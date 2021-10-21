@@ -225,10 +225,10 @@ struct DetailGoodsScreen: View {
 //                    NavigationLink(destination: MarketMain(), label: {
                         Button(action:{
                             
-                            let parameters: [String:Any] = ["sellerId" : goodsItem.sellerId, "customerId": self.userInfo.id]
+                            let parameters: [String:Any] = ["sellerId" : goodsItem.sellerId, "customerId": self.userInfo.id, "goodsId": goodsItem._id]
                             print("\nparameters : ", parameters)
-//                            chatViewModel.createRoom(parameters: parameters)
-                            chatViewModel.joinRoom(parameters: parameters)
+                            chatViewModel.createRoom(parameters: parameters)
+//                            chatViewModel.joinRoom(parameters: parameters)
 //                            NavigationLink(
                             
                             

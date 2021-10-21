@@ -10,6 +10,7 @@ struct RoomModel: Decodable{
     let _id: String
     let sellerId: String
     let customerId: String
+    let goodsId: String
     let isDeleted: Bool
 }
 

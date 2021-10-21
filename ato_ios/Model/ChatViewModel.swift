@@ -11,6 +11,9 @@ import SwiftUI
 import SocketIO
 
  class ChatService: ObservableObject {
+     
+     
+     
     var manager =  SocketManager(socketURL: URL(string:"http://localhost:8080/")!, config: [.connectParams(["EIO": "3"])])
 
 //     var manager = SocketManager(socketURL: URL( string: "http://localhost:5000")!, config: [.log(true), .compress])
@@ -20,7 +23,9 @@ import SocketIO
      
     @Published var messages = [String]()
      @ObservedObject var userInfo = UserInfo()
-     @Published var roomItem = [RoomModel]()
+//     @Published var roomItem = [RoomModel]()
+     
+     @Published var roomItem: RoomModel?
     init() {
         let socket = manager.defaultSocket
         socket.on(clientEvent: .connect) {
@@ -121,6 +126,8 @@ import SocketIO
                      let result = try JSONDecoder().decode(RoomModel.self, from: data)
                      DispatchQueue.main.async {
                          print(result)
+                         self.roomItem = result
+                         print(self.roomItem)
                      }
                  } else {
                      print("No Data")
