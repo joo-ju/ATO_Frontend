@@ -13,8 +13,10 @@ struct MarcketWriteChips: View {
     
     @State var text = ""
     
+    @Binding var tags: Array<String>
+//    @State var tags = [String]()
     @State var chips : [[ChipData]] = []
-    
+    @State var idx = 0
     var body: some View{
         
         VStack(spacing: 10){
@@ -69,6 +71,7 @@ struct MarcketWriteChips: View {
                                                     // inserting it as new item...
                                                     chips.append([lastItem])
                                                     chips[index].remove(at: chipIndex)
+                                                  
                                                 }
                                             }
                                             
@@ -79,7 +82,17 @@ struct MarcketWriteChips: View {
                                     .clipShape(Capsule())
                                     .onTapGesture {
                                         // Removing Data...
+                                        
+                                        print("index : ", index, "\tchipIndex : ", chipIndex)
+                                        print("\n chips[index] : ", chips[index][chipIndex])
+                                        tags.remove(at: chips[index][chipIndex].idx )
                                         chips[index].remove(at: chipIndex)
+                                      
+                                        
+                                        print("\n--------- remove tags : \n\t", tags)
+//                                        print("\n chips[index] : ", chips[index][chipIndex])
+//                                        tags[index].remove(at: index)
+//                                        tags[index].remove(at: chipIndex)
                                         // If the Inside Array is empty removing that also...
                                         if chips[index].isEmpty{
                                             chips.remove(at: index)
@@ -99,26 +112,22 @@ struct MarcketWriteChips: View {
                 .frame(alignment: .topLeading)
                 .padding(10)
                 .padding([.leading, .trailing], 20)
-            
-             // Border With Fixed Size...
-//                 .frame(height: 150)
-//            TextField("태그를 입력해주세요",text: $text)
-//
-//            // Border With Fixed Size...
-//                .frame(height: 150)
-//                .background(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.4),lineWidth: 4.5))
-            
             // Add Button...
-            
             Button(action: {
 
                 // Adding Empty Array if there is Nothing....
                 if chips.isEmpty{
                     chips.append([])
+//                    tags.append("")
                 }
                 
                 // Adding Chip To Last Array....
-                chips[chips.count - 1].append(ChipData(chipText: text))
+                chips[chips.count - 1].append(ChipData(chipText: text, idx: idx))
+                idx = idx + 1
+                tags.append(text)
+                
+                print("\n--------- add tags : \n\t", tags)
+            
                 // Clearing Old Text In Editor
                 text = ""
                 
@@ -149,11 +158,12 @@ struct ChipData: Identifiable {
     var chipText : String
     // To Stop Auto Update...
     var isExceeded = false
+    var idx : Int
 }
-struct MarcketWriteChips_Previews: PreviewProvider {
-    static var previews: some View {
-        MarcketWriteChips()
-    }
-}
+//struct MarcketWriteChips_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MarcketWriteChips()
+//    }
+//}
 
 // 유투브 보고 따라한 것 overlay

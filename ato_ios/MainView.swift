@@ -1,137 +1,124 @@
-
-
-
-//import SwiftUI
 //
-//struct ContentView: View {
-//    var body: some View {
-//        HomeView()
-//    }
-//}
+//  MainView.swift
+//  ato_ios
+//
+//  Created by 김주희 on 2021/10/07.
+//
+
 
 import SwiftUI
 //import Foundation
+var tabs = ["house","magnifyingglass","message","gift"]
+var tabs_name = ["홈", "검색", "채팅", "나의아토"]
+struct MainView: View {
 
-struct ContentView: View {
-    enum Tabs{
-        case tab1, tab2, myAto, chat, search, home
-    }
+    @State private var tabSelection = 0
+
     
     @ObservedObject var userInfo = UserInfo()
-    @EnvironmentObject var userViewModel: UserViewModel
-    @State private var tabSelection = 0
-    @State var tags = [""]
+ 
+    @State var selectedTab = "house"
+    @State var edge = UIApplication.shared.windows.first?.safeAreaInsets
+    
     @State var books = [Book]()
+    
     init() {
-//        print(self.userInfo.username)
-//        let navBarAppearance = UINavigationBar.appearance()
-//        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-//        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-//        navBarAppearance.barTintColor = .white
-//        navBarAppearance.backgroundColor = .clear
-//        // 이하 두 줄이 Navigation Bar 구분 선 없애는 코드
-//        navBarAppearance.shadowImage = UIImage()
-//        navBarAppearance.setBackgroundImage(UIImage(), for: .default)
+        let navBarAppearance = UINavigationBar.appearance()
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        navBarAppearance.barTintColor = .white
+        navBarAppearance.backgroundColor = .clear
+        // 이하 두 줄이 Navigation Bar 구분 선 없애는 코드
+        navBarAppearance.shadowImage = UIImage()
+        navBarAppearance.setBackgroundImage(UIImage(), for: .default)
     }
     var body: some View {
-        NavigationView{
+        
+        
+        ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
+//            Color(hex: "C3D3FE").edgesIgnoringSafeArea(.top)
+//            Color.clear.edgesIgnoringSafeArea(.top)
+            // Using Tab View For Swipe Gestures...
+            // if you dont need swipe gesture tab change means just use switch case....to switch views...
             
-            MainView()
-                .navigationTitle("")
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarHidden(true)
+            TabView(selection: $selectedTab) {
+                
+                MarketMain()
+                    .tag("house")
+                
+//                SearchScreen()
+                TestChatView()
+                    .tag("magnifyingglass")
+                    
+                HomeView()
+                    .tag("message")
+                
+                if self.userInfo.username == "" { Login() .tag("gift")}
+                else {MyAtoMainScreen() .tag("gift")}
+//                    .tag("gift")
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+//            .ignoresSafeArea(.all, edges: .bottom)
+            // for bottom overflow...
+            Spacer()
+            HStack(spacing: 0){
+
+                ForEach(tabs,id: \.self){image in
+                    TabButton(image: image, selectedTab: $selectedTab)
+
+                    // equal spacing...
+
+                    if image != tabs.last{
+
+                        Spacer(minLength: 0)
+                    }
+                }
+            }
+            .padding(.horizontal,25)
+            .padding(.vertical,5)
+            .background(Color.white)
+//            .clipShape(Capsule())
+//            .shadow(color: Color.black.opacity(0.15), radius: 5, x: 5, y: 5)
+//            .shadow(color: Color.black.opacity(0.15), radius: 5, x: -5, y: -5)
+//            .padding(.horizontal)
+            // for smaller iphones....
+            // elevations...
+//            .padding(.bottom,edge!.bottom == 0 ? 20 : 0)
+            
+            // ignoring tabview elevation....
         }
-        .accentColor( .black)
+//        .ignoresSafeArea(.keyboard, edges: .bottom)
+//        .background(Color.black.opacity(0.05).ignoresSafeArea(.all, edges: .all))
         
-//                NavigationView{
-//        ZStack{
-//        TabView(selection: $tabSelection){
-//            //                NavigationView{ //if you write the NavigationView here, you cannot remove TabBar after navigation
-//            VStack{
-//                NavigationView{
-//                    MarketMain()
-//                }
-//                .navigationBarHidden(true)
-//                .navigationBarBackButtonHidden(true)
-//            }
-//            .tabItem {
-//                Image(systemName: "house")
-//                Text("홈")
-//            }
-//
-//            .tag(Tabs.home)
-//
-//            VStack{
-//
-//                VStack{
-//                    SearchScreen()
-//
-//                }.navigationBarHidden(true)
-//
-//            }
-//            .tabItem {
-//                Image(systemName: "magnifyingglass")
-//                Text("검색")
-//            }
-//            .tag(Tabs.home)
-//            VStack{
-//
-//
-//                //                    NavigationLink(destination: NavigatedView()){
-//                //                        VStack{
-//                HomeView()
-//                //                                .font(.largeTitle)
-//
-//
-//                //                        }.navigationBarHidden(true)
-//                //                    }
-//            }
-//            .tabItem {
-//                Image(systemName: "message")
-//                Text("채팅")
-//
-//            }
-//            .tag(Tabs.chat)
-//
-//
-//            VStack{
-//                //                    Login()
-//                NavigationView{
-//                    MyAtoMainScreen()
-//                }
-//                .navigationBarHidden(true)
-////                .navigationBarBackButtonHidden(true)
-//            }
-//            .tabItem {
-//                Image(systemName: "gift")
-//                Text("나의 아토")
-//            }
-//            .tag(Tabs.myAto)
-//        }
-        
-        //            .navigationBarHidden(true)
-        //            .navigationBarBackButtonHidden(true)
-        //            .navigationBarHidden(true)
-        //            .navigationBarBackButtonHidden()
-        //
-        //            .onAppear() {
-        //                                    UITabBar.appearance().barTintColor = .black
-        //                                       }
-//        }
-//
-////                }
-//                .navigationBarTitleDisplayMode(.inline)
-//                .navigationBarHidden(true)
     }
 }
 
 
+struct TabButton : View {
+    
+    var image : String
+    @Binding var selectedTab : String
+    
+    var body: some View{
+        
+        Button(action: {selectedTab = image}) {
+     
+            Image(systemName: image)
+                .resizable()
+                .frame(width: 20, height: 20)
+//                .renderingMode(.template)
+                .foregroundColor(selectedTab == image ? Color(hex: "6279B8") : Color.black.opacity(0.4))
+                .padding(10)
+//            Text("")
+            
+        }
+    }
+}
 
 
-
-struct ContentView_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MainView()
     }
 }
 

@@ -10,10 +10,12 @@ import SwiftUI
 struct Login : View {
     
     
+    @EnvironmentObject var userViewModel: UserViewModel
     @State var username: String = ""
     @State var password: String = ""
     @State var tag:String? = nil
     
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         
         
@@ -58,10 +60,27 @@ struct Login : View {
                 }
             }
             Spacer()
-            NavigationLink(destination: Register()){
+            Button(action:{
+                if username != "" && password != ""{
+            
+                    let parameters: [String: Any] = ["username": username, "password": password]
+              
+                    userViewModel.loginUser(parameters: parameters)
+                    print(parameters)
+                    ContentView()
+//                    presentationMode.wrappedValue.dismiss()
+//                            viewModel.fetchAllGoods()
+                    
+                }
+                else {
+//                            isAlert.toggle()
+                }
+                
+            } , label: {
+                
                 VStack{
                     Rectangle().frame(height: 0)
-                    Text("회원가입 하기")
+                    Text("로그인하기")
                         .fontWeight(.bold)
                 }
                 .padding(.bottom, 20)
@@ -70,7 +89,22 @@ struct Login : View {
                 .cornerRadius(10)
                 .foregroundColor(.white)
                 .padding(30)
-            }.navigationBarHidden(true)
+            })
+            NavigationLink(destination: Register()){
+                VStack{
+                    Rectangle().frame(height: 0)
+                    Text("회원가입하기")
+                        .fontWeight(.bold)
+                }
+                .padding(.bottom, 20)
+                .padding(.top, 10)
+                .background(Color.black)
+                .cornerRadius(10)
+                .foregroundColor(.white)
+                .padding(30)
+            }
+//            .navigationBarHidden(true)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

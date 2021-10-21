@@ -9,12 +9,17 @@ import SwiftUI
 
 struct Register : View {
     
+    @EnvironmentObject var userViewModel: UserViewModel
     @State var username: String = ""
     @State var password: String = ""
     @State var confirmPassword: String = ""
     @State var name: String = ""
+    @State var nickname: String = ""
     @State var email: String = ""
     @State var phone: String = ""
+    @State var score: Int = 0
+    @State var count: Int = 0
+    
     
     
     @State var tag:String? = nil
@@ -88,6 +93,16 @@ struct Register : View {
                             .padding(.trailing, 40)
                     }
                     VStack(alignment: .leading, spacing: nil){
+                        Text("별명")
+                            .padding(.leading, 45)
+                            .padding(.top, 15)
+                        TextField("별명", text: $nickname)
+                            .padding()
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(hex: "828282"), lineWidth: 1))
+                            .padding(.leading, 40)
+                            .padding(.trailing, 40)
+                    }
+                    VStack(alignment: .leading, spacing: nil){
                         Text("이메일")
                             .padding(.leading, 45)
                             .padding(.top, 15)
@@ -113,6 +128,23 @@ struct Register : View {
                  
                     
 //                    NavigationLink(destination: Register()){
+                    Button(action:{
+                        if username != "" && password != "" && password == confirmPassword{
+                    
+                            let parameters: [String: Any] = ["username": username, "password": password, "email": email, "phone": phone, "nickname": nickname, "name": name, "score": score, "count": count]
+                      
+                            userViewModel.createUser(parameters: parameters)
+                            print(parameters)
+                            presentationMode.wrappedValue.dismiss()
+//                            viewModel.fetchAllGoods()
+                            
+                        }
+                        else {
+//                            isAlert.toggle()
+                        }
+                        
+                    } , label: {
+                        
                         VStack{
                             Rectangle().frame(height: 0)
                             Text("회원가입 하기")
@@ -124,6 +156,8 @@ struct Register : View {
                         .cornerRadius(10)
                         .foregroundColor(.white)
                         .padding(30)
+                    })
+                        
 //                    }
                     
                     Spacer()
@@ -138,8 +172,8 @@ struct Register : View {
 }
 
 
-struct Register_Previews: PreviewProvider {
-    static var previews: some View {
-        Register()
-    }
-}
+//struct Register_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Register()
+//    }
+//}

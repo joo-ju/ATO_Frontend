@@ -12,20 +12,25 @@ struct SearchScreen : View {
     @State var tabIndex = 0
     //    @Binding var tabIndex: Int
     var body: some View {
-    
-        VStack{
-            MarketMainSearch()
-            TopBar(tabIndex: $tabIndex)
-            if tabIndex == 0 {
-                MarketSearchTab()
+        ZStack{
+            
+//            Color(hex: "000000").edgesIgnoringSafeArea(.top)
+            VStack{
+                MarketMainSearch()
+                TopBar(tabIndex: $tabIndex)
+                if tabIndex == 0 {
+                    MarketSearchTab()
+                }
+                else {
+                    EventSearchTab()
+                }
+                Spacer()
             }
-            else {
-                EventSearchTab()
-            }
-            Spacer()
+            .frame(width: UIScreen.main.bounds.width - 24, alignment: .center)
+            .padding(.horizontal, 12)
+//            .background(Color.white.ignoresSafeArea(.all, edges: .all))
         }
-        .frame(width: UIScreen.main.bounds.width - 24, alignment: .center)
-        .padding(.horizontal, 12)
+        .background(Color.white.ignoresSafeArea(.all, edges: .all))
     }
 }
 
