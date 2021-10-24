@@ -47,7 +47,7 @@ struct MainView: View {
                     .tag("house")
                 
 //                SearchScreen()
-                TestChatView()
+//                TestChatView()
                     .tag("magnifyingglass")
                     
                 HomeView()

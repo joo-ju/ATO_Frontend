@@ -120,18 +120,12 @@ class UserViewModel: ObservableObject {
                     let result = try JSONDecoder().decode(UserHistoryModel.self, from: data)
                     print("\nresult------------\n", result)
                     DispatchQueue.main.async {
-//                        result.forEach {
-//                            print($0._id)
-//                        }
                         self.userHistoryItem = result
                         print("userHistoryItem------------\n", self.userHistoryItem)
                     }
                 } else {
                     print("No data--- userhistory")
                 }
-//            } catch (let error) {
-//                print("-------------", error.localizedDescription)
-//            }
             } catch let DecodingError.dataCorrupted(context) {
                     print(context)
                 } catch let DecodingError.keyNotFound(key, context) {
