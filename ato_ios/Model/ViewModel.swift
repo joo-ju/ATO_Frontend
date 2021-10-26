@@ -7,8 +7,12 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 
+class ViewRouter : ObservableObject{
+    let objectWillChange = PassthroughSubject<ViewRouter,Never>()
+    var currentPage: String = "page1" { didSet{ objectWillChange.send(self) } } }
 class ViewModel: ObservableObject {
     
     @EnvironmentObject var userViewModel: UserViewModel

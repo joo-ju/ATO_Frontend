@@ -50,7 +50,8 @@ struct MainView: View {
 //                TestChatView()
                     .tag("magnifyingglass")
                     
-                HomeView()
+//                HomeView()
+                ChatListScreen()
                     .tag("message")
                 
                 if self.userInfo.username == "" { Login() .tag("gift")}

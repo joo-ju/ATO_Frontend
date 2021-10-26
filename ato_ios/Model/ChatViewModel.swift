@@ -14,10 +14,13 @@ class ChatViewModel: ObservableObject {
     @Published var manager =  SocketManager(socketURL: URL(string:"http://localhost:8080")!, config: [.connectParams(["EIO": "3"])])
     
     
+    @ObservedObject var userInfo = UserInfo()
     @Published var contentItems = [Content]()
     @Published var messages = [String]()
     @Published var chatItem:ChatModel?
     @Published var roomItem: RoomModel?
+    @Published var roomItems = [RoomModel]()
+    @Published var goodsRoomItems = [RoomModel]()
     
     let prefixUrl = "http://localhost:4000"
     // let prefixUrl = "http://3.34.140.23:4000"
@@ -140,6 +143,75 @@ class ChatViewModel: ObservableObject {
                 }
             }.resume()
         }
+    
+    // 유저가 판매하는 제품들에서 생성된 채팅들 목록
+    func fetchGoodsRoom(goodsId: String) {
+        // let api = "http://3.34.140.23:4000/goods"
+        let api = "http://localhost:4000/chat/user/goods/all/" + goodsId + "/" + self.userInfo.id
+        guard let url = URL(string: api) else { return }
+        print("-----fetch roomItem-----")
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+                if let data = data {
+                    let result = try JSONDecoder().decode([RoomModel].self, from: data)
+                    print("\nresult------------\n", result)
+                    DispatchQueue.main.async {
+                        self.goodsRoomItems = result
+                        print("goodsRoomItems------------", self.goodsRoomItems)
+                    }
+                } else {
+                    print("No data--- goodsRoomItems")
+                }
+            } catch let DecodingError.dataCorrupted(context) {
+                print(context)
+            } catch let DecodingError.keyNotFound(key, context) {
+                print("Key '\(key)' not found:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch let DecodingError.valueNotFound(value, context) {
+                print("Value '\(value)' not found:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch let DecodingError.typeMismatch(type, context)  {
+                print("Type '\(type)' mismatch:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch {
+                print("error: ", error)
+            }
+        }.resume()
+    }
+    func fetchAllRoom() {
+        // let api = "http://3.34.140.23:4000/goods"
+        let api = "http://localhost:4000/chat/user/all/" + self.userInfo.id
+        guard let url = URL(string: api) else { return }
+        print("-----fetch roomItem-----")
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+                if let data = data {
+                    let result = try JSONDecoder().decode([RoomModel].self, from: data)
+                    print("\nresult------------\n", result)
+                    DispatchQueue.main.async {
+                        self.roomItems = result
+                        print("roomItems ------------", self.roomItems)
+                    }
+                } else {
+                    print("No data--- room")
+                }
+            } catch let DecodingError.dataCorrupted(context) {
+                print(context)
+            } catch let DecodingError.keyNotFound(key, context) {
+                print("Key '\(key)' not found:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch let DecodingError.valueNotFound(value, context) {
+                print("Value '\(value)' not found:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch let DecodingError.typeMismatch(type, context)  {
+                print("Type '\(type)' mismatch:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch {
+                print("error: ", error)
+            }
+        }.resume()
+    }
+
     
     func updateMessage(parameters: [String: Any]){
         guard let url = URL(string: "\(prefixUrl)/chat/message") else {

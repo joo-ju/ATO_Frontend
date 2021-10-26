@@ -40,8 +40,7 @@ class Service: ObservableObject {
            let rawWriter = data["writer"]{
                DispatchQueue.main.async {
                    self?.writers.append(rawWriter)
-//                   print("대화 내용 : ", self.contents)
-//                   self?.messages.append(rawMessage)
+//                   self?.contents.
 
                }
            }
@@ -86,12 +85,53 @@ struct DialogScreen: View {
     @State var msg = ""
     var body: some View {
         VStack{
-            Text("채팅방 _id")
-            //            Text(chatViewModel.roomItem?._id ?? "")
-            //
-            //            Text(chatViewModel.roomItem?._id ?? "")
-            ForEach(chatService.writers, id: \.self) { msg in
-                Text(msg)
+            ScrollView{
+
+            ForEach(chatViewModel.contentItems, id: \.self) { content in
+                if content.userId == self.userInfo.id {
+                    HStack{
+                        Spacer()
+                        Text(content.message)
+                            .padding(.horizontal)
+                            .padding(.vertical,10)
+                            .background(Color(hex: "A9BCE8"))
+                            .foregroundColor(Color(hex: "ffffff"))
+                            
+                            .cornerRadius(10)
+                    }.padding(.leading, 60)
+                        .padding(.vertical, 2)
+                        .padding(.trailing, 30)
+                }
+                else if content.userId == chatViewModel.roomItem?.sellerId ?? ""  || content.userId == chatViewModel.roomItem?.customerId ?? ""  {
+                    HStack{
+                       
+                        Text(content.message)
+                            .padding(.horizontal)
+                            .padding(.vertical,10)
+                            .background(Color(hex: "F0F4FF"))
+                            .foregroundColor(Color(hex: "6279B8"))
+                            
+                            .cornerRadius(10)
+                        Spacer()
+                    }.padding(.trailing, 60)
+                        .padding(.vertical, 2)
+                        .padding(.leading, 30)
+                }
+//                Text(content.message)
+//                    .padding()
+//                    .foregroundColor(Color.red)
+              
+            }.onAppear(perform: {
+//                let manager = service.manager
+//                let socket = manager.defaultSocket
+//                     socket.on(clientEvent: .connect) {
+//                         (data, ack) in
+//                         print("Connected")
+//                         socket.emit("NodeJS Server Port", "Hi NodeJS Server!")
+//                     }
+            })
+            ForEach(chatService.writers.indices, id: \.self) { index in
+                Text(chatService.writers[index])
                     .padding()
               
             }.onAppear(perform: {
@@ -103,7 +143,9 @@ struct DialogScreen: View {
 //                         socket.emit("NodeJS Server Port", "Hi NodeJS Server!")
 //                     }
             })
-            Spacer()
+                Spacer()
+            }
+       
             HStack{
                 TextField("Enter Message...", text: $msg)
                     .padding()

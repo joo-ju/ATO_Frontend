@@ -12,12 +12,13 @@ struct DetailGoodsScreen: View {
     
     @ObservedObject var userInfo = UserInfo()
     @EnvironmentObject var viewModel: ViewModel
-        @EnvironmentObject var chatViewModel: ChatViewModel
+    @EnvironmentObject var chatViewModel: ChatViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
-    
+//    @ObservedObject var viewRouter: ViewRouter
+
     @State var isLinkActive = false
-    
+    @State var isLinkActiveList = false
     let goodsItem: GoodsModel
     @State var price: String?
     @State var title:String?
@@ -208,20 +209,32 @@ struct DetailGoodsScreen: View {
                     .fontWeight(.bold)
                 Spacer()
                 if goodsItem.sellerId == self.userInfo.id {
-                    Button(action:{
+                    HStack{
+                       
+                        Button(action:{
+//                            self.viewRouter.currentPage = "page2"
+                            self.isLinkActiveList = true
+//                            chatViewModel.fetchGoodsRoom(goodsId: goodsItem._id)
                         
-                    }, label: {
-                        HStack{
-                            Text("채팅 목록 보기")
-                                .fontWeight(.bold)
-                        }
-                        .frame(width: 120)
-                        .padding(10)
-                        .background(Color(hex: "A9BCE8"))
-                        .cornerRadius(10)
-                        .foregroundColor(.white)
-                        
-                    })
+                            
+                        }, label: {
+                            HStack{
+                                Text("채팅 목록 보기")
+                                    .fontWeight(.bold)
+                            }
+                            .frame(width: 120)
+                            .padding(10)
+                            .background(Color(hex: "A9BCE8"))
+                            .cornerRadius(10)
+                            .foregroundColor(.white)
+                            
+                        })
+                    }
+                    .background(NavigationLink(destination: GoodsChatListScreen(goodsItem: goodsItem), isActive: $isLinkActiveList){
+
+                    }
+                                    .hidden()
+                    )
                 } else {
                     HStack{
                         Button(action: {
@@ -246,11 +259,8 @@ struct DetailGoodsScreen: View {
                         })
                     }
                     .background(NavigationLink(destination: DialogScreen(goodsId: goodsItem._id, sellerId: goodsItem.sellerId, roomId: chatViewModel.roomItem?._id ?? ""), isActive: $isLinkActive){
-                    
-                                        }
-//                    .background(NavigationLink(destination: DialogScreen(goodsId: goodsItem._id, sellerId: goodsItem.sellerId, roomId: ""), isActive: $isLinkActive){
-//
-//                    }
+                        
+                    }
                                     .hidden()
                     )
                 }
@@ -286,8 +296,15 @@ struct DetailGoodsScreen: View {
             self.price = "\(viewModel.oneGoodsItem?.price ?? 0)"
             
             let parameters: [String:Any] = ["sellerId" : goodsItem.sellerId, "customerId": self.userInfo.id, "goodsId": goodsItem._id]
-                        chatViewModel.createRoom(parameters: parameters)
-                        chatViewModel.fetchRoom(sellerId: goodsItem.sellerId, goodsId: goodsItem._id, customerId: self.userInfo.id)
+            if goodsItem.sellerId != self.userInfo.id {
+                chatViewModel.createRoom(parameters: parameters)
+                
+                chatViewModel.fetchRoom(sellerId: goodsItem.sellerId, goodsId: goodsItem._id, customerId: self.userInfo.id)
+            }
+            else if goodsItem.sellerId == self.userInfo.id {
+                chatViewModel.fetchGoodsRoom(goodsId: goodsItem._id)
+                
+            }
             
         })
         .navigationBarHidden(true)

@@ -47,6 +47,9 @@
 		3B7219EC2715C35200396AA0 /* WishListTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7219EB2715C35200396AA0 /* WishListTabBar.swift */; };
 		3B7219EE2716FB4C00396AA0 /* UserHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7219ED2716FB4C00396AA0 /* UserHistory.swift */; };
 		3B7219F02717F89E00396AA0 /* DetailGoodsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7219EF2717F89E00396AA0 /* DetailGoodsScreen.swift */; };
+		3B7A74712727E1CF003FB044 /* ChatListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A74702727E1CF003FB044 /* ChatListScreen.swift */; };
+		3B7A747327282310003FB044 /* ChatRoomItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A747227282310003FB044 /* ChatRoomItemView.swift */; };
+		3B7A7475272833B2003FB044 /* GoodsChatListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A7474272833B2003FB044 /* GoodsChatListScreen.swift */; };
 		3BAB6E7126E85E800070F844 /* ato_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7026E85E800070F844 /* ato_iosApp.swift */; };
 		3BAB6E7326E85E800070F844 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7226E85E800070F844 /* ContentView.swift */; };
 		3BAB6E7526E85E880070F844 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7426E85E880070F844 /* Assets.xcassets */; };
@@ -115,6 +118,9 @@
 		3B7219EB2715C35200396AA0 /* WishListTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListTabBar.swift; sourceTree = "<group>"; };
 		3B7219ED2716FB4C00396AA0 /* UserHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistory.swift; sourceTree = "<group>"; };
 		3B7219EF2717F89E00396AA0 /* DetailGoodsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoodsScreen.swift; sourceTree = "<group>"; };
+		3B7A74702727E1CF003FB044 /* ChatListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListScreen.swift; sourceTree = "<group>"; };
+		3B7A747227282310003FB044 /* ChatRoomItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomItemView.swift; sourceTree = "<group>"; };
+		3B7A7474272833B2003FB044 /* GoodsChatListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsChatListScreen.swift; sourceTree = "<group>"; };
 		3BAB6E6D26E85E800070F844 /* ato_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ato_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BAB6E7026E85E800070F844 /* ato_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ato_iosApp.swift; sourceTree = "<group>"; };
 		3BAB6E7226E85E800070F844 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -211,6 +217,7 @@
 				3BE4D30F26F76465001D1DD7 /* Category.swift */,
 				3B02C97226F4772F001A6295 /* SearchTabBarButton.swift */,
 				3B663DAB2712C893008EA509 /* Feedback.swift */,
+				3B7A747227282310003FB044 /* ChatRoomItemView.swift */,
 				3B02C97626F478D7001A6295 /* CategoryTopBar.swift */,
 				3B7219DD2715A94400396AA0 /* UserInfo.swift */,
 				3B663D92270EA204008EA509 /* MyAtoMenuButton.swift */,
@@ -316,6 +323,8 @@
 				3B663DA0270FFBEE008EA509 /* BuyHistoryScreen.swift */,
 				3BB1ADCF27096FA0009A23F1 /* EditGoodsDetailScreen.swift */,
 				3B00770F2721D119001A2390 /* DialogScreen.swift */,
+				3B7A74702727E1CF003FB044 /* ChatListScreen.swift */,
+				3B7A7474272833B2003FB044 /* GoodsChatListScreen.swift */,
 				3B55931C26F174EE004E0A64 /* MarketMainScreen.swift */,
 				3B02C96A26F433AF001A6295 /* SearchScreen.swift */,
 			);
@@ -451,6 +460,7 @@
 				3B02C96B26F433AF001A6295 /* SearchScreen.swift in Sources */,
 				3BE9B4E426FF210000120776 /* ViewModel.swift in Sources */,
 				3B663D9F270FE9D5008EA509 /* SaleHistoryScreen.swift in Sources */,
+				3B7A7475272833B2003FB044 /* GoodsChatListScreen.swift in Sources */,
 				3BD0BAF526EB991D00DB847C /* RegisterScreen.swift in Sources */,
 				3B1355B82704A98D00A446E5 /* Event.swift in Sources */,
 				3BAB6E7326E85E800070F844 /* ContentView.swift in Sources */,
@@ -482,6 +492,7 @@
 				3B663DA72712BBF2008EA509 /* ReviewGoods.swift in Sources */,
 				3B55932326F17E0C004E0A64 /* MarketTag.swift in Sources */,
 				3BD0BAEE26EB769F00DB847C /* ColorExtension.swift in Sources */,
+				3B7A74712727E1CF003FB044 /* ChatListScreen.swift in Sources */,
 				3B1618EE27255259003C80CC /* ChatViewModel.swift in Sources */,
 				3B663D95270EAF2C008EA509 /* WishlistScreen.swift in Sources */,
 				3BE9B4E226FF146A00120776 /* Models.swift in Sources */,
@@ -493,6 +504,7 @@
 				3B7219E82715C2CA00396AA0 /* SaleHistoryTabBarButton.swift in Sources */,
 				3B7219F02717F89E00396AA0 /* DetailGoodsScreen.swift in Sources */,
 				3BB1ADD027096FA0009A23F1 /* EditGoodsDetailScreen.swift in Sources */,
+				3B7A747327282310003FB044 /* ChatRoomItemView.swift in Sources */,
 				3B55931D26F174EE004E0A64 /* MarketMainScreen.swift in Sources */,
 				3B663DA52712B4D2008EA509 /* NewGoodsReviewScreen.swift in Sources */,
 				3B663D9B270ECF57008EA509 /* MainView.swift in Sources */,

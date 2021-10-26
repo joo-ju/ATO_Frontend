@@ -13,6 +13,7 @@ struct MyAtoMainScreen: View {
         VStack(alignment: .leading){
             HStack{
                 Text("나의 ATO")
+                    .font(.system(size: 20))
                     .fontWeight(.bold)
                     .padding(.horizontal)
                 
@@ -84,9 +85,9 @@ struct MyAtoMainScreen: View {
                    
                 }
                     HStack(spacing: 20){
-                        MyAtoMenuButton(name: "전시회내역", image: "photo", isGoods: false)
-                        MyAtoMenuButton(name: "예매내역", image: "calendar", isGoods: false)
-                        MyAtoMenuButton(name: "리뷰관리", image: "ellipsis.bubble", isGoods: false)
+//                        MyAtoMenuButton(name: "전시회내역", image: "photo", isGoods: false)
+//                        MyAtoMenuButton(name: "예매내역", image: "calendar", isGoods: false)
+//                        MyAtoMenuButton(name: "리뷰관리", image: "ellipsis.bubble", isGoods: false)
                         //                    MyAtoMenuButton(name: "", image: "bag", isGoods: true)
                         
                     } // end HStack

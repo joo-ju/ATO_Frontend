@@ -14,6 +14,7 @@ struct MarketMain : View {
     @ObservedObject var userInfo = UserInfo()
     @EnvironmentObject var viewModel: ViewModel
     @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var chatViewModel: ChatViewModel
     @State var isPresentedNewPost = false
     @State var title = ""
     @State var content = ""
@@ -109,7 +110,8 @@ struct MarketMain : View {
             })
             .onAppear(perform: {
                 viewModel.fetchAllGoods()
-                userViewModel.fetchUserHistory(parameters: self.userInfo.id)
+              
+                
             })
             
             Spacer()

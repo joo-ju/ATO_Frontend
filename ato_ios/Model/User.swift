@@ -13,7 +13,7 @@ struct UserRegisterModel: Decodable {
     let name: String
     let nickname: String
     let email: String
-    let phone: String
+    let phone: Int
     let score: Int
     let count: Int
 //    let enrollTime: Date

@@ -21,7 +21,9 @@ struct ChatModel: Decodable {
     let content: Content
 }
 
-struct Content: Decodable {
+struct Content: Decodable, Hashable {
+//    var id: ObjectIdentifier
+    
     var userId: String
     var sendTime: String
     var message: String

@@ -10,6 +10,7 @@ import SwiftUI
 class UserViewModel: ObservableObject {
     @ObservedObject var userInfo = UserInfo()
     @Published var userRegisterModel = [UserRegisterModel]()
+    @Published var oneUserItem: UserRegisterModel?
     @Published var userModel = [UserModel]()
     @Published var userHistoryItem: UserHistoryModel?
     
@@ -107,6 +108,40 @@ class UserViewModel: ObservableObject {
     }
     
     
+    func fetchOneUser(parameters: String) {
+        //      let api = "https://jsonplaceholder.typicode.com/todos"
+        // let api = "http://3.34.140.23:4000/goods"
+        let api = "http://localhost:4000/user/" + parameters
+        guard let url = URL(string: api) else { return }
+        print("-----fetch One User -----")
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+                if let data = data {
+                    let result = try JSONDecoder().decode(UserRegisterModel.self, from: data)
+                    print("\nresult------------\n", result)
+                    DispatchQueue.main.async {
+                        self.oneUserItem = result
+                        print("One User------------\n", self.oneUserItem)
+                    }
+                } else {
+                    print("No data--- userhistory")
+                }
+            } catch let DecodingError.dataCorrupted(context) {
+                    print(context)
+                } catch let DecodingError.keyNotFound(key, context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.valueNotFound(value, context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.typeMismatch(type, context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+        }.resume()
+    }
     
     func fetchUserHistory(parameters: String) {
         //      let api = "https://jsonplaceholder.typicode.com/todos"
