@@ -10,7 +10,9 @@ extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )
     }
-    
+    static func endEditing(){
+        UIApplication.shared.windows.forEach{$0.endEditing(false)}
+    }
 //    func listSeparatorStyle(style: UITableViewCell.SeparatorStyle) -> some View {
 ////         ModifiedContent(content: self, modifier: ListSeparatorStyle(style: style))
 //     }

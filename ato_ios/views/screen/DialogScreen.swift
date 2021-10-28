@@ -49,17 +49,17 @@ class Service: ObservableObject {
                     
                 }
             }
-//            let rawMessage = data["message"]{
-//
-//             DispatchQueue.main.async {
-//                 self?.writers.append(rawWriter)
-//                 self?.messages.append(rawMessage)
-//
-//                 print(self?.messages)
-//                 //                   self?.contents.
-//
-//             }
-//         }
+            //            let rawMessage = data["message"]{
+            //
+            //             DispatchQueue.main.async {
+            //                 self?.writers.append(rawWriter)
+            //                 self?.messages.append(rawMessage)
+            //
+            //                 print(self?.messages)
+            //                 //                   self?.contents.
+            //
+            //             }
+            //         }
         }
         socket.connect()
     }
@@ -101,7 +101,16 @@ struct DialogScreen: View {
     let sellerId: String
     let roomId: String
     
+    @State var text = ""
+    
+    // Auto Updating TextBox Height...
+    @State var containerHeight: CGFloat = 0
     @State var msg = ""
+    
+    @State var height: CGFloat = 0
+    
+    @State var textViewValue = String()
+    @State var textViewHeight:CGFloat = 50.0
     var body: some View {
         VStack{
             ScrollView{
@@ -122,7 +131,7 @@ struct DialogScreen: View {
                             .padding(.trailing, 30)
                     }
                     else {
-//                    else if content.userId == chatViewModel.roomItem?.sellerId ?? ""  || content.userId == chatViewModel.roomItem?.customerId ?? ""  {
+                        //                    else if content.userId == chatViewModel.roomItem?.sellerId ?? ""  || content.userId == chatViewModel.roomItem?.customerId ?? ""  {
                         HStack{
                             
                             Text(content.message)
@@ -223,25 +232,80 @@ struct DialogScreen: View {
                 })
                 Spacer()
             }
-            
             HStack{
-                TextField("Enter Message...", text: $msg)
-                    .padding()
+                ResizeableTextView(text: $msg, height: $textViewHeight, placeholderText: "Enter Message...").frame(height: textViewHeight < 70 ? self.textViewHeight : 70).cornerRadius(50)
+        
+                    
+                    .overlay(RoundedRectangle(cornerRadius: 50).stroke(Color.gray, lineWidth: 0.5))
                 Button(action: {
-                    //                    service.messssages.append(msg)
                     print("Msg: ", msg)
                     chatService.sendMessage(message: msg, roomId: roomId)
                     
                     print("messages: ", messages)
                     chatViewModel.updateMessage(parameters: ["writer": self.userInfo.id, "roomId": roomId, "message": msg])
                     msg = ""
-                }, label: {
+                    
+                    DialogScreen.endEditing()
+                    msg = ""
+                }){
+                    
                     Image(systemName: "paperplane")
                         .padding()
-                        .background(Color.gray)
-                })
+                    //                               Text("Send").fontWeight(.bold)
+                    //                                   .font(.subheadline)
+                        .foregroundColor(.black)
+                    //                                   .padding(10)
+                    //                                   .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 1))
+                }
             }
-            .background(Color.yellow)
+            .padding(5)
+                .padding(.leading, 15)
+                .background(Color(hex: "F2F1F1"))
+            
+            
+            //            ResizableTF(txt: self.$msg, height: self.$height)
+            //            HStack{
+            //
+            //
+            //
+            //                AutoSizingTF(hint: "Enter Message...", text: $msg, containerHeight: $containerHeight
+            //                             , onEnd: {
+            //                    msg = ""
+            ////                    msg = ""
+            //////                    // Do when keyboard closed...
+            //////                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            ////
+            //                }
+            //                )
+            //                    .padding(.horizontal)
+            //                    // Your Max Height Here....
+            //                    .frame(height: containerHeight <= 50 ? containerHeight : 50)
+            //                    .background(Color.white)
+            //                    .cornerRadius(10)
+            //
+            ////                    .padding()
+            ////                TextField("Enter Message...", text: $msg)
+            ////                    .lineLimit(nil)
+            ////                    .multilineTextAlignment(.leading)
+            ////                    .padding()
+            //                Button(action: {
+            //                    //                    service.messssages.append(msg)
+            //                    print("Msg: ", msg)
+            //                    chatService.sendMessage(message: msg, roomId: roomId)
+            //
+            //                    print("messages: ", messages)
+            //                    chatViewModel.updateMessage(parameters: ["writer": self.userInfo.id, "roomId": roomId, "message": msg])
+            //                    msg = ""
+            //
+            //                }, label: {
+            //                    Image(systemName: "paperplane")
+            //                        .padding()
+            //                        .background(Color.gray)
+            //                })
+            //            }
+            //            .padding(.leading, 3)
+            //            .background(Color.yellow)
+            //
         }  .onAppear(perform: {
             
             print("\n\ngoodsId", goodsId)
@@ -254,4 +318,3 @@ struct DialogScreen: View {
         
     }
 }
-

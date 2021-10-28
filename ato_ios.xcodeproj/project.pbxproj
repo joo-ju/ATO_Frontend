@@ -51,6 +51,7 @@
 		3B7A747327282310003FB044 /* ChatRoomItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A747227282310003FB044 /* ChatRoomItemView.swift */; };
 		3B7A7475272833B2003FB044 /* GoodsChatListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A7474272833B2003FB044 /* GoodsChatListScreen.swift */; };
 		3B7A74772729913A003FB044 /* TestStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A74762729913A003FB044 /* TestStackView.swift */; };
+		3B9BE193272AAFC20010B5D1 /* AutoSizingTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9BE192272AAFC20010B5D1 /* AutoSizingTF.swift */; };
 		3BAB6E7126E85E800070F844 /* ato_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7026E85E800070F844 /* ato_iosApp.swift */; };
 		3BAB6E7326E85E800070F844 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7226E85E800070F844 /* ContentView.swift */; };
 		3BAB6E7526E85E880070F844 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7426E85E880070F844 /* Assets.xcassets */; };
@@ -123,6 +124,7 @@
 		3B7A747227282310003FB044 /* ChatRoomItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomItemView.swift; sourceTree = "<group>"; };
 		3B7A7474272833B2003FB044 /* GoodsChatListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsChatListScreen.swift; sourceTree = "<group>"; };
 		3B7A74762729913A003FB044 /* TestStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStackView.swift; sourceTree = "<group>"; };
+		3B9BE192272AAFC20010B5D1 /* AutoSizingTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSizingTF.swift; sourceTree = "<group>"; };
 		3BAB6E6D26E85E800070F844 /* ato_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ato_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BAB6E7026E85E800070F844 /* ato_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ato_iosApp.swift; sourceTree = "<group>"; };
 		3BAB6E7226E85E800070F844 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				3BE4D31126F767FE001D1DD7 /* Keyword.swift */,
+				3B9BE192272AAFC20010B5D1 /* AutoSizingTF.swift */,
 				3BE4D30F26F76465001D1DD7 /* Category.swift */,
 				3B02C97226F4772F001A6295 /* SearchTabBarButton.swift */,
 				3B663DAB2712C893008EA509 /* Feedback.swift */,
@@ -511,6 +514,7 @@
 				3B7A747327282310003FB044 /* ChatRoomItemView.swift in Sources */,
 				3B55931D26F174EE004E0A64 /* MarketMainScreen.swift in Sources */,
 				3B663DA52712B4D2008EA509 /* NewGoodsReviewScreen.swift in Sources */,
+				3B9BE193272AAFC20010B5D1 /* AutoSizingTF.swift in Sources */,
 				3B663D9B270ECF57008EA509 /* MainView.swift in Sources */,
 				3B3B5E39271B1EF4003E26EF /* Chat.swift in Sources */,
 				3BE4D31226F767FE001D1DD7 /* Keyword.swift in Sources */,
