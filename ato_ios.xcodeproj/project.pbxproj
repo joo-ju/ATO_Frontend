@@ -50,6 +50,7 @@
 		3B7A74712727E1CF003FB044 /* ChatListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A74702727E1CF003FB044 /* ChatListScreen.swift */; };
 		3B7A747327282310003FB044 /* ChatRoomItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A747227282310003FB044 /* ChatRoomItemView.swift */; };
 		3B7A7475272833B2003FB044 /* GoodsChatListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A7474272833B2003FB044 /* GoodsChatListScreen.swift */; };
+		3B7A74772729913A003FB044 /* TestStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A74762729913A003FB044 /* TestStackView.swift */; };
 		3BAB6E7126E85E800070F844 /* ato_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7026E85E800070F844 /* ato_iosApp.swift */; };
 		3BAB6E7326E85E800070F844 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7226E85E800070F844 /* ContentView.swift */; };
 		3BAB6E7526E85E880070F844 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BAB6E7426E85E880070F844 /* Assets.xcassets */; };
@@ -121,6 +122,7 @@
 		3B7A74702727E1CF003FB044 /* ChatListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListScreen.swift; sourceTree = "<group>"; };
 		3B7A747227282310003FB044 /* ChatRoomItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomItemView.swift; sourceTree = "<group>"; };
 		3B7A7474272833B2003FB044 /* GoodsChatListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsChatListScreen.swift; sourceTree = "<group>"; };
+		3B7A74762729913A003FB044 /* TestStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStackView.swift; sourceTree = "<group>"; };
 		3BAB6E6D26E85E800070F844 /* ato_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ato_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BAB6E7026E85E800070F844 /* ato_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ato_iosApp.swift; sourceTree = "<group>"; };
 		3BAB6E7226E85E800070F844 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				3BD0BAFC26ED9B9300DB847C /* NavigatedView.swift */,
 				3B663D9A270ECF57008EA509 /* MainView.swift */,
 				3BD0BAF626EBA01400DB847C /* BottomBar.swift */,
+				3B7A74762729913A003FB044 /* TestStackView.swift */,
 				3BB1ADD127098EC1009A23F1 /* KRefreshScrollView.swift */,
 				3BE9B4E526FF29F500120776 /* HomeView.swift */,
 				3BE9B4E926FF333600120776 /* DetailView.swift */,
@@ -494,6 +497,7 @@
 				3BD0BAEE26EB769F00DB847C /* ColorExtension.swift in Sources */,
 				3B7A74712727E1CF003FB044 /* ChatListScreen.swift in Sources */,
 				3B1618EE27255259003C80CC /* ChatViewModel.swift in Sources */,
+				3B7A74772729913A003FB044 /* TestStackView.swift in Sources */,
 				3B663D95270EAF2C008EA509 /* WishlistScreen.swift in Sources */,
 				3BE9B4E226FF146A00120776 /* Models.swift in Sources */,
 				3BC8C7422708698600CD1DB8 /* NavigationConfigurator.swift in Sources */,

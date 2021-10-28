@@ -23,7 +23,7 @@ struct UserModel: Decodable {
     let user:User
 }
 struct User: Decodable {
-    let id:String
-    let username:String
+    var id:String
+    var username:String
     let authorized: Bool
 }

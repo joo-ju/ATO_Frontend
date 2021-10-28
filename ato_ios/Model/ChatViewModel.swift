@@ -12,8 +12,10 @@ import SwiftUI
 
 class ChatViewModel: ObservableObject {
     @Published var manager =  SocketManager(socketURL: URL(string:"http://localhost:8080")!, config: [.connectParams(["EIO": "3"])])
-    
-    
+    let userViewModel = UserViewModel()
+//    @ObservedObject var userViewModel: UserViewModel
+//    @ObservableObject var userViewModel: UserViewModel
+    @State var sample: User?
     @ObservedObject var userInfo = UserInfo()
     @Published var contentItems = [Content]()
     @Published var messages = [String]()
@@ -21,7 +23,7 @@ class ChatViewModel: ObservableObject {
     @Published var roomItem: RoomModel?
     @Published var roomItems = [RoomModel]()
     @Published var goodsRoomItems = [RoomModel]()
-    
+    @Published var goodsUserItems = [UserRegisterModel]()
     let prefixUrl = "http://localhost:4000"
     // let prefixUrl = "http://3.34.140.23:4000"
     
@@ -147,7 +149,7 @@ class ChatViewModel: ObservableObject {
     // 유저가 판매하는 제품들에서 생성된 채팅들 목록
     func fetchGoodsRoom(goodsId: String) {
         // let api = "http://3.34.140.23:4000/goods"
-        let api = "http://localhost:4000/chat/user/goods/all/" + goodsId + "/" + self.userInfo.id
+        let api = "http://localhost:4000/chat/user/goods/all/" + goodsId // + "/" + self.userInfo.id
         guard let url = URL(string: api) else { return }
         print("-----fetch roomItem-----")
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -157,6 +159,17 @@ class ChatViewModel: ObservableObject {
                     print("\nresult------------\n", result)
                     DispatchQueue.main.async {
                         self.goodsRoomItems = result
+                        print("\n***************************************")
+                       
+//                        for goodsroomitem in self.goodsRoomItems {
+//                            self.userViewModel.fetchOneUser(parameters: goodsroomitem.customerId)
+////
+////                            self.goodsUserItems.append((self.userViewModel.oneUserItem)! )
+////                            self.userViewModel.fetchOneUser(parameters: goodsroomitem.customerId)
+////                            print(self.userViewModel.oneUserItem)
+//                        }
+//                        print()
+//                        print(self.goodsUserItems)
                         print("goodsRoomItems------------", self.goodsRoomItems)
                     }
                 } else {
@@ -190,6 +203,7 @@ class ChatViewModel: ObservableObject {
                     print("\nresult------------\n", result)
                     DispatchQueue.main.async {
                         self.roomItems = result
+                        
                         print("roomItems ------------", self.roomItems)
                     }
                 } else {

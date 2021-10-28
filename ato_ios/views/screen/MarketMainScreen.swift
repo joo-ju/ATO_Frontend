@@ -16,6 +16,8 @@ struct MarketMain : View {
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var chatViewModel: ChatViewModel
     @State var isPresentedNewPost = false
+    
+//    @State var usernames : [String]
     @State var title = ""
     @State var content = ""
     @State var price = 0
@@ -69,6 +71,7 @@ struct MarketMain : View {
                                 
                                 NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
                                     GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
+                                        
                                 })
                             }
                         } onUpdate: {
@@ -95,6 +98,7 @@ struct MarketMain : View {
                             
                             NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
                                 GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
+                              
                             })
                         }
                     }
@@ -110,6 +114,7 @@ struct MarketMain : View {
             })
             .onAppear(perform: {
                 viewModel.fetchAllGoods()
+                
               
                 
             })

@@ -21,7 +21,7 @@ struct ChatListScreen: View {
                 KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
                     ForEach(chatViewModel.roomItems.reversed(), id: \._id){ roomItem in
                         
-                        NavigationLink(destination:Login(), label: {
+                        NavigationLink(destination : FirstScreen(), label: {
                             if self.userInfo.id == roomItem.sellerId{
                                 VStack{
                                 Text("채팅방")
@@ -54,7 +54,7 @@ struct ChatListScreen: View {
             })
             .navigationTitle("대화 목록")
             .navigationBarHidden(false)
-//            .navigationBarBackButtonHidden(true)
+            .navigationBarBackButtonHidden(true)
      
         }
     }

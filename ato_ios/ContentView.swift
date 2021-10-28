@@ -43,6 +43,7 @@ struct ContentView: View {
                 .navigationBarHidden(true)
         }
         .accentColor( .black)
+        .navigationViewStyle(StackNavigationViewStyle())
         
 //                NavigationView{
 //        ZStack{

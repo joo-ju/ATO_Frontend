@@ -20,6 +20,8 @@ struct DetailGoodsScreen: View {
     @State var isLinkActive = false
     @State var isLinkActiveList = false
     let goodsItem: GoodsModel
+    let goodsUserItems: [UserRegisterModel] = []
+//    @State var usernames : [String]
     @State var price: String?
     @State var title:String?
     @State var content = ""
@@ -37,9 +39,11 @@ struct DetailGoodsScreen: View {
     @State var chips : [[ChipData]] = []
     @State var isWished = false
     
-    //    init(){
-    //        viewModel.fetchOneGoodsId(parameters: self.goodsItem._id)
-    //    }
+    @State var GoodsChatListScreenActive = false
+    
+//        init(){
+//            viewModel.fetchOneGoodsId(parameters: self.goodsItem._id)
+//        }
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack{
@@ -205,19 +209,16 @@ struct DetailGoodsScreen: View {
                     .padding(.leading, 5)
                     .padding(.trailing, 5)
                 Text("\(viewModel.oneGoodsItem?.price ?? 0 )원")
-                //                Text(price ?? "")
+              
                     .fontWeight(.bold)
                 Spacer()
                 if goodsItem.sellerId == self.userInfo.id {
                     HStack{
                        
-                        Button(action:{
-//                            self.viewRouter.currentPage = "page2"
-                            self.isLinkActiveList = true
-//                            chatViewModel.fetchGoodsRoom(goodsId: goodsItem._id)
-                        
-                            
-                        }, label: {
+                        NavigationLink(
+                            destination: GoodsChatListScreen(goodsItem: goodsItem),
+                            isActive: $GoodsChatListScreenActive,
+                            label: {
                             HStack{
                                 Text("채팅 목록 보기")
                                     .fontWeight(.bold)
@@ -227,15 +228,37 @@ struct DetailGoodsScreen: View {
                             .background(Color(hex: "A9BCE8"))
                             .cornerRadius(10)
                             .foregroundColor(.white)
-                            
-                        })
-                    }
-                    .background(NavigationLink(destination: GoodsChatListScreen(goodsItem: goodsItem), isActive: $isLinkActiveList){
 
+                        })
+                        
+//                        Button(action:{
+////                            self.viewRouter.currentPage = "page2"
+//                            self.isLinkActiveList = true
+//
+////                                presentationMode.wrappedValue.dismiss()
+////                            chatViewModel.fetchGoodsRoom(goodsId: goodsItem._id)
+//
+//
+//                        }, label: {
+//                            HStack{
+//                                Text("채팅 목록 보기")
+//                                    .fontWeight(.bold)
+//                            }
+//                            .frame(width: 120)
+//                            .padding(10)
+//                            .background(Color(hex: "A9BCE8"))
+//                            .cornerRadius(10)
+//                            .foregroundColor(.white)
+//
+//                        })
                     }
-                                    .hidden()
-                    )
-                } else {
+//                    .background(NavigationLink(destination: GoodsChatListScreen(goodsItem: goodsItem), isActive: $isLinkActiveList){
+//
+//                    }
+//                                    .hidden()
+//                    )
+                }
+                else {
                     HStack{
                         Button(action: {
                             self.isLinkActive = true
@@ -294,7 +317,7 @@ struct DetailGoodsScreen: View {
             viewModel.fetchOneGoodsId(parameters: goodsItem._id)
             self.title = viewModel.oneGoodsItem?.title
             self.price = "\(viewModel.oneGoodsItem?.price ?? 0)"
-            
+  
             let parameters: [String:Any] = ["sellerId" : goodsItem.sellerId, "customerId": self.userInfo.id, "goodsId": goodsItem._id]
             if goodsItem.sellerId != self.userInfo.id {
                 chatViewModel.createRoom(parameters: parameters)
@@ -302,7 +325,8 @@ struct DetailGoodsScreen: View {
                 chatViewModel.fetchRoom(sellerId: goodsItem.sellerId, goodsId: goodsItem._id, customerId: self.userInfo.id)
             }
             else if goodsItem.sellerId == self.userInfo.id {
-                chatViewModel.fetchGoodsRoom(goodsId: goodsItem._id)
+     
+//                userViewModel.fetchOneUser(parameters: "616579dee6a40292c0bcab6a")
                 
             }
             
