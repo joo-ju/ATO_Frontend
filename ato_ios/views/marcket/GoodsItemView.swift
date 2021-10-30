@@ -37,12 +37,22 @@ struct GoodsItemView: View {
                         .foregroundColor(Color(hex: "828282"))
                     HStack{
                         if tags.count > 0{
-                        ForEach(tags,id: \.self){index in
-                        MarketTag(tag: index)
+                            //                            ForEach(0..<3){idx in
+                            //
+                            //                                MarketTag(tag: tags[idx])
+                            //                            }
+                            if tags.count > 3 {
+                                ForEach(0..<3){idx in
+                                    MarketTag(tag: tags[idx])
+                                }
+                            } else {
+                                ForEach(0..<tags.count){idx in
+                                    MarketTag(tag: tags[idx])
+                                }
+                                
+                            }
+                        }
                         
-                        }
-                        }
-                         
                     }// end HStack
                     .padding(.bottom, 3)
                     HStack(alignment: .center, spacing: 7){
@@ -62,40 +72,24 @@ struct GoodsItemView: View {
                     }
                     Spacer()
                     
-                             HStack(spacing:2){
-                                 Spacer()
-                           
-                                     Image(systemName: "suit.heart")
-                                         .resizable()
-                                         .frame(width:15, height: 13)
-                                     Text("\(wishCount)")
-                                         .font(.system(size: 14))
-                                         .padding(.trailing, 5)
-                                     Image(systemName: "message")
-                                         .resizable()
-                                         .frame(width:15, height: 13)
-                                     Text("\(chat)")
-                                         .font(.system(size: 14))
-                                         .padding(.trailing, 7)
-                                 }
-                   
+                    HStack(spacing:2){
+                        Spacer()
+                        
+                        Image(systemName: "suit.heart")
+                            .resizable()
+                            .frame(width:15, height: 13)
+                        Text("\(wishCount)")
+                            .font(.system(size: 14))
+                            .padding(.trailing, 5)
+                        Image(systemName: "message")
+                            .resizable()
+                            .frame(width:15, height: 13)
+                        Text("\(chat)")
+                            .font(.system(size: 14))
+                            .padding(.trailing, 7)
+                    }
                 }
-                
             }// end HStack
-//            .frame(ma)
-            //                                    Text(goodsItem.title)
-            //                                    Text(goodsItem.content)
-            //                                        .font(.caption).foregroundColor(.gray)
-//            .background(Color.yellow)
-   
-//            Divider()
-           
         }
-        
     }
 }
-//struct GoodsItem_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GoodsItem()
-//    }
-//}

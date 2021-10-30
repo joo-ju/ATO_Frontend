@@ -27,7 +27,7 @@ struct ChatListScreen: View {
                                 HStack{
                                     Circle().frame(width: 50, height: 50)
                                         .foregroundColor(Color.gray)
-                                
+                                    
                                     VStack(alignment:.leading ,spacing: 0){
                                         HStack{
                                             Text(userViewModel.oneUserItem?.username ?? "")
@@ -41,11 +41,11 @@ struct ChatListScreen: View {
                                             Spacer()
                                         }
                                         Spacer()
-                                        if  chatViewModel.contentItems.count == 0{
+                                        if  chatViewModel.contentItems.count == 0 {
                                             Text("대화를 시작하세요!")
                                                 .padding(.top, 1)
                                         }
-                                        else {
+                                        else if chatViewModel.contentItems.count > 0 {
                                             Text(chatViewModel.contentItems[lastMsgIdx].message)
                                                 .padding(.top, 3)
                                                 .lineLimit(1)
@@ -55,30 +55,42 @@ struct ChatListScreen: View {
                                                 })
                                         }
                                     }
+                                    .onAppear(perform: {
+                                        userViewModel.fetchOneUser(parameters: roomItem.sellerId)
+                                        
+                                        viewModel.fetchOneGoodsId(parameters: roomItem.goodsId)
+                                        chatViewModel.fetchChat(roomId: roomItem._id, goodsId: roomItem.goodsId)
+                                        
+                                    })
                                     Spacer()
                                     Rectangle().frame(width: 50, height: 50)
                                         .background(Color(hex:"0000000"))
                                         .cornerRadius(5)
-                               
-                              
-                            }                            .padding(.top, 2)
-
-                            }})
+                                    
+                                    
+                                }
+                                .padding(.top, 2)
+                                
+                            }
+                            
+                        })
                             .onAppear(perform: {
                                 userViewModel.fetchOneUser(parameters: roomItem.sellerId)
                                 
                                 viewModel.fetchOneGoodsId(parameters: roomItem.goodsId)
                                 chatViewModel.fetchChat(roomId: roomItem._id, goodsId: roomItem.goodsId)
-                        
+                                
                             })
                     }
                 } onUpdate: {
                     chatViewModel.fetchAllRoom()
+                    userViewModel.fetchUserHistory(parameters: self.userInfo.id)
                 }
                 
             }
             .listStyle(InsetListStyle())
             .onAppear(perform: {
+                userViewModel.fetchUserHistory(parameters: self.userInfo.id)
             })
         }
     }

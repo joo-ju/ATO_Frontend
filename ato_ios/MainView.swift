@@ -48,6 +48,7 @@ struct MainView: View {
                 
 //                SearchScreen()
 //                TestChatView()
+                TestImageView()
                     .tag("magnifyingglass")
                     
 //                HomeView()

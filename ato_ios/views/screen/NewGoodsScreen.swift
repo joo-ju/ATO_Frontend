@@ -28,6 +28,13 @@ struct NewGoodsScreen : View {
     
     @State var text:String = ""
     @State var isAlert = false
+    @State private var cost = 0
+    @State var textViewHeight:CGFloat = 50.0
+    
+//    @State var msg = ""
+    
+    // Auto Updating TextBox Height...
+    @State var containerHeight: CGFloat = 400
     
     // price의 Int 형을 입력받기 위한 formatter
     let formatter: NumberFormatter = {
@@ -35,7 +42,8 @@ struct NewGoodsScreen : View {
         formatter.numberStyle = .decimal
         return formatter
     }()
-    
+    @State private var sscore = 0
+
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationView{
@@ -57,36 +65,57 @@ struct NewGoodsScreen : View {
                             .padding([.leading, .trailing], 20)
                         
                         Divider()
+//                            .padding([.leading, .trailing], 20)
+//                        NavigationLink(destination: Login()){
+//                            HStack{
+//                                Text("카테고리 선택")
+//                                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+//                                    .padding(10)
+//                                    .padding(.leading, 20)
+//                                    .foregroundColor(.black)
+//
+//                                Spacer()
+//                                Image(systemName: "chevron.right")
+//                                //                            .imageScale(.large)
+//                                    .padding(10)
+//
+//                                    .padding(.trailing, 20)
+//                            } // end HStack
+//                        } // end NavigationLink
+//                        Divider()
                             .padding([.leading, .trailing], 20)
-                        NavigationLink(destination: Login()){
-                            HStack{
-                                Text("카테고리 선택")
-                                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                                    .padding(10)
-                                    .padding(.leading, 20)
-                                    .foregroundColor(.black)
-                                
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                //                            .imageScale(.large)
-                                    .padding(10)
-                                
-                                    .padding(.trailing, 20)
-                            } // end HStack
-                        } // end NavigationLink
-                        Divider()
-                            .padding([.leading, .trailing], 20)
+                        
+                             
                         TextField("₩ 가격", value: $price, formatter: formatter)
+//                            .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding(10)
                             .padding([.leading, .trailing], 20)
                         Divider()
                             .padding([.leading, .trailing], 20)
-                        ScrollView{
-                            TextField("판매 글의 내용을 작성해주세요.", text: $content)
-                                .frame(height: 400, alignment: .topLeading)
-                                .padding(10)
-                                .padding([.leading, .trailing], 20)
-                        } // end ScrollView
+                        
+                        VStack{
+                            
+                            AutoSizingTF(hint: "판매 글의 내용을 작성해주세요.", text: $content,containerHeight: $containerHeight, onEnd: {
+                                
+                                // Do when keyboard closed...
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            })
+                                .padding(.horizontal)
+                                // Your Max Height Here....
+//                                .frame(height: containerHeight <= 400 ? containerHeight : 400)
+                                .frame(height: 400)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .padding()
+                        }
+//                        ResizeableTextView(text: $content, height: $textViewHeight, placeholderText: "판매 글의 내용을 작성해주세요.").frame(height: textViewHeight < 70 ? self.textViewHeight : 70).cornerRadius(50)
+//                        ScrollView{
+//
+//                            TextField("판매 글의 내용을 작성해주세요.", text: $content)
+//                                .frame(height: 400, alignment: .topLeading)
+//                                .padding(10)
+//                                .padding([.leading, .trailing], 20)
+//                        } // end ScrollView
                         Divider()
                             .padding([.leading, .trailing], 20)
                         

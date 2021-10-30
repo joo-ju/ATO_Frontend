@@ -12,6 +12,7 @@ class UserViewModel: ObservableObject {
     @Published var userRegisterModel = [UserRegisterModel]()
     @Published var oneUserItem: UserRegisterModel?
     @Published var userModel = [UserModel]()
+    @Published var userRoomItems = [RoomModel]()
     @Published var userHistoryItem: UserHistoryModel?
     
     
@@ -156,7 +157,8 @@ class UserViewModel: ObservableObject {
                     print("\nresult------------\n", result)
                     DispatchQueue.main.async {
                         self.userHistoryItem = result
-                        print("userHistoryItem------------\n", self.userHistoryItem)
+//                        self.userRoomItems = self.userHistoryItem?.chatRooms
+//                        print("userHistoryItem------------\n", self.userHistoryItem.chatRooms)
                     }
                 } else {
                     print("No data--- userhistory")

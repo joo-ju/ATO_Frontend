@@ -76,6 +76,8 @@ struct MarketMain : View {
                             }
                         } onUpdate: {
                             viewModel.fetchAllGoods()
+                            
+                            userViewModel.fetchUserHistory(parameters: self.userInfo.id)
                         }
                         
                     }
@@ -115,6 +117,7 @@ struct MarketMain : View {
             .onAppear(perform: {
                 viewModel.fetchAllGoods()
                 userViewModel.fetchUserHistory(parameters: self.userInfo.id)
+                
               
                 
             })

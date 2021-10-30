@@ -22,9 +22,10 @@ struct GoodsChatListScreen: View {
     @State var lastMsgIdx = 0
     var body: some View {
         VStack(spacing: 10) {
-            
+            if chatViewModel.goodsRoomItems.count > 0 {
             List{
                 KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
+                  
                     ForEach(chatViewModel.goodsRoomItems.reversed(), id: \._id){ roomItem in
                         NavigationLink(destination : DialogScreen(goodsId: goodsItem._id, sellerId: goodsItem.sellerId, roomId: roomItem._id ?? ""), label: {
                             HStack(alignment:.center){
@@ -93,7 +94,8 @@ struct GoodsChatListScreen: View {
                                 //                        self.title = viewModel.oneGoodsItem?.title ?? ""
                             })
                     }
-                } onUpdate: {
+                
+                    } onUpdate: {
                     chatViewModel.fetchAllRoom()
                 }
                 
@@ -107,6 +109,17 @@ struct GoodsChatListScreen: View {
             .navigationBarHidden(false)
             .navigationBarBackButtonHidden(false)
             //      Button("Go back", action: { presentationMode.wrappedValue.dismiss() })
+            
+        
+    }
+    else {
+        VStack{
+        Text("생성된 대화가 없습니다.")
+                .foregroundColor(Color(hex:"c4c4c4"))
+            Spacer()
+        }
+        
+    }
         }
         .onAppear(perform: {
             //                    userViewModel.fetchOneUser(parameters: "616579dee6a40292c0bcab6a")

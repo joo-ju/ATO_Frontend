@@ -68,7 +68,7 @@ class Service: ObservableObject {
         let socket = manager.defaultSocket
         let parameters = ["message": message, "roomId": roomId, "writer": self.userInfo.id]
         socket.emit("event1", parameters)
-        messages.append(message)
+//        messages.append(message)
         //        writers.append(self.userInfo.id)
         print(messages)
     }

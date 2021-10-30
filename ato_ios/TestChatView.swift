@@ -7,358 +7,261 @@
 //
 import Foundation
 import SwiftUI
-public struct DetailGoodsScreen1: View {
- 
+import Combine
+import Alamofire
+public struct TestImageView: View {
     
-    @ObservedObject var userInfo = UserInfo()
-    @EnvironmentObject var viewModel: ViewModel
-    @EnvironmentObject var chatViewModel: ChatViewModel
-    @EnvironmentObject var userViewModel: UserViewModel
-    
-    let goodsItem: GoodsModel
-    let goodsUserItems: [UserRegisterModel] = []
-    @State var price: String?
-    @State var title:String?
-    @State var content = ""
-    @State var tags = [""]
-    @State var sellerId = ""
-    @State var customerId = ""
-    @State var buyerId = ""
-    @State var categoryId = ""
-    @State var score = 0
-    @State var count = 0
-    @State var wishCount = 0
-    @State var chat = 0
-    @State var review = false
-    @State var idx = 0
-    @State var chips : [[ChipData]] = []
-    @State var isWished = false
-    
-    @State var GoodsChatListScreenActive = false
-//    public init() {}
-    
-  public var body: some View {
-      VStack(alignment: .leading, spacing: 10) {
-          KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
-              VStack(alignment: .leading, spacing: 10) {
-                  Rectangle().frame(height:0)
-                  Text(viewModel.oneGoodsItem?.title ?? "게시물을 가져오지 못했습니다.")
-                      .fontWeight(.bold)
-                      .font(.system(size: 20))
-                      .padding([.top, .bottom], 10)
-                  Divider()
-                  
-                  
-                  Text(viewModel.oneGoodsItem?.content ?? "게시물을 가져오지 못했습니다.")
-                      .padding([.top, .bottom], 10)
-                  
-                      .lineSpacing(5)
-                  
-                  Divider()
-                  
-                  LazyVStack(alignment: .leading,spacing: 10){
-                      // Since Were Using Indices So WE Need To Specify Id....
-                      ForEach(chips.indices,id: \.self){index in
-                          
-                          HStack{
-                              
-                              // some times it asks us to specify hashable in Data Model...
-                              ForEach(chips[index].indices,id: \.self){chipIndex in
-                                  MarketTag(tag:chips[index][chipIndex].chipText)
-                                  // Main Logic......
-                                      .overlay(
-                                          
-                                          GeometryReader{reader -> Color in
-                                              
-                                              // By Using MaxX Parameter We Can Use Logic And Determine if its exceeds or not....
-                                              
-                                              let maxX = reader.frame(in: .global).maxX
-                                              
-                                              // Both Paddings  = 30+ 30 = 60
-                                              // Plus 10 For Extra....
-                                              
-                                              // Doing Action Only If The Item Exceeds...
-                                              
-                                              if maxX > UIScreen.main.bounds.width - 70 && !chips[index][chipIndex].isExceeded{
-                                                  
-                                                  // It is updating to each user interaction....
-                                                  
-                                                  DispatchQueue.main.async {
-                                                      
-                                                      // Toggling That...
-                                                      chips[index][chipIndex].isExceeded = true
-                                                      
-                                                      // Getting Last Item...
-                                                      let lastItem = chips[index][chipIndex]
-                                                      // removing Item From Current Row...
-                                                      // inserting it as new item...
-                                                      chips.append([lastItem])
-                                                      chips[index].remove(at: chipIndex)
-                                                      
-                                                  }
-                                              }
-                                              
-                                              return Color.clear
-                                          },
-                                          alignment: .trailing
-                                      )
-                                      .clipShape(Capsule())
-                              }
-                          }
-                      }
-                  }
-                  
-                  Spacer()
-                  
-              } // end of VStack
-              .padding([.leading, .trailing], 20)
-              
-          }
-      onUpdate:{
-          viewModel.fetchOneGoodsId(parameters:goodsItem._id)
-          
-          self.title = viewModel.oneGoodsItem?.title
-          self.tags = viewModel.oneGoodsItem?.tags ?? ["default value"]
-          
-          self.price = "\(viewModel.oneGoodsItem?.price ?? 0)"
-          self.chips  = []
-          for text in tags {
-              if chips.isEmpty{
-                  chips.append([])
-              }
-              print("Chips : ", chips)
-              print("chips.count : ", chips.count)
-              print("text: ", text)
-              print("tags: ", tags)
-              print("_id: ", goodsItem._id)
-              
-              chips[chips.count-1].append(ChipData(chipText: text, idx: idx))
-              idx = idx + 1
-              
-          }
-          print(chips)
-      }
-          HStack{
-              Button(action:{
-                  // 찜 했던 Goods를 취소
-                  if isWished == true {
-                      isWished = false
-                      userViewModel.deleteUserHistoryWish(parameters: ["userId": self.userInfo.id, "goodsId": goodsItem._id])
-                  }
-                  // 새로운 Goods를 찜
-                  else {
-                      isWished = true
-                      userViewModel.createUserHistoryWish(parameters: ["userId": self.userInfo.id, "goodsId": goodsItem._id])
-                      
-                  }
-              }, label: {
-                  if isWished {
-                      Image(systemName: "heart.fill")
-                          .resizable()
-                          .frame(width:20, height: 15)
-                          .foregroundColor(Color(hex: "A9BCE8"))
-                  } else {
-                      Image(systemName: "heart")
-                          .resizable()
-                          .frame(width:20, height: 15)
-                          .foregroundColor(Color(hex: "c4c4c4"))
-                  }
-              })
-                  .onAppear(perform: {
-                      // userHistory 조회해서 찜 했는지 안했는지 확인
-                      if ((userViewModel.userHistoryItem?.wishGoods.contains(goodsItem._id)) == true) {
-                          
-                          isWished = true
-                      }
-                  })
-              Divider()
-                  .padding(.leading, 5)
-                  .padding(.trailing, 5)
-              Text("\(viewModel.oneGoodsItem?.price ?? 0 )원")
+    @State var showImagePicker: Bool = false
+    //    @Binding var selectedImage: Image
+    @State var selectedImage: Image? = Image("")
+    public var body: some View {
+        VStack{
+            // create button to select image
+            Button(action: {
+                self.showImagePicker.toggle()
+            }, label: {
+                Text("Select image")
+            })
             
-                  .fontWeight(.bold)
-              Spacer()
-              if goodsItem.sellerId == self.userInfo.id {
-                  HStack{
-                      NavigationLink(destination: SecondScreen()) {
-                          HStack{
-                                                Text("채팅 목록 보기")
-                                                    .fontWeight(.bold)
-                                            }
-                                            .frame(width: 120)
-                                            .padding(10)
-                                            .background(Color(hex: "A9BCE8"))
-                                            .cornerRadius(10)
-                                            .foregroundColor(.white)
-                      }
-//                      NavigationLink(
-//                        destination: SecondScreen()
-////                          destination: GoodsChatListScreen(goodsItem: goodsItem),
-////                          isActive: $GoodsChatListScreenActive,
-//                          label: {
-//                          HStack{
-//                              Text("채팅 목록 보기")
-//                                  .fontWeight(.bold)
-//                          }
-//                          .frame(width: 120)
-//                          .padding(10)
-//                          .background(Color(hex: "A9BCE8"))
-//                          .cornerRadius(10)
-//                          .foregroundColor(.white)
+            //show image
+            self.selectedImage?.resizable().scaledToFit()
+            
+            // show button to upload image
+            Button(action: {
 //
-//                      })
+//                   let parameters : Parameters = [
+//                       "newsletter_name": tfTitle.text ?? "",
+//                       "newsletter_explain" : tfExplain.text ?? "",
+//                       "newsletter_tags" : str,
+//                       "register_url" : tfURL.text ?? ""
+//                   ]
 //
-//                        Button(action:{
-////                            self.viewRouter.currentPage = "page2"
-//                            self.isLinkActiveList = true
-//
-////                                presentationMode.wrappedValue.dismiss()
-////                            chatViewModel.fetchGoodsRoom(goodsId: goodsItem._id)
-//
-//
-//                        }, label: {
-//                            HStack{
-//                                Text("채팅 목록 보기")
-//                                    .fontWeight(.bold)
-//                            }
-//                            .frame(width: 120)
-//                            .padding(10)
-//                            .background(Color(hex: "A9BCE8"))
-//                            .cornerRadius(10)
-//                            .foregroundColor(.white)
-//
-//                        })
-                  }
-//                    .background(NavigationLink(destination: GoodsChatListScreen(goodsItem: goodsItem), isActive: $isLinkActiveList){
-//
+//                   let imageData = image.jpegData(compressionQuality: 1)!
+                let uiImge: UIImage = self.selectedImage.asUIImage()
+                let imageData = uiImge.jpegData(compressionQuality: 0.1)!
+                
+//                let imageData: Data = uiImge.jpegData(compressionQuality: 1.0) ?? Data()
+                
+//                print(selectedImage)
+//                print(imageData)
+                let url = "http://localhost:4000/goods/image"
+                AF.upload(multipartFormData: { multipartFormData in
+//                    multipartFormData.append(imageData, withName: "image")
+                    multipartFormData.append(imageData, withName: "image", fileName: "a.jpg", mimeType: "image/jpg")
+                    print(multipartFormData)
+                }, to: url)
+                    .responseString{response in
+                        print(response)
+
+                    }
+                 
+
+//                    .responseDecodable(of: DecodableType.self) { response in
+//                        debugPrint(response)
 //                    }
-//                                    .hidden()
-//                    )
-              }
-              else {
-                  HStack{
-                      Button(action: {
-//                          self.isLinkActive = true
-                          
-                      }, label: {
-                          
-                          HStack{
-                              Image(systemName: "envelope.fill")
-                                  .resizable()
-                                  .frame(width:20, height: 15)
-                                  .foregroundColor(Color(hex: "ffffff"))
-                                  .padding(.trailing, 10)
-                              Text("대화하기")
-                                  .fontWeight(.bold)
-                          }
-                          .frame(width: 120)
-                          .padding(10)
-                          .background(Color(hex: "A9BCE8"))
-                          .cornerRadius(10)
-                          .foregroundColor(.white)
-                      })
-                  }
-//                  .background(NavigationLink(destination: DialogScreen(goodsId: goodsItem._id, sellerId: goodsItem.sellerId, roomId: chatViewModel.roomItem?._id ?? "")
-////                                             , isActive: $isLinkActive
-//                                            ){
+                
 //
-//                  }
-//                                  .hidden()
-//                  )
-              }
-          } // end of HStack
-          .frame(height: 50, alignment: .center)
-          .padding([.leading, .trailing], 15)
-          .padding(.leading, 5)
-          
-          
-//      List {
-//        row
-//        row
-//        row
-//      }
-    
-      
-  } // end of VStack
-  
-  .onAppear(perform: {
-      self.tags = [""]
-      self.tags = goodsItem.tags
-      self.chips  = []
-      for text in tags {
-          
-          if chips.isEmpty{
-              chips.append([])
-          }
-          print("Chips : ", chips)
-          print("chips.count : ", chips.count)
-          print("text: ", text)
-          print("tags: ", tags)
-          print("_id: ", goodsItem._id)
-          
-          chips[chips.count-1].append(ChipData(chipText: text, idx: idx))
-          idx = idx + 1
-          
-      }
-      viewModel.fetchOneGoodsId(parameters: goodsItem._id)
-      self.title = viewModel.oneGoodsItem?.title
-      self.price = "\(viewModel.oneGoodsItem?.price ?? 0)"
-
-      let parameters: [String:Any] = ["sellerId" : goodsItem.sellerId, "customerId": self.userInfo.id, "goodsId": goodsItem._id]
-      if goodsItem.sellerId != self.userInfo.id {
-          chatViewModel.createRoom(parameters: parameters)
-          
-          chatViewModel.fetchRoom(sellerId: goodsItem.sellerId, goodsId: goodsItem._id, customerId: self.userInfo.id)
-      }
-      else if goodsItem.sellerId == self.userInfo.id {
-
-//                userViewModel.fetchOneUser(parameters: "616579dee6a40292c0bcab6a")
-          
-      }
-      
-  })
-  .navigationBarHidden(true)
-  }
-  private var row: some View {
-    NavigationLink(destination: SecondScreen()) {
-      Text("Row")
+//
+//                      upload(image: imageData, to: url, params: parameters)
+//                AF.upload(multipartFormData: { multipart in
+//
+//                            for (key, value) in parameter {
+//                                if let temp = value as? String {
+//                                    multipart.append(temp.data(using .utf8)!, withName: key)
+//                                }
+//                                if let temp = value as? Int {
+//                                    multipart.append("\(temp)".data(using: .utf8)!, withName: key)
+//                                }
+//                            
+//                            }
+//                        
+//                            //IMAGE PART
+//                            for image in data {
+//                                multipart.append(image,
+//                                            withName: "apply_img_ts",
+//                                                fileName: "\(image).jpg",
+//                                                    mimeType: "image/jpeg")
+//                            }
+//                         }, to: url
+////                          , headers: headers).uploadProgress(queue: .main, closure: { progress in
+////
+////                        print("Upload Progress: \(progress.fractionCompleted)")
+////
+////                         }
+//                          ).responseJSON(completionHandler: { data in
+//                             switch data.result {
+//                            case .success(_):
+//                                do {
+//                                    print("success")
+//                                }
+//                            case .failule(let error):
+//                                print(error.localizedDescription)
+//                            }
+//                         })
+//                AF.upload(multipartFormData: { multipartFormData in
+//                    multipartFormData.append(imageData, withName: "image")
+//                    //                    multipartFormData.append(Data("two".utf8), withName: "two")
+//                }, to: "http://localhost:4000/goods/image")
+//                    .responseDecodable(of: DecodableType.self) { response in
+//                        debugPrint(response)
+//                    }
+                
+                //                    }
+                //                let uiImge: UIImage = self.selectedImage.asUIImage()
+                //                print(1)
+                //                let imageData: Data = uiImge.jpegData(compressionQuality: 0.5) ?? Data()
+                //                print(2)
+                //                let imageStr: String = imageData.base64EncodedString()
+                //                print(3)
+                //                let paramStr: String = "image=\(imageStr)"
+                //                print(4)
+                //                let paramData: Data = paramStr.data(using: .utf8) ?? Data()
+                //                print(5)
+                //                let request = MultipartFormDataRequest(url: URL(string: "http://localhost:4000/goods/image")!)
+                //                print(6)
+                //                request.addDataField(named: "image", data: imageData , mimeType: "img/jpeg")
+                //                print("request = ")
+                //                print("httpbody = ", request.httpBody)
+                //                let URLReq = request.asURLRequest()
+                //                print("URLReq = ", URLReq)
+                //                URLSession.shared.dataTask(with: URLReq, completionHandler: {
+                //                    (data, response, error) in
+                //                    if error != nil {
+                //                        print("error", error?.localizedDescription ?? "")
+                //                        return
+                //                    }
+                //                    //                          print("request : ", request)
+                //                    guard let data = data else {
+                //                        print("invalid data")
+                //                        return
+                //                    }
+                //
+                //                }).resume()
+                
+                // conver t image to base 64
+                //              let uiImge: UIImage = self.selectedImage.asUIImage()
+                //              let imageData: Data = uiImge.jpegData(compressionQuality: 1.0) ?? Data()
+                //              let imageStr: String = imageData.base64EncodedString()
+                //
+                //              // send request to server
+                //              guard let url: URL = URL(string: "http://localhost:4000/goods/image") else {
+                //                  print("invalid URL")
+                //                  return
+                //              }
+                //              // create parameters
+                ////              let paramStr: String = "files=[\(imageStr)]"
+                //              let paramStr: String = "image=\(imageStr)"
+                //              let paramData: Data = paramStr.data(using: .utf8) ?? Data()
+                //              var urlRequest: URLRequest = URLRequest(url: url)
+                //              urlRequest.httpMethod = "POST"
+                //              urlRequest.httpBody = paramData
+                //
+                //              // required for sending large data
+                ////              urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+                //              urlRequest.setValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
+                //              // send the request
+                //
+                //              let boundary = "Boundary-\(UUID().uuidString)"
+                //
+                //              var request = URLRequest(url: URL(string: "http://localhost:4000/goods/image")!)
+                //              request.httpMethod = "POST"
+                //              request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+                //
+                //              URLSession.shared.dataTask(with: urlRequest, completionHandler: {
+                //                  (data, response, error) in
+                //                  guard let data = data else {
+                //                      print("invalid data")
+                //                      return
+                //                  }
+                //
+                //                  // show response in string
+                //                  let responseStr: String = String(data: data, encoding: .utf8) ?? ""
+                //                  print(responseStr)
+                //              }).resume()
+                
+            }, label: {
+                Text("Upload Image")
+            })
+        }
+            .sheet(isPresented: $showImagePicker , content: {
+                ImagePicker(image: $selectedImage)
+            })
     }
-  }
+    
 }
-//struct TestChatView: View {
-//    @ObservedObject var service = ChatService()
-//    @State var msg = ""
-//    var body: some View {
-//        VStack{
-//            Text("Received messages from NodeJS : ")
-//                .font(.title)
-//            ScrollView{
-//            ForEach(service.messages, id: \.self) { msg in
-//                Text(msg)
-//                    .padding()
-//              
-//            }.onAppear(perform: {
-//                
-//            })
-//                Spacer()}
-//            HStack{
-//                TextField("Enter Message...", text: $msg)
-//                    .padding()
-//                Button(action: {
-////                    service.messssages.append(msg)
-////                    service.sendMessage(message: msg)
-//             
-//                    msg = ""
-//                }, label: {
-//                    Image(systemName: "paperplane")
-//                        .padding()
-//                        .background(Color.gray)
-//                })
-//            }
-//            .background(Color.yellow)
-//            .padding(.bottom, 40)
-//           
-//      
-//        }
-//    }
-//}
+
+
+struct MultipartFormDataRequest {
+    private let boundary: String = UUID().uuidString
+    var httpBody = NSMutableData()
+    let url: URL
+    
+    init(url: URL) {
+        self.url = url
+        print("boundary = ", boundary)
+        print("httpBody = ", httpBody)
+    }
+    func addTextField(named name: String, value: String) {
+        httpBody.append(textFormField(named: name, value: value))
+        
+    }
+    
+    private func textFormField(named name: String, value: String) -> String {
+        var fieldString = "--\(boundary)\r\n"
+        fieldString += "Content-Disposition: form-data; name=\"\(name)\"\r\n"
+        fieldString += "Content-Type: text/plain; charset=ISO-8859-1\r\n"
+        fieldString += "Content-Transfer-Encoding: 8bit\r\n"
+        fieldString += "\r\n"
+        fieldString += "\(value)\r\n"
+        
+        print("fieldString: ", fieldString)
+        return fieldString
+    }
+    
+    func addDataField(named name: String, data: Data, mimeType: String) {
+        httpBody.append(dataFormField(named: name, data: data, mimeType: mimeType))
+    }
+    
+    private func dataFormField(named name: String,
+                               data: Data,
+                               mimeType: String) -> Data {
+        let fieldData = NSMutableData()
+        
+        fieldData.append("--\(boundary)\r\n")
+        fieldData.append("Content-Disposition: form-data; name=\"\(name)\"\r\n")
+        fieldData.append("Content-Type: \(mimeType)\r\n")
+        fieldData.append("\r\n")
+        fieldData.append(data)
+        fieldData.append("\r\n")
+        
+        return fieldData as Data
+    }
+    
+    func asURLRequest() -> URLRequest {
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        httpBody.append("--\(boundary)--")
+        request.httpBody = httpBody as Data
+        return request
+    }
+}
+
+extension NSMutableData {
+    func append(_ string: String) {
+        if let data = string.data(using: .utf8) {
+            self.append(data)
+        }
+    }
+}
+
+
+extension URLSession {
+    func dataTask(with request: MultipartFormDataRequest,
+                  completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
+    -> URLSessionDataTask {
+        return dataTask(with: request.asURLRequest(), completionHandler: completionHandler)
+    }
+}

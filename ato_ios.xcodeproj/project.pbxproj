@@ -78,9 +78,11 @@
 		3BE9B4E626FF29F500120776 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE9B4E526FF29F500120776 /* HomeView.swift */; };
 		3BE9B4E826FF2A1500120776 /* NewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE9B4E726FF2A1500120776 /* NewPostView.swift */; };
 		3BE9B4EA26FF333600120776 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE9B4E926FF333600120776 /* DetailView.swift */; };
+		9CA073AFA101CE637C9BAD39 /* Pods_ato_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D60516CDC63434A0038419 /* Pods_ato_ios.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28D60516CDC63434A0038419 /* Pods_ato_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ato_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B00770F2721D119001A2390 /* DialogScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogScreen.swift; sourceTree = "<group>"; };
 		3B02C96426F31057001A6295 /* Goods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goods.swift; sourceTree = "<group>"; };
 		3B02C96626F310A9001A6295 /* Books.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Books.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B3B5E33271B0731003E26EF /* SocketIO in Frameworks */,
+				9CA073AFA101CE637C9BAD39 /* Pods_ato_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +343,7 @@
 		996522914A1709D396A0C05D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				28D60516CDC63434A0038419 /* Pods_ato_ios.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -364,6 +368,7 @@
 				3BAB6E6926E85E800070F844 /* Sources */,
 				3BAB6E6A26E85E800070F844 /* Frameworks */,
 				3BAB6E6B26E85E800070F844 /* Resources */,
+				CF7B6A6319DC433208560D5C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -401,7 +406,7 @@
 			);
 			mainGroup = 3BAB6E6426E85E800070F844;
 			packageReferences = (
-				3B3B5E31271B0731003E26EF /* XCRemoteSwiftPackageReference "socket" */,
+				3B3B5E31271B0731003E26EF /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
 			);
 			productRefGroup = 3BAB6E6E26E85E800070F844 /* Products */;
 			projectDirPath = "";
@@ -425,6 +430,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		CF7B6A6319DC433208560D5C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ato_ios/Pods-ato_ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ato_ios/Pods-ato_ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ato_ios/Pods-ato_ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FEA46F83A044918C345DD410 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -714,7 +736,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3B3B5E31271B0731003E26EF /* XCRemoteSwiftPackageReference "socket" */ = {
+		3B3B5E31271B0731003E26EF /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
 			requirement = {
@@ -727,7 +749,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		3B3B5E32271B0731003E26EF /* SocketIO */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B3B5E31271B0731003E26EF /* XCRemoteSwiftPackageReference "socket" */;
+			package = 3B3B5E31271B0731003E26EF /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
 			productName = SocketIO;
 		};
 /* End XCSwiftPackageProductDependency section */

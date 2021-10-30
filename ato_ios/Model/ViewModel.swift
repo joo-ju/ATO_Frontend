@@ -270,6 +270,7 @@ class ViewModel: ObservableObject {
         var request = URLRequest(url:url)
         request.httpMethod = "POST"
         request.httpBody = data
+//        print("httpBody = ", request.value(forHTTPHeaderField: Content-Type"))
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         URLSession.shared.dataTask(with: request) { (data, res, error) in

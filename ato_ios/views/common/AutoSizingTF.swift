@@ -75,7 +75,7 @@ struct ResizeableTextView: UIViewRepresentable{
     func updateUIView(_ textView: UITextView, context: Context) {
         if self.text.isEmpty == true{
             textView.text = self.editing ? "" : self.placeholderText
-            textView.textColor = self.editing ? .white : .lightGray
+            textView.textColor = self.editing ? .black : .lightGray
         }
         
         DispatchQueue.main.async {
@@ -118,13 +118,13 @@ struct ResizeableTextView: UIViewRepresentable{
     }
     
 }
+
 struct AutoSizingTF: UIViewRepresentable {
     
     var hint: String
     @Binding var text: String
     @Binding var containerHeight: CGFloat
     var onEnd : ()->()
-//    var onEnd :
     
     func makeCoordinator() -> Coordinator {
         return AutoSizingTF.Coordinator(parent: self)
@@ -137,7 +137,7 @@ struct AutoSizingTF: UIViewRepresentable {
         textView.text = hint
         textView.textColor = .gray
         textView.backgroundColor = .clear
-        textView.font = .systemFont(ofSize: 20)
+        textView.font = .systemFont(ofSize: 15)
         
         // setting delegate...
         textView.delegate = context.coordinator
@@ -152,9 +152,8 @@ struct AutoSizingTF: UIViewRepresentable {
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: context.coordinator, action:
-                                          #selector(context.coordinator.closeKeyBoard))
-        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: context.coordinator, action: #selector(context.coordinator.closeKeyBoard))
+//
 //        toolBar.items = [spacer,doneButton]
 //        toolBar.sizeToFit()
 //
@@ -184,8 +183,7 @@ struct AutoSizingTF: UIViewRepresentable {
         
         // keyBoard Close @objc Function...
         @objc func closeKeyBoard(){
-            
-//            text = ""
+         
             parent.onEnd()
         }
         
@@ -212,7 +210,6 @@ struct AutoSizingTF: UIViewRepresentable {
                 textView.text = parent.hint
                 textView.textColor = .gray
             }
-            textView.text = ""
         }
     }
 }
