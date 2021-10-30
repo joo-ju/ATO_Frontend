@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 import Combine
-
+import Alamofire
 
 class ViewRouter : ObservableObject{
     let objectWillChange = PassthroughSubject<ViewRouter,Never>()
@@ -316,6 +316,19 @@ class ViewModel: ObservableObject {
                     let result = try JSONDecoder().decode(GoodsModel.self, from: data)
                     DispatchQueue.main.async {
                         print(result)
+//                        let uiImge: UIImage = image.asUIImage()
+//                        let imageData = uiImge.jpegData(compressionQuality: 0.1)!
+//                        
+//                        let url = "http://localhost:4000/goods/image"
+//                        AF.upload(multipartFormData: { multipartFormData in
+//        //                    multipartFormData.append(imageData, withName: "image")
+//                            multipartFormData.append(imageData, withName: "image", fileName: "a.jpg", mimeType: "image/jpg")
+//                            print(multipartFormData)
+//                        }, to: url)
+//                            .responseString{response in
+//                                print(response)
+//
+//                            }
                     }
                 } else {
                     print("No Data")

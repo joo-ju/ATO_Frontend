@@ -28,22 +28,10 @@ public struct TestImageView: View {
             
             // show button to upload image
             Button(action: {
-//
-//                   let parameters : Parameters = [
-//                       "newsletter_name": tfTitle.text ?? "",
-//                       "newsletter_explain" : tfExplain.text ?? "",
-//                       "newsletter_tags" : str,
-//                       "register_url" : tfURL.text ?? ""
-//                   ]
-//
-//                   let imageData = image.jpegData(compressionQuality: 1)!
+
                 let uiImge: UIImage = self.selectedImage.asUIImage()
                 let imageData = uiImge.jpegData(compressionQuality: 0.1)!
                 
-//                let imageData: Data = uiImge.jpegData(compressionQuality: 1.0) ?? Data()
-                
-//                print(selectedImage)
-//                print(imageData)
                 let url = "http://localhost:4000/goods/image"
                 AF.upload(multipartFormData: { multipartFormData in
 //                    multipartFormData.append(imageData, withName: "image")
