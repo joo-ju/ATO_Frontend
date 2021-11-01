@@ -21,24 +21,15 @@ class UserInfo: ObservableObject {
         }
     }
     
-//    @Published var isPrivate: Bool {
-//        didSet {
-//            UserDefaults.standard.set(isPrivate, forKey: "isAccountPrivate")
-//        }
-//    }
-//
-//    @Published var ringtone: String {
-//        didSet {
-//            UserDefaults.standard.set(ringtone, forKey: "ringtone")
-//        }
-//    }
-    
-//    public var ringtones = ["Chimes", "Signal", "Waves"]
-    
+    @Published var wallet: String {
+        didSet {
+            UserDefaults.standard.set(wallet, forKey: "wallet")
+        }
+    }
+
     init() {
         self.username = UserDefaults.standard.object(forKey: "username") as? String ?? ""
-//        self.isPrivate = UserDefaults.standard.object(forKey: "isAccountPrivate") as? Bool ?? true
-//        self.ringtone = UserDefaults.standard.object(forKey: "ringtone") as? String ?? "Chimes"
         self.id = UserDefaults.standard.object(forKey: "id") as? String ?? ""
+        self.wallet = UserDefaults.standard.object(forKey: "wallet") as? String ?? ""
     }
 }

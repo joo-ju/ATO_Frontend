@@ -16,15 +16,35 @@ struct GoodsItemView: View {
     @State var wishCount = 0
     @State var chat = 0
     @State var state = ""
-    
+    @State var image = [""]
+    @State var URL = "http://localhost:4000/goods/image/"
+    @State var imageURL = ""
     var body: some View {
         VStack(alignment: .leading){
             HStack (alignment: .top){
+                
+                if image.count > 0 {
+                    VStack{
+                    Image(uiImage:imageURL.load())
+                        .resizable()
+                        .onAppear(perform: {
+                            imageURL = URL + image[image.count - 1]
+                        })
+                        .frame(width: 110, height: 120)
+                        .cornerRadius(20)
+                        .padding(.trailing, 15)
+                        .padding(.top, 7)
+                        
+                   
+                    }
+                  } else {
                 Rectangle().frame(width: 110, height: 120)
+                    .foregroundColor(Color(hex: "C4C4C4"))
                     .background(Color(hex: "C4C4C4"))
                     .cornerRadius(20)
-                    .padding(.trailing, 7)
+                    .padding(.trailing, 15)
                     .padding(.top, 7)
+                }
                 
                 VStack(alignment: .leading){
                     Text(title)

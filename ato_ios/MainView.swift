@@ -8,8 +8,10 @@
 
 import SwiftUI
 //import Foundation
-var tabs = ["house","magnifyingglass","message","gift"]
-var tabs_name = ["홈", "검색", "채팅", "나의아토"]
+//var tabs = ["house","magnifyingglass","message","gift"]
+//var tabs_name = ["홈", "검색", "채팅", "나의아토"]
+var tabs = ["house","message","gift"]
+var tabs_name = ["홈",  "채팅", "나의아토"]
 struct MainView: View {
 
     @State private var tabSelection = 0
@@ -48,8 +50,8 @@ struct MainView: View {
                 
 //                SearchScreen()
 //                TestChatView()
-                TestImageView()
-                    .tag("magnifyingglass")
+//                TestImageView1()
+//                    .tag("magnifyingglass")
                     
 //                HomeView()
                 ChatListScreen()

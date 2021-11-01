@@ -27,14 +27,9 @@ class ViewModel: ObservableObject {
     
     @Published var detailGoodsItem = [GoodsModel]()
     @Published var oneGoodsItem: GoodsModel?
-    
-//    @Published var wishedGoodsItem: GoodsModel()
-    
     @Published var wishGoodsItem = [GoodsModel]()           // 찜목록을 만들기위해 1개씩 받는 Goods
     @Published var wishedGoodsItems = [GoodsModel]()
-//    @State var wishGoods: Array<String>
-//    @State var userId: String
-//    @Published var userHistoryItem: UserHistoryModel?
+    
     let prefixUrl = "http://localhost:4000"
     // let prefixUrl = "http://3.34.140.23:4000"
 
@@ -211,7 +206,7 @@ class ViewModel: ObservableObject {
     // 로그인한 사용자의 숨김 제품 List
     // 로그인 구현 전 : joo로 고정
     func fetchGoodsHidingSellerId(parameters: String){
-        guard let url = URL(string: "\(prefixUrl)/goods/user/hiding/all/" + parameters) else {
+        guard let url = URL(string: "\(prefixUrl)/goods/user/reserve/all/" + parameters) else {
             print("Not Found url")
             return
         }
@@ -318,7 +313,7 @@ class ViewModel: ObservableObject {
                         print(result)
 //                        let uiImge: UIImage = image.asUIImage()
 //                        let imageData = uiImge.jpegData(compressionQuality: 0.1)!
-//                        
+//
 //                        let url = "http://localhost:4000/goods/image"
 //                        AF.upload(multipartFormData: { multipartFormData in
 //        //                    multipartFormData.append(imageData, withName: "image")
@@ -372,6 +367,73 @@ class ViewModel: ObservableObject {
             }
         }.resume()
     }
+    
+    func updateStatus(parameters: [String: Any]){
+        guard let url = URL(string: "\(prefixUrl)/goods/update/status") else {
+            print("Not Found url")
+            return
+        }
+        let data = try! JSONSerialization.data(withJSONObject: parameters)
+        
+        var request = URLRequest(url:url)
+        request.httpMethod = "PUT"
+        request.httpBody = data
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, res, error) in
+            if error != nil {
+                print("error", error?.localizedDescription ?? "")
+                return
+            }
+            
+            do {
+                if let data = data {
+                    let result = try JSONDecoder().decode(GoodsModel.self, from: data)
+                    DispatchQueue.main.async {
+                        print(result)
+                    }
+                } else {
+                    print("No Data")
+                }
+            } catch let JsonError {
+                print("update status json error : ", JsonError.localizedDescription)
+            }
+        }.resume()
+    }
+    
+    func updateBuyerId(parameters: [String: Any]){
+        guard let url = URL(string: "\(prefixUrl)/goods/update/buyerId") else {
+            print("Not Found url")
+            return
+        }
+        let data = try! JSONSerialization.data(withJSONObject: parameters)
+        
+        var request = URLRequest(url:url)
+        request.httpMethod = "PUT"
+        request.httpBody = data
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, res, error) in
+            if error != nil {
+                print("error", error?.localizedDescription ?? "")
+                return
+            }
+            
+            do {
+                if let data = data {
+                    let result = try JSONDecoder().decode(GoodsModel.self, from: data)
+                    DispatchQueue.main.async {
+                        print(result)
+                    }
+                } else {
+                    print("No Data")
+                }
+            } catch let JsonError {
+                print("update status json error : ", JsonError.localizedDescription)
+            }
+        }.resume()
+    }
+    
     func updatePosts(parameters: [String: Any]){
         guard let url = URL(string: "\(prefixUrl)/post/updatepost") else {
             print("Not Found url")

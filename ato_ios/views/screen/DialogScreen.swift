@@ -310,11 +310,34 @@ struct DialogScreen: View {
             
             print("\n\ngoodsId", goodsId)
             print("sellerId", sellerId)
-            //            print("roomId", chatViewModel.roomItem?._id)
+
             let parameters: [String:Any] = ["sellerId" : sellerId, "customerId": self.userInfo.id, "goodsId": goodsId]
             
             chatViewModel.fetchChat(roomId: chatViewModel.roomItem?._id ?? "", goodsId: goodsId)
         })
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: leading)
         
+        
+        
+    }
+    var leading: some View{
+        Button(action:{
+            chatService.messages = []
+            chatService.writers = []
+            chatService.contents = []
+            
+//            isPresented.toggle()
+            presentationMode.wrappedValue.dismiss()
+        } , label: {
+            Text("닫기")
+//                .padding([.leading, .trailing])
+//                .padding([.top, .bottom], 15)
+                .padding()
+                .foregroundColor(Color(hex: "838383"))
+                .onAppear(perform: {
+                    print(goodsId)
+                })
+        })
     }
 }

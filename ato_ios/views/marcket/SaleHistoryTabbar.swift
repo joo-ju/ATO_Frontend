@@ -17,7 +17,7 @@ struct SaleHistoryTabbar : View {
                 .onTapGesture { onButtonTapped(index: 0) }
             SaleHistoryTabBarButton(text: "판매완료", isSelected: .constant(tabIndex == 1))
                 .onTapGesture { onButtonTapped(index: 1) }
-            SaleHistoryTabBarButton(text: "숨김", isSelected: .constant(tabIndex == 2))
+            SaleHistoryTabBarButton(text: "예약중", isSelected: .constant(tabIndex == 2))
                 .onTapGesture { onButtonTapped(index: 2) }
         }
         .border(width: 1, edges: [.bottom], color: Color(hex: "c4c4c4"))

@@ -31,9 +31,7 @@ struct NewGoodsScreen : View {
     @State var isAlert = false
     @State private var cost = 0
     @State var textViewHeight:CGFloat = 50.0
-    
-//    @State var msg = ""
-    
+
     // Auto Updating TextBox Height...
     @State var containerHeight: CGFloat = 400
     
@@ -48,9 +46,9 @@ struct NewGoodsScreen : View {
     @Environment(\.presentationMode) var presentationMode
     
     @State var showImagePicker: Bool = false
-    //    @Binding var selectedImage: Image
     @State var selectedImage: Image? = Image("")
-    
+    @State var isUpload: Bool = true           // 사진 저장 버튼을 활성화 하기 위한 변수
+        
     var body: some View {
         NavigationView{
             VStack(spacing: 0){
@@ -64,45 +62,90 @@ struct NewGoodsScreen : View {
                     trailing
                 }
                 // select image
-                VStack{
-                    // create button to select image
-                    Button(action: {
-                        self.showImagePicker.toggle()
-                    }, label: {
-                        Text("Select image")
-                    })
-                    
-                    //show image
-                    self.selectedImage?.resizable().scaledToFit()
-                    
-                    // show button to upload image
-                    Button(action: {
-
-                        let uiImge: UIImage = self.selectedImage.asUIImage()
-                        let imageData = uiImge.jpegData(compressionQuality: 0.1)!
-                        
-                        let url = "http://localhost:4000/goods/image"
-                        AF.upload(multipartFormData: { multipartFormData in
-                            multipartFormData.append(imageData, withName: "image", fileName: "a.jpg", mimeType: "image/jpg")
-                            print(multipartFormData)
-                        }, to: url)
-                            .responseData { response in
-                               guard let data = response.data else { return }
-                               let result = try? JSONDecoder().decode(GoodsModel.self, from: data)
-                                goodsId = result?._id ?? ""
-                        
-                            }
-                        
-                    }, label: {
-                        Text("Upload Image")
-                    })
-                }
-                    .sheet(isPresented: $showImagePicker , content: {
-                        ImagePicker(image: $selectedImage)
-                    })
                 Divider()
                                           .padding([.leading, .trailing], 20)
                 ScrollView{
+                    VStack{
+                        HStack{
+                    Text("사진")
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                            Spacer()
+                        }
+                        .padding([.top, .leading, .trailing])
+                            .padding(.horizontal, 10)
+
+                        
+                      
+                        
+                       
+                        
+                        if isUpload == false{
+                            // 선택한 사진 조회
+                            self.selectedImage?.resizable().scaledToFit().frame( maxHeight: 300, alignment: .center)
+                                .padding(.horizontal)
+                        // 사진 저장 버튼
+                        Button(action: {
+
+                            let uiImge: UIImage = self.selectedImage.asUIImage()
+                            let imageData = uiImge.jpegData(compressionQuality: 0.1)!
+                            
+                            let url = "http://localhost:4000/goods/image"
+                            AF.upload(multipartFormData: { multipartFormData in
+                                multipartFormData.append(imageData, withName: "image", fileName: "a.jpg", mimeType: "image/jpg")
+                                print(multipartFormData)
+                            }, to: url)
+                                .responseData { response in
+                                   guard let data = response.data else { return }
+                                   let result = try? JSONDecoder().decode(GoodsModel.self, from: data)
+                                    goodsId = result?._id ?? ""
+                                }
+                        }, label: {
+                            VStack{
+                            HStack{
+                                Spacer()
+                            Text("저장하기")
+                                    .foregroundColor(.white)
+                                Spacer()
+                            }
+                                .padding(.vertical, 10)
+                            
+                            .background(Color(hex: "C3D3FE"))
+                            .cornerRadius(10)
+                            }
+                            .padding(.horizontal)
+                            
+                        })
+                    }
+                        else {
+                            // 사진 추가 버튼
+                            Button(action: {
+                                self.showImagePicker.toggle()
+                                isUpload = false
+                            }, label: {
+                                VStack(alignment: .leading){
+                                    HStack{
+                                Text("+")
+                                        .font(.system(size: 30))
+                                        .padding(.horizontal, 40)
+                                        .padding(.vertical, 30)
+                                        .background(Color(hex: "C3D3FE"))
+                                        .foregroundColor(Color(hex: "ffffff"))
+                                        .cornerRadius(10)
+                                        Spacer()
+                                }
+                                }
+                         
+                                .padding(.horizontal, 30)
+                            })
+                        }
+                      
+                    }
+                    .sheet(isPresented: $showImagePicker , content: {
+                        ImagePicker(image: $selectedImage)
+                    })
+                    Divider()
+                                              .padding([.leading, .trailing], 20)
                     VStack{
                         TextField("제목", text: $title)
                             .padding(10)
@@ -125,6 +168,7 @@ struct NewGoodsScreen : View {
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             })
                                 .padding(.horizontal)
+//                                .lineSpacing(50)
                                 // Your Max Height Here....
 //                                .frame(height: containerHeight <= 400 ? containerHeight : 400)
                                 .frame(height: 400)

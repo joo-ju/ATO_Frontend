@@ -17,7 +17,7 @@ struct MarketMain : View {
     @EnvironmentObject var chatViewModel: ChatViewModel
     @State var isPresentedNewPost = false
     
-//    @State var usernames : [String]
+    //    @State var usernames : [String]
     @State var title = ""
     @State var content = ""
     @State var price = 0
@@ -37,10 +37,7 @@ struct MarketMain : View {
     
     @State var keyword = ""
     
-    //    @State var buyerId = ""
-    
     var body: some View {
-        //        NavigationView{
         ZStack{
             // 전체 화면 색상 변경
             Color(hex: "C3D3FE").edgesIgnoringSafeArea(.all)
@@ -70,8 +67,9 @@ struct MarketMain : View {
                             ForEach(viewModel.goodsItems.reversed(), id: \._id){ goodsItem in
                                 
                                 NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
-                                    GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
-                                        
+                                    
+                                    GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state, image: goodsItem.image)
+                                    
                                 })
                             }
                         } onUpdate: {
@@ -84,7 +82,7 @@ struct MarketMain : View {
                     .onAppear {
                         UITableView.appearance().separatorStyle = .none
                     }
-//                    .listSeparatorStyle(style: .none)
+                    //                    .listSeparatorStyle(style: .none)
                     .listStyle(InsetListStyle())
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
@@ -100,7 +98,7 @@ struct MarketMain : View {
                             
                             NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
                                 GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
-                              
+                                
                             })
                         }
                     }
@@ -117,11 +115,7 @@ struct MarketMain : View {
             .onAppear(perform: {
                 viewModel.fetchAllGoods()
                 userViewModel.fetchUserHistory(parameters: self.userInfo.id)
-                
-              
-                
             })
-            
             Spacer()
             
             VStack {
@@ -138,8 +132,6 @@ struct MarketMain : View {
                     .padding(.vertical, 20)
             }
         }// end ZStack
-        //        } // end NavigationView
-        
     } // end View
     
     

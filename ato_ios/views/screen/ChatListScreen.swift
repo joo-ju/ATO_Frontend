@@ -6,92 +6,218 @@
 //
 
 import SwiftUI
+class RoomService: ObservableObject {
 
+    
+    //     var manager = SocketManager(socketURL: URL( string: "http://localhost:5000")!, config: [.log(true), .compress])
+    
+    @ObservedObject var userInfo = UserInfo()
+    @EnvironmentObject var viewModel: ViewModel
+    @EnvironmentObject var chatViewModel: ChatViewModel
+    
+    @Published var messages = [String]()
+    @Published var writers = [String]()
+    @Published var contents = [Content]()
+    
+    init() {
+        
+        
+        
+        
+//        let socket = manager.defaultSocket
+//        socket.on(clientEvent: .connect) {
+//            (data, ack) in
+//            print("Connected")
+//            socket.emit("NodeJS Server Port", "Hi NodeJS Server!")
+//        }
+//
+//        socket.on("iOS Client Port"){ [weak self] (data,ack) in
+//            if let data = data[0] as? [String: String],
+//               let rawMessage = data["message"] {
+//                DispatchQueue.main.async {
+//                    //                   self?.messages.append(rawMessage)
+//                    print("messages : ", self?.messages)
+//
+//                }
+//            }
+//        }
+//        socket.on("e1"){ [weak self] (data,ack) in
+//            if let data = data[0] as? [String: String],
+//               //              let rawMessage = data["message"]
+//               let rawWriter = data["writer"]{
+//
+//                DispatchQueue.main.async {
+//                    self?.writers.append(rawWriter)
+//                    self?.messages.append(data["message"] ?? "")
+//                    print(self?.writers)
+//                    print(self?.messages)
+//                    //                   self?.contents.
+//
+//                }
+//            }
+//            //            let rawMessage = data["message"]{
+//            //
+//            //             DispatchQueue.main.async {
+//            //                 self?.writers.append(rawWriter)
+//            //                 self?.messages.append(rawMessage)
+//            //
+//            //                 print(self?.messages)
+//            //                 //                   self?.contents.
+//            //
+//            //             }
+//            //         }
+//        }
+//        socket.connect()
+    }
+}
 struct ChatListScreen: View {
     
     @ObservedObject var userInfo = UserInfo()
     @EnvironmentObject var viewModel: ViewModel
     @EnvironmentObject var chatViewModel: ChatViewModel
     @EnvironmentObject var userViewModel: UserViewModel
+   
     @State var title = ""
     @State var sample = RoomModel(_id: "", sellerId: "", customerId: "", goodsId: "", isDeleted: false)
     @State var lastMsgIdx = 0
     var body: some View {
         VStack(spacing: 10) {
-            
+            if chatViewModel.roomAllItems.count > 0 {
             List{
                 KRefreshScrollView(progressTint: .purple, arrowTint: .purple) {
-                    ForEach(userViewModel.userHistoryItem?.chatRooms.reversed() ?? [sample], id: \._id){ roomItem in
-                        NavigationLink(destination : DialogScreen(goodsId: roomItem.goodsId, sellerId: roomItem.sellerId, roomId: roomItem._id ?? ""), label: {
-                            HStack(alignment:.center){
-                                HStack{
-                                    Circle().frame(width: 50, height: 50)
-                                        .foregroundColor(Color.gray)
-                                    
-                                    VStack(alignment:.leading ,spacing: 0){
-                                        HStack{
-                                            Text(userViewModel.oneUserItem?.username ?? "")
-                                                .fontWeight(.bold)
-                                                .padding(0)
-                                            //                                                .background(Color.yellow)
-                                            Text("10월 2일")
-                                                .font(.system(size: 15))
-                                                .foregroundColor(Color.gray)
-                                            
-                                            Spacer()
-                                        }
-                                        Spacer()
-                                        if  chatViewModel.contentItems.count == 0 {
-                                            Text("대화를 시작하세요!")
-                                                .padding(.top, 1)
-                                        }
-                                        else if chatViewModel.contentItems.count > 0 {
-                                            Text(chatViewModel.contentItems[lastMsgIdx].message)
-                                                .padding(.top, 3)
-                                                .lineLimit(1)
-                                                .onAppear(perform: {
-                                                    lastMsgIdx = chatViewModel.contentItems.count - 1
-                                                    print("== 채팅 갯수 : ", chatViewModel.contentItems.count)
-                                                })
-                                        }
-                                    }
-                                    .onAppear(perform: {
-                                        userViewModel.fetchOneUser(parameters: roomItem.sellerId)
-                                        
-                                        viewModel.fetchOneGoodsId(parameters: roomItem.goodsId)
-                                        chatViewModel.fetchChat(roomId: roomItem._id, goodsId: roomItem.goodsId)
-                                        
-                                    })
-                                    Spacer()
-                                    Rectangle().frame(width: 50, height: 50)
-                                        .background(Color(hex:"0000000"))
-                                        .cornerRadius(5)
-                                    
-                                    
-                                }
-                                .padding(.top, 2)
-                                
+                  
+                    ForEach(chatViewModel.roomAllItems, id: \._id){ roomItem in
+                        ChatRoomItemView(roomItem: roomItem)
+                        
+//                        Text(roomItem._id)
+//                        VStack{
+//                            HStack{
+//                                                       Text("굿즈 아이디 : ")
+//                                Text(roomItem.goodsId)
+//                                                       }
+////                            HStack{
+////                            Text("유저 정보 : ")
+////                                Text(userViewModel.oneUserItem?.username ?? "")
+////                            }
+//                            HStack{
+//                            Text("상품 정보 : ")
+//                                Text(viewModel.oneGoodsItem?.title ?? "")
+//                                    .onAppear(perform: {
+//
+////                                            userViewModel.fetchOneUser(parameters: roomItem.customerId)
+//                                            viewModel.fetchOneGoodsId(parameters: roomItem.goodsId)
+//
+//                                    })
+
                             }
-                            
-                        })
-                            .onAppear(perform: {
-                                userViewModel.fetchOneUser(parameters: roomItem.sellerId)
-                                
-                                viewModel.fetchOneGoodsId(parameters: roomItem.goodsId)
-                                chatViewModel.fetchChat(roomId: roomItem._id, goodsId: roomItem.goodsId)
-                                
-                            })
-                    }
-                } onUpdate: {
+//                            .onAppear(perform: {
+//                                if roomItem.sellerId == self.userInfo.id {
+//                                    userViewModel.fetchOneUser(parameters: roomItem.customerId)
+//                                    viewModel.fetchOneGoodsId(parameters: roomItem.goodsId)
+//                                } else {
+//                                    userViewModel.fetchOneUser(parameters: roomItem.sellerId)
+//                                    viewModel.fetchOneGoodsId(parameters: roomItem.goodsId)
+//                                }
+//                            })
+                        
+                       
+//                        NavigationLink(destination : DialogScreen(goodsId: roomItem.goodsId , sellerId: roomItem.sellerId, roomId: roomItem._id), label: {
+//                            HStack(alignment:.center){
+//                                HStack{
+//                                    Circle().frame(width: 50, height: 50)
+//                                        .foregroundColor(Color.gray)
+//                                    VStack(alignment:.leading ,spacing: 0){
+//                                        HStack{
+//                                            Text(userViewModel.oneUserItem?.username ?? "")
+//                                                .fontWeight(.bold)
+//                                                .padding(0)
+//                                            //                                                .background(Color.yellow)
+//                                            Text("10월 2일")
+//                                                .font(.system(size: 15))
+//                                                .foregroundColor(Color.gray)
+//                                            Text(viewModel.oneGoodsItem?.title ?? "")
+//                                            Spacer()
+//                                        }
+//                                        Spacer()
+//
+//                                        if  chatViewModel.contentItems.count == 0{
+//
+//                                            Text("대화를 시작하세요!")
+//                                                .padding(.top, 1)
+//                                            //
+//                                        }
+//                                        else {
+//                                            //                                                { print(chatViewModel.contentItems.count)}
+////                                            Text(chatViewModel.contentItems[lastMsgIdx].message)
+////                                                .padding(.top, 3)
+////                                                .lineLimit(1)
+////                                            //                                                    .padding(.leading, 13)
+////                                                .onAppear(perform: {
+////                                                    lastMsgIdx = chatViewModel.contentItems.count - 1
+////                                                    print("== 채팅 갯수 : ", chatViewModel.contentItems.count)
+////                                                })
+//                                        }
+//
+//                                    }
+//                                    //                                        .padding(.leading, 3)
+//                                }
+//                                Spacer()
+//                                Rectangle().frame(width: 50, height: 50)
+//
+//                                    .background(Color(hex:"0000000"))
+//                                    .cornerRadius(5)
+//                            }
+//                            .padding(.top, 2)
+//
+//                            .onAppear(perform: {
+//                                userViewModel.fetchOneUser(parameters: roomItem.customerId)
+//                                viewModel.fetchOneGoodsId(parameters: roomItem.goodsId)
+//                                self.title = viewModel.oneGoodsItem?.title ?? ""
+//                                chatViewModel.fetchChat(roomId: roomItem._id, goodsId: roomItem.goodsId)
+//
+//                                print("채팅 갯수 : ", chatViewModel.contentItems)
+//                            })
+//
+//                            //                                ChatRoomItemView(userId: roomItem.customerId, goodsId: roomItem.goodsId)
+//
+//                            //                            GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
+//                        })
+//                            .onAppear(perform: {
+//                                chatViewModel.fetchAllRoom()
+////                                chatViewModel.fetchGoodsRoom(goodsId: goodsItem._id)
+//                                //                        viewModel.fetchOneGoodsId(parameters: roomItem.goodsId)
+//                                //                        self.title = viewModel.oneGoodsItem?.title ?? ""
+//                            })
+                    
+                
+                    } onUpdate: {
                     chatViewModel.fetchAllRoom()
-                    userViewModel.fetchUserHistory(parameters: self.userInfo.id)
                 }
+                    .onAppear(perform: {
+                    chatViewModel.fetchAllRoom()
+                    
+                })
                 
             }
             .listStyle(InsetListStyle())
-            .onAppear(perform: {
-                userViewModel.fetchUserHistory(parameters: self.userInfo.id)
-            })
+    
+
+        
+    }
+    else {
+        VStack{
+        Text("생성된 대화가 없습니다.")
+                .foregroundColor(Color(hex:"c4c4c4"))
+            Spacer()
         }
+        
+    }
+        }
+        .onAppear(perform: {
+            //                    userViewModel.fetchOneUser(parameters: "616579dee6a40292c0bcab6a")
+            chatViewModel.fetchAllRoom()
+            //                viewModel.fetchOneGoodsId(parameters: goodsItem._id)
+            
+        })
     }
 }

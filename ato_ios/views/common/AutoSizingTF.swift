@@ -69,6 +69,7 @@ struct ResizeableTextView: UIViewRepresentable{
         textView.textColor = UIColor.black
         textView.backgroundColor = UIColor.white
         textView.font = UIFont.systemFont(ofSize: 15)
+//        textView.lineSpacing
         return textView
     }
     
@@ -133,12 +134,18 @@ struct AutoSizingTF: UIViewRepresentable {
     func makeUIView(context: Context) -> UITextView{
         
         let textView = UITextView()
+        
+        // line spacing
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 10
+        let attributes = [NSAttributedString.Key.paragraphStyle : style]
+        textView.attributedText = NSAttributedString(string: textView.text, attributes: attributes)
+        
         // Displaying text as hint...
         textView.text = hint
         textView.textColor = .gray
         textView.backgroundColor = .clear
-        textView.font = .systemFont(ofSize: 15)
-        
+        textView.font = .systemFont(ofSize: 17)
         // setting delegate...
         textView.delegate = context.coordinator
         

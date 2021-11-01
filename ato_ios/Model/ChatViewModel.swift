@@ -21,7 +21,7 @@ class ChatViewModel: ObservableObject {
     @Published var messages = [String]()
     @Published var chatItem:ChatModel?
     @Published var roomItem: RoomModel?
-    @Published var roomItems = [RoomModel]()
+    @Published var roomAllItems = [RoomModel]()
     @Published var goodsRoomItems = [RoomModel]()
     @Published var goodsUserItems = [UserRegisterModel]()
     let prefixUrl = "http://localhost:4000"
@@ -149,9 +149,9 @@ class ChatViewModel: ObservableObject {
     // 유저가 판매하는 제품들에서 생성된 채팅들 목록
     func fetchGoodsRoom(goodsId: String) {
         // let api = "http://3.34.140.23:4000/goods"
-        let api = "http://localhost:4000/chat/user/goods/all/" + goodsId // + "/" + self.userInfo.id
+        let api = "http://localhost:4000/chat/user/goods/all/" + goodsId  + "/" + self.userInfo.id
         guard let url = URL(string: api) else { return }
-        print("-----fetch roomItem-----")
+        print("-----fetchGoodsRoom roomItem-----")
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             do {
                 if let data = data {
@@ -202,12 +202,12 @@ class ChatViewModel: ObservableObject {
                     let result = try JSONDecoder().decode([RoomModel].self, from: data)
                     print("\nresult------------\n", result)
                     DispatchQueue.main.async {
-                        self.roomItems = result
+                        self.roomAllItems = result
                         
-                        print("roomItems ------------", self.roomItems)
+                        print("roomAllItems ------------", self.roomAllItems)
                     }
                 } else {
-                    print("No data--- room")
+                    print("No data--- roomAllItems")
                 }
             } catch let DecodingError.dataCorrupted(context) {
                 print(context)

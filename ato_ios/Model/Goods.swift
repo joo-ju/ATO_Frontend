@@ -19,6 +19,7 @@ struct GoodsModel: Codable {
     let price: Int
     let score: Int
     let tags: Array<String>
+    let image: Array<String>
     let count: Int
     let wishCount: Int
     let chat: Int
