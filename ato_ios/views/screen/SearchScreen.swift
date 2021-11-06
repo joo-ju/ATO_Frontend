@@ -10,11 +10,9 @@ import SwiftUI
 
 struct SearchScreen : View {
     @State var tabIndex = 0
-    //    @Binding var tabIndex: Int
     var body: some View {
         ZStack{
             
-//            Color(hex: "000000").edgesIgnoringSafeArea(.top)
             VStack{
                 MarketMainSearch()
                 TopBar(tabIndex: $tabIndex)
@@ -28,13 +26,11 @@ struct SearchScreen : View {
             }
             .frame(width: UIScreen.main.bounds.width - 24, alignment: .center)
             .padding(.horizontal, 12)
-//            .background(Color.white.ignoresSafeArea(.all, edges: .all))
         }
         .background(Color.white.ignoresSafeArea(.all, edges: .all))
     }
 }
 
-//
 struct SearchScreen_Previews: PreviewProvider {
     static var previews: some View {
         SearchScreen()

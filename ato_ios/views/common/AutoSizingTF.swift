@@ -134,44 +134,29 @@ struct AutoSizingTF: UIViewRepresentable {
     func makeUIView(context: Context) -> UITextView{
         
         let textView = UITextView()
-        
-        // line spacing
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 10
         let attributes = [NSAttributedString.Key.paragraphStyle : style]
         textView.attributedText = NSAttributedString(string: textView.text, attributes: attributes)
-        
-        // Displaying text as hint...
         textView.text = hint
         textView.textColor = .gray
         textView.backgroundColor = .clear
         textView.font = .systemFont(ofSize: 17)
-        // setting delegate...
         textView.delegate = context.coordinator
         
-        // Input Accessory View....
-        // Your own custom size....
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 20))
         toolBar.barStyle = .default
-        
-        // since we need done at right...
-        // so using another item as spacer...
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: context.coordinator, action: #selector(context.coordinator.closeKeyBoard))
-//
-//        toolBar.items = [spacer,doneButton]
-//        toolBar.sizeToFit()
-//
-//        textView.inputAccessoryView = toolBar
         
         return textView
     }
     
     func updateUIView(_ uiView: UITextView, context: Context) {
         
-        // Starting Text Field Height...
+
         DispatchQueue.main.async {
             if containerHeight == 0{
                 containerHeight = uiView.contentSize.height
@@ -180,38 +165,29 @@ struct AutoSizingTF: UIViewRepresentable {
     }
     
     class Coordinator: NSObject,UITextViewDelegate{
-        
-        // To read all parent properties...
+
         var parent: AutoSizingTF
         
         init(parent: AutoSizingTF) {
             self.parent = parent
         }
         
-        // keyBoard Close @objc Function...
         @objc func closeKeyBoard(){
          
             parent.onEnd()
         }
         
         func textViewDidBeginEditing(_ textView: UITextView) {
-            
-            // checking if text box is empty...
-            // is so then clearing the hint...
             if textView.text == parent.hint{
                 textView.text = ""
                 textView.textColor = UIColor(Color.primary)
             }
         }
-        
-        // updating text in SwiftUI View...
         func textViewDidChange(_ textView: UITextView) {
             parent.text = textView.text
             parent.containerHeight = textView.contentSize.height
         }
         
-        // On End checking if textbox is empty
-        // if so then put hint..
         func textViewDidEndEditing(_ textView: UITextView) {
             if textView.text == ""{
                 textView.text = parent.hint

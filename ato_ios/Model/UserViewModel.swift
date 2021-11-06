@@ -72,25 +72,20 @@ class UserViewModel: ObservableObject {
                 print("error", error?.localizedDescription ?? "")
                 return
             }
-            
             do {
-             
-//                print(a)
                 if let data = data {
                     let result = try JSONDecoder().decode(UserModel.self, from: data)
-          
                     
                     self.userInfo.id = result.user.id
                     self.userInfo.username = result.user.username
-                    print(self.userInfo.username)
+                    
                     DispatchQueue.main.async {
                         print(result)
                     }
                 } else {
                     print("No Data")
                 }
-//            } catch let JsonError {
-//                print("create login User json error : ", JsonError.localizedDescription)
+
             } catch let DecodingError.dataCorrupted(context) {
                 print(context)
             } catch let DecodingError.keyNotFound(key, context) {
@@ -246,50 +241,4 @@ class UserViewModel: ObservableObject {
             }
         }.resume()
     }
-    // 찜한 Goods 1개 조회
-//    func fetchOneGood(parameters:String){
-//        guard let url = URL(string: "\(prefixUrl)/goods/one/" + parameters) else {
-//            print("Not Found url")
-//            return
-//        }
-//        let data = try! JSONSerialization.data(withJSONObject: parameters)
-//
-//        var request = URLRequest(url:url)
-//        request.httpMethod = "PUT"
-//        request.httpBody = data
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//        URLSession.shared.dataTask(with: request) { (data, res, error) in
-//            if error != nil {
-//                print("error", error?.localizedDescription ?? "")
-//                return
-//            }
-//
-//            do {
-//                if let data = data {
-//                    let result = try JSONDecoder().decode(UserHistoryModel.self, from: data)
-//                    DispatchQueue.main.async {
-//                        print(result)
-//                    }
-//                } else {
-//                    print("No Data")
-//                }
-//            } catch let DecodingError.dataCorrupted(context) {
-//                print(context)
-//            } catch let DecodingError.keyNotFound(key, context) {
-//                print("Key '\(key)' not found:", context.debugDescription)
-//                print("codingPath:", context.codingPath)
-//            } catch let DecodingError.valueNotFound(value, context) {
-//                print("Value '\(value)' not found:", context.debugDescription)
-//                print("codingPath:", context.codingPath)
-//            } catch let DecodingError.typeMismatch(type, context)  {
-//                print("Type '\(type)' mismatch:", context.debugDescription)
-//                print("codingPath:", context.codingPath)
-//            } catch {
-//                print("error: ", error)
-//            }
-//        }.resume()
-//    }
 }
-
-

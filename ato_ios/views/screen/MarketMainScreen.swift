@@ -17,7 +17,6 @@ struct MarketMain : View {
     @EnvironmentObject var chatViewModel: ChatViewModel
     @State var isPresentedNewPost = false
     
-    //    @State var usernames : [String]
     @State var title = ""
     @State var content = ""
     @State var price = 0
@@ -82,7 +81,6 @@ struct MarketMain : View {
                     .onAppear {
                         UITableView.appearance().separatorStyle = .none
                     }
-                    //                    .listSeparatorStyle(style: .none)
                     .listStyle(InsetListStyle())
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
@@ -90,8 +88,6 @@ struct MarketMain : View {
                     .padding(.bottom, 40)
                     
                 }
-                //                List(viewModel.goodsItems.reversed().filter({$0.name.contains(keyword)}))
-                //
                 else {
                     List{
                         ForEach(viewModel.goodsItems.filter({$0.title.contains(keyword) }), id: \._id){ goodsItem in
@@ -104,10 +100,6 @@ struct MarketMain : View {
                     }
                     .listStyle(InsetListStyle())
                 }
-                //                List(viewModel.goodsItems.filter({$0.title.contains(keyword) })) { item in
-                //                    Text(item.title)
-                //                }
-                
             }
             .sheet(isPresented: $isPresentedNewPost, content: {
                 NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wishCount: $wishCount, chat: $chat, review: $review)

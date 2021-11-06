@@ -15,13 +15,11 @@ struct DetailGoodsScreen: View {
     @EnvironmentObject var chatViewModel: ChatViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
-    //    @ObservedObject var viewRouter: ViewRouter
     
     @State var isLinkActive = false
     @State var isLinkActiveList = false
     let goodsItem: GoodsModel
     let goodsUserItems: [UserRegisterModel] = []
-    //    @State var usernames : [String]
     @State var price: String?
     @State var title:String?
     @State var content = ""
@@ -45,9 +43,7 @@ struct DetailGoodsScreen: View {
     
     @State var GoodsChatListScreenActive = false
     
-    //        init(){
-    //            viewModel.fetchOneGoodsId(parameters: self.goodsItem._id)
-    //        }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack{
@@ -82,8 +78,6 @@ struct DetailGoodsScreen: View {
                             .resizable()
                             .frame(maxHeight: 300)
                             .cornerRadius(20)
-                        //                            .padding(.trailing, 15)
-                        //                            .padding(.top, 7)
                             .onAppear(perform: {
                                 imageURL = URL + goodsItem.image[goodsItem.image.count - 1]
                             })
@@ -103,41 +97,22 @@ struct DetailGoodsScreen: View {
                     Divider()
                     
                     LazyVStack(alignment: .leading,spacing: 10){
-                        // Since Were Using Indices So WE Need To Specify Id....
                         ForEach(chips.indices,id: \.self){index in
                             
                             HStack{
-                                
-                                // some times it asks us to specify hashable in Data Model...
                                 ForEach(chips[index].indices,id: \.self){chipIndex in
                                     MarketTag(tag:chips[index][chipIndex].chipText)
-                                    // Main Logic......
                                         .overlay(
                                             
                                             GeometryReader{reader -> Color in
                                                 
-                                                // By Using MaxX Parameter We Can Use Logic And Determine if its exceeds or not....
-                                                
                                                 let maxX = reader.frame(in: .global).maxX
-                                                
-                                                // Both Paddings  = 30+ 30 = 60
-                                                // Plus 10 For Extra....
-                                                
-                                                // Doing Action Only If The Item Exceeds...
-                                                
                                                 if maxX > UIScreen.main.bounds.width - 70 && !chips[index][chipIndex].isExceeded{
-                                                    
-                                                    // It is updating to each user interaction....
-                                                    
                                                     DispatchQueue.main.async {
-                                                        
-                                                        // Toggling That...
                                                         chips[index][chipIndex].isExceeded = true
                                                         
-                                                        // Getting Last Item...
                                                         let lastItem = chips[index][chipIndex]
-                                                        // removing Item From Current Row...
-                                                        // inserting it as new item...
+                                                       
                                                         chips.append([lastItem])
                                                         chips[index].remove(at: chipIndex)
                                                         
@@ -183,7 +158,6 @@ struct DetailGoodsScreen: View {
                                 })
                             } else {
                                 Button(action: {
-                                    //
                                     let parameters = ["id": goodsItem._id, "status": "판매중"]
                                     viewModel.updateStatus(parameters: parameters)
                                 }, label: {
@@ -317,6 +291,7 @@ struct DetailGoodsScreen: View {
                     .fontWeight(.bold)
                 Spacer()
                 if goodsItem.sellerId == self.userInfo.id  && goodsItem.state != "판매완료" {
+                        
                     HStack{
                         
                         NavigationLink(
@@ -333,8 +308,9 @@ struct DetailGoodsScreen: View {
                                 .cornerRadius(10)
                                 .foregroundColor(.white)
                             })
-                    }       .hidden()
-                    //                    )
+                    }
+                        
+                    
                 }
                 else if goodsItem.state != "판매완료" {
                     HStack{
@@ -369,7 +345,6 @@ struct DetailGoodsScreen: View {
             .frame(height: 50, alignment: .center)
             .padding([.leading, .trailing], 15)
             .padding(.leading, 5)
-            //            .background(Color(hex: "F0F4FF"))
             
             
         } // end of VStack

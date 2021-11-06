@@ -13,9 +13,6 @@ extension View {
     static func endEditing(){
         UIApplication.shared.windows.forEach{$0.endEditing(false)}
     }
-//    func listSeparatorStyle(style: UITableViewCell.SeparatorStyle) -> some View {
-////         ModifiedContent(content: self, modifier: ListSeparatorStyle(style: style))
-//     }
 }
 
 
@@ -29,18 +26,6 @@ struct RoundedCorner: Shape {
         return Path(path.cgPath)
     }
 }
-
-//struct ListSeparatorStyle: ViewModifier {
-//
-//    let style: UITableViewCell.SeparatorStyle
-//
-//    func body(content: Content) -> some View {
-//        content
-//            .onAppear() {
-//                UITableView.appearance().separatorStyle = self.style
-//            }
-//    }
-//}
 extension String {
     func toDate() -> Date? { //"yyyy-MM-dd HH:mm:ss"
         let dateFormatter = DateFormatter()
@@ -58,8 +43,7 @@ extension String {
 }
 extension Date {
     func toString() -> String {
-        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFormatter = DateFormatter()\
         dateFormatter.dateFormat = "yyyy년 MM월 dd일 HH:mm:ss"
         dateFormatter.timeZone = TimeZone(identifier: "UTC")
         return dateFormatter.string(from: self)
@@ -76,8 +60,6 @@ extension String {
             }
             
             let data: Data = try Data(contentsOf: url)
-            
-            // create UIImage object form Data
             return UIImage(data: data) ?? UIImage()
             
         } catch {

@@ -57,10 +57,6 @@ struct GoodsItemView: View {
                         .foregroundColor(Color(hex: "828282"))
                     HStack{
                         if tags.count > 0{
-                            //                            ForEach(0..<3){idx in
-                            //
-                            //                                MarketTag(tag: tags[idx])
-                            //                            }
                             if tags.count > 3 {
                                 ForEach(0..<3){idx in
                                     MarketTag(tag: tags[idx])

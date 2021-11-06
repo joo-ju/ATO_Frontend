@@ -52,13 +52,9 @@ struct Register : View {
                         Text("아이디")
                             .padding(.leading, 45)
                             .padding(.top, 15)
-                        //                        .foregroundColor(Color(hex:"828282"))
-                        //                        .padding(.top)
                         TextField("6 ~ 20자 영문, 숫자", text: $username)
                             .padding()
-                            //                        .textFieldStyle()
                             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(hex: "828282"), lineWidth: 1))
-                            //                        .padding()
                             .padding(.leading, 40)
                             .padding(.trailing, 40)
                     }
@@ -124,10 +120,6 @@ struct Register : View {
                             .padding(.trailing, 40)
                             .keyboardType(.numberPad)
                     }
-                    
-                 
-                    
-//                    NavigationLink(destination: Register()){
                     Button(action:{
                         if username != "" && password != "" && password == confirmPassword{
                     
@@ -136,11 +128,9 @@ struct Register : View {
                             userViewModel.createUser(parameters: parameters)
                             print(parameters)
                             presentationMode.wrappedValue.dismiss()
-//                            viewModel.fetchAllGoods()
                             
                         }
                         else {
-//                            isAlert.toggle()
                         }
                         
                     } , label: {
@@ -157,8 +147,6 @@ struct Register : View {
                         .foregroundColor(.white)
                         .padding(30)
                     })
-                        
-//                    }
                     
                     Spacer()
                 }
@@ -170,10 +158,3 @@ struct Register : View {
         
     }
 }
-
-
-//struct Register_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Register()
-//    }
-//}

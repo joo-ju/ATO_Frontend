@@ -26,30 +26,8 @@ struct FeedBack : View {
                 Spacer()
                 
             }.padding(.top)
-//            .background(Color.green)
-            
-//            VStack{
-//
-//                if self.ratings != 0{
-//
-//                    if self.ratings == 5{
-//
-//                        Text("Excellent").fontWeight(.bold).foregroundColor(.green)
-//                    }
-//                    else if self.ratings == 4 {
-//
-//                        Text("Good").fontWeight(.bold).foregroundColor(.green)
-//                    }
-//                    else{
-//
-//                        Text("Okay").fontWeight(.bold).foregroundColor(.green)
-//                    }
-//                }
-//
-//            }.padding(.top, 20)
             
             HStack(spacing: 15){
-                
                 ForEach(1...5,id: \.self){i in
                     
                     Image(systemName: self.ratings == 0 ? "star" : "star.fill")
@@ -62,35 +40,8 @@ struct FeedBack : View {
                     }
                 }
                 
-            }.padding()
-            
-//            HStack{
-//
-//                Spacer()
-                
-//                Button(action: {
-//
-//                    self.ratings = 0
-////                    self.show.toggle()
-//
-//                }) {
-//
-//                    Text("Cancel").foregroundColor(.green).fontWeight(.bold)
-//                }
-                
-//                Button(action: {
-//
-////                    self.show.toggle()
-//
-//                }) {
-//
-//                    Text("Submit").foregroundColor(self.ratings != 0 ? .green : Color.black.opacity(0.2)).fontWeight(.bold)
-//
-//                }.padding(.leading, 20)
-//                .disabled(self.ratings != 0 ? false : true)
-                
-//            }.padding()
-            
+            }
+            .padding()
         }
     }
 }

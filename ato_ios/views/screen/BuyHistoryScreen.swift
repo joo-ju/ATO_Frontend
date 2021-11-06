@@ -52,8 +52,6 @@ struct BuyHistoryScreen: View {
                                         GoodsItemView(title: buyGoodsItem.title, price: buyGoodsItem.price, tags: buyGoodsItem.tags, wishCount: buyGoodsItem.wishCount, chat: buyGoodsItem.chat, state: buyGoodsItem.state, image: buyGoodsItem.image)
                                     })
                                     if !buyGoodsItem.review {
-                                    
-//                                        NavigationLink(destination: NewGoodsReviewScreen(isPresented: $isPresentedNewGoodsReview, writer: $writer, content: $content, goodsId: buyGoodsItem._id, score: $score)){
                                             Button(action: {
                                                 goodsId = buyGoodsItem._id
                                                 isPresentedNewGoodsReview.toggle()
@@ -70,14 +68,11 @@ struct BuyHistoryScreen: View {
                                                         
                                                         Spacer()}
                                                 }
-//                                                .frame(width:.infinity)
                                                 .background(Color(hex: "A9BCE8"))
                                                 .cornerRadius(50)
                                             })
                                             
-                               
-//                                        }
-                                        //
+                            
                                     } else {
                                         NavigationLink(destination: DetailGoodsReviewScreen(goodsItem: buyGoodsItem), label: {
                                             
@@ -119,9 +114,6 @@ struct BuyHistoryScreen: View {
                 Spacer()
             }
         }
-//        .sheet(isPresented: $isPresentedNewGoodsReview, content: {
-//            NewGoodsReviewScreen(isPresented: $isPresentedNewGoodsReview)
-//        })
         .onAppear(perform: {
             viewModel.fetchGoodsBuyBuyerId(parameters: self.userInfo.id)
             

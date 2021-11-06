@@ -14,3 +14,10 @@ struct WalletModel: Decodable {
     let enrollTime: String
     let updateTime: String
 }
+
+struct WalletContentModel: Decodable {
+    let _id: String
+    let cost: Int
+    let type: String
+    let enrollTime: String
+}

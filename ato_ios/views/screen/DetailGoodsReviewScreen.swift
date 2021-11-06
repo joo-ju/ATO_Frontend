@@ -45,7 +45,6 @@ struct DetailGoodsReviewScreen: View {
                         VStack(alignment: .leading, spacing: 10) {
                             Rectangle().frame(height: 0)
                         Text(reviewViewModel.oneReviewGoodsItem?.content ?? "리뷰를 가져오지 못했습니다.")
-//                        Text(viewModel.oneGoodsItem?.content ?? "게시물을 가져오지 못했습니다.")
                             .padding([.top, .bottom], 10)
 
                             .lineSpacing(5)
@@ -63,8 +62,3 @@ struct DetailGoodsReviewScreen: View {
     }
 }
 
-//struct DetailGoodsReviewScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DetailGoodsReviewScreen()
-//    }
-//}

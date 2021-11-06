@@ -11,7 +11,6 @@ struct MyAtoMainScreen: View {
     @ObservedObject var userInfo = UserInfo()
     @EnvironmentObject var walletViewModel: WalletViewModel
     @Environment(\.presentationMode) var presentationMode
-    
     var body: some View {
         VStack(alignment: .leading){
             HStack{
@@ -44,8 +43,6 @@ struct MyAtoMainScreen: View {
                     
                     .padding()
                 } // end NavigationLink
-                //                .navigationBarHidden(true)
-                //                .navigationBarBackButtonHidden(true)
                 Divider()
                 Spacer()
                 HStack(spacing: 20){
@@ -56,13 +53,12 @@ struct MyAtoMainScreen: View {
                     .navigationBarBackButtonHidden(true)
                     NavigationLink(destination: BuyHistoryScreen().navigationBarTitleDisplayMode(.inline)){
                         MyAtoMenuButton(name: "구매내역", image: "bag", isGoods: true)
-                        //                    MyAtoMenuButton(name: "", image: "bag", isGoods: true)
+                   
                     }
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
                     NavigationLink(destination: WishlistScreen().navigationBarTitleDisplayMode(.inline)){
                         VStack(spacing: 0){
-                            //            Rectangle().frame(height: 0)
                             
                             Image(systemName: "heart")
                                 .resizable()
@@ -80,7 +76,6 @@ struct MyAtoMainScreen: View {
                             
                             
                         }
-                        //        .frame(width: .infinity)
                         .padding(10)
                     } // end HStack
                     .navigationBarHidden(true)
@@ -98,17 +93,16 @@ struct MyAtoMainScreen: View {
                             
                         })
                     } else {
+                        NavigationLink(destination: WalletChargeScreen()){
+                            MyAtoMenuButton(name: "지갑 충전", image: "creditcard.fill", isGoods: false)
+                        }
                         NavigationLink(destination:Login().navigationBarTitleDisplayMode(.inline)){
-                            MyAtoMenuButton(name: "지갑", image: "creditcard.fill", isGoods: false)
-                            //                    MyAtoMenuButton(name: "", image: "bag", isGoods: true)
+                            MyAtoMenuButton(name: "지갑 내역", image: "list.bullet.rectangle", isGoods: false)
+                            
                         }
                     }
-                  
-                    //                        MyAtoMenuButton(name: "전시회내역", image: "photo", isGoods: false)
-                    //                        MyAtoMenuButton(name: "예매내역", image: "calendar", isGoods: false)
                     MyAtoMenuButton(name: "리뷰관리", image: "ellipsis.bubble", isGoods: false)
-                    //                    MyAtoMenuButton(name: "", image: "bag", isGoods: true)
-                    
+                  
                 } // end HStack
                 VStack{
                     
@@ -133,14 +127,11 @@ struct MyAtoMainScreen: View {
                 
                 
             } // end ScrollView
-            //            .background(Color.green)
         } // end VStack
-        //        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
         
     }
-    //
 }
 
 struct MyAtoMainScreen_Previews: PreviewProvider {

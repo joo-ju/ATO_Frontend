@@ -16,19 +16,13 @@ struct ChatRoomItemView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     
     @ObservedObject var userInfo = UserInfo()
-    //    init(userId: String, goodsId: String){
-    //        viewModel.fetchOneGoodsId(parameters: goodsId)
-    //    }
     var body: some View {
         VStack{
             HStack{
-//                Text("대화 상대 : ")
                 HStack{
                     Text("굿즈 title : ")
                     Text(viewModel.oneGoodsItem?.title ?? "")
                 }
-                //                Text(userViewModel.oneUserItem?.username ?? "").onAppear(perform:{ userViewModel.fetchOneUser(parameters: userId)})
-                //            Text(title ?? "")
             }
         }
         .onAppear(perform: {
@@ -43,9 +37,3 @@ struct ChatRoomItemView: View {
     }
     
 }
-
-//struct ChatRoomItemView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ChatRoomItemView()
-//    }
-//}

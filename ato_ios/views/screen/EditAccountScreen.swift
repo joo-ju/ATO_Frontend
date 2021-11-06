@@ -14,7 +14,6 @@ struct EditAccountScreen: View {
             
         }
         .onAppear(perform: {
-//            viewModel.fetchGoodsBuyBuyerId(parameters: buyerId)
             
         })
         .navigationTitle("계정정보")

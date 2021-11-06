@@ -18,7 +18,6 @@ struct TopBar : View {
                 .onTapGesture { onButtonTapped(index: 0) }
             SearchTabBarButton(text: "아토 행사", isSelected: .constant(tabIndex == 1))
                 .onTapGesture { onButtonTapped(index: 1) }
-//            Spacer()
         }
         .border(width: 1, edges: [.bottom], color: Color(hex: "c4c4c4"))
     }

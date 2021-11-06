@@ -31,8 +31,6 @@ struct NewGoodsScreen : View {
     @State var isAlert = false
     @State private var cost = 0
     @State var textViewHeight:CGFloat = 50.0
-
-    // Auto Updating TextBox Height...
     @State var containerHeight: CGFloat = 400
     
     // price의 Int 형을 입력받기 위한 formatter
@@ -149,7 +147,6 @@ struct NewGoodsScreen : View {
                     VStack{
                         TextField("제목", text: $title)
                             .padding(10)
-                        //                    .padding(.top, 5)
                             .padding([.leading, .trailing], 20)
                         
                         Divider()
@@ -163,14 +160,9 @@ struct NewGoodsScreen : View {
                             .padding([.leading, .trailing], 20)
                         VStack{
                             AutoSizingTF(hint: "판매 글의 내용을 작성해주세요.", text: $content,containerHeight: $containerHeight, onEnd: {
-                                
-                                // Do when keyboard closed...
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             })
                                 .padding(.horizontal)
-//                                .lineSpacing(50)
-                                // Your Max Height Here....
-//                                .frame(height: containerHeight <= 400 ? containerHeight : 400)
                                 .frame(height: 400)
                                 .background(Color.white)
                                 .cornerRadius(10)

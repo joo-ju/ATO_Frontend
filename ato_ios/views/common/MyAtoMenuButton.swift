@@ -13,8 +13,7 @@ struct MyAtoMenuButton: View {
     @State var isGoods = false
     var body: some View {
         VStack(spacing: 0){
-//            Rectangle().frame(height: 0)
-            if name == "리뷰관리" || name == "지갑생성" || name == "지갑" {
+            if name == "리뷰관리" || name == "지갑생성" || name == "지갑 충전" || name == "지갑 내역" {
                 
                 Image(systemName: image)
                     .resizable()
@@ -47,10 +46,7 @@ struct MyAtoMenuButton: View {
             }
             
         }
-//        .frame(width: .infinity)
         .padding(10)
-//        .background(Color(hex: "E1E9FF"))
-//        .cornerRadius(10)
    
     }
 }

@@ -30,7 +30,6 @@ struct WishListTabBarButton: View {
                     .fontWeight(isSelected ? .heavy : .regular)
                     .font(.system( size: 17))
                     .frame(maxWidth: .infinity)
-                    //            .padding(.bottom,10)
                     .padding(.vertical)
                     .foregroundColor(Color(hex: "ffffff"))
                     .background(Color(hex: "76C598"))
@@ -45,7 +44,6 @@ struct WishListTabBarButton: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical)
                     .foregroundColor( Color(hex: "c4c4c4"))
-                //                    .border(width: isSelected ? 3 : 1, edges: [.bottom], color: .black)
             }
         } // end VStack
     }

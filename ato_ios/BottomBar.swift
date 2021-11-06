@@ -34,30 +34,14 @@ struct BottomBar: View {
                     Image(systemName: "message")
                     Text("채팅")
                 }
-//            Text("My Screen")
-//                .font(.largeTitle)
-//                .tag(TabItems.myAto)
             Login()
                 .tabItem {
                     Image(systemName: "gift")
                     Text("나의 아토")
-//                        .color
                 }
-//            ForEach(0..<3) { index in
-//                Text("태그 \(index)")
-//                    .font(.largeTitle)
-//                    .fontWeight(.bold)
-//                    .tag(index)
-//                    .tabItem {
-//                        Image(systemName: "house")
-//                        Text("Home")
-//                    }
-//            }
         }.accentColor(Color(hex: "000000"))
 }
 }
-//    }
-//}
 
 struct BottomBar_Previews: PreviewProvider {
     static var previews: some View {

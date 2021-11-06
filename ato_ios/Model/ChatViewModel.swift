@@ -13,8 +13,6 @@ import SwiftUI
 class ChatViewModel: ObservableObject {
     @Published var manager =  SocketManager(socketURL: URL(string:"http://localhost:8080")!, config: [.connectParams(["EIO": "3"])])
     let userViewModel = UserViewModel()
-//    @ObservedObject var userViewModel: UserViewModel
-//    @ObservableObject var userViewModel: UserViewModel
     @State var sample: User?
     @ObservedObject var userInfo = UserInfo()
     @Published var contentItems = [Content]()
@@ -25,7 +23,6 @@ class ChatViewModel: ObservableObject {
     @Published var goodsRoomItems = [RoomModel]()
     @Published var goodsUserItems = [UserRegisterModel]()
     let prefixUrl = "http://localhost:4000"
-    // let prefixUrl = "http://3.34.140.23:4000"
     
  
     
@@ -52,9 +49,6 @@ class ChatViewModel: ObservableObject {
                 if let data = data {
                     let result = try JSONDecoder().decode(RoomModel.self, from: data)
                     DispatchQueue.main.async {
-                        //                         print(result)
-                        //                         self.roomItem = result
-                        //                         print(self.roomItem)
                     }
                 } else {
                     print("No Data")
@@ -160,16 +154,6 @@ class ChatViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         self.goodsRoomItems = result
                         print("\n***************************************")
-                       
-//                        for goodsroomitem in self.goodsRoomItems {
-//                            self.userViewModel.fetchOneUser(parameters: goodsroomitem.customerId)
-////
-////                            self.goodsUserItems.append((self.userViewModel.oneUserItem)! )
-////                            self.userViewModel.fetchOneUser(parameters: goodsroomitem.customerId)
-////                            print(self.userViewModel.oneUserItem)
-//                        }
-//                        print()
-//                        print(self.goodsUserItems)
                         print("goodsRoomItems------------", self.goodsRoomItems)
                     }
                 } else {

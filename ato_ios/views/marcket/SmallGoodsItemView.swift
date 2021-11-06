@@ -61,7 +61,6 @@ struct SmallGoodsItemView: View {
                         Text("\(price)원")
                             .font(.system(size: 16))
                             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                        //                        .padding(.top, 10)
                     }
                 }
                 Spacer()
