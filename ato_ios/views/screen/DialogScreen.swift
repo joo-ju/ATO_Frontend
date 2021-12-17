@@ -8,49 +8,49 @@
 import SwiftUI
 import SocketIO
 
-class Service: ObservableObject {
-    @Published var manager =  SocketManager(socketURL: URL(string:"http://localhost:8080/")!, config: [.connectParams(["EIO": "3"])])
-    
-    @Published var messages = [String]()
-    @Published var writers = [String]()
-    @Published var contents = [Content]()
-    @ObservedObject var userInfo = UserInfo()
-    init() {
-        let socket = manager.defaultSocket
-        socket.on(clientEvent: .connect) {
-            (data, ack) in
-            print("Connected")
-            socket.emit("NodeJS Server Port", "Hi NodeJS Server!")
-        }
-        
-        socket.on("iOS Client Port"){ [weak self] (data,ack) in
-            if let data = data[0] as? [String: String],
-               let rawMessage = data["message"] {
-                DispatchQueue.main.async {
-                    print("messages : ", self?.messages)
-                    
-                }
-            }
-        }
-        socket.on("e1"){ [weak self] (data,ack) in
-            if let data = data[0] as? [String: String],
-               let rawWriter = data["writer"]{
-                
-                DispatchQueue.main.async {
-                    self?.writers.append(rawWriter)
-                    self?.messages.append(data["message"] ?? "")
-                }
-            }
-        }
-        socket.connect()
-    }
-    func sendMessage(message: String, roomId: String){
-        let socket = manager.defaultSocket
-        let parameters = ["message": message, "roomId": roomId, "writer": self.userInfo.id]
-        socket.emit("event1", parameters)
-        print(messages)
-    }
-}
+//class Service: ObservableObject {
+//    @Published var manager =  SocketManager(socketURL: URL(string:"http://localhost:8080/")!, config: [.connectParams(["EIO": "3"])])
+//
+//    @Published var messages = [String]()
+//    @Published var writers = [String]()
+//    @Published var contents = [Content]()
+//    @ObservedObject var userInfo = UserInfo()
+//    init() {
+//        let socket = manager.defaultSocket
+//        socket.on(clientEvent: .connect) {
+//            (data, ack) in
+//            print("Connected")
+//            socket.emit("NodeJS Server Port", "Hi NodeJS Server!")
+//        }
+//
+//        socket.on("iOS Client Port"){ [weak self] (data,ack) in
+//            if let data = data[0] as? [String: String],
+//               let rawMessage = data["message"] {
+//                DispatchQueue.main.async {
+//                    print("messages : ", self?.messages)
+//
+//                }
+//            }
+//        }
+//        socket.on("e1"){ [weak self] (data,ack) in
+//            if let data = data[0] as? [String: String],
+//               let rawWriter = data["writer"]{
+//
+//                DispatchQueue.main.async {
+//                    self?.writers.append(rawWriter)
+//                    self?.messages.append(data["message"] ?? "")
+//                }
+//            }
+//        }
+//        socket.connect()
+//    }
+//    func sendMessage(message: String, roomId: String){
+//        let socket = manager.defaultSocket
+//        let parameters = ["message": message, "roomId": roomId, "writer": self.userInfo.id]
+//        socket.emit("event1", parameters)
+//        print(messages)
+//    }
+//}
 
 
 
@@ -60,7 +60,7 @@ struct DialogScreen: View {
     @ObservedObject var userInfo = UserInfo()
     @EnvironmentObject var viewModel: ViewModel
     @EnvironmentObject var chatViewModel: ChatViewModel
-    @ObservedObject var chatService = Service()
+//    @ObservedObject var chatService = Service()
     @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
     var contentItems = [Content]()
@@ -115,38 +115,38 @@ struct DialogScreen: View {
                     }
                 }.onAppear(perform: {
                 })
-                ForEach(chatService.writers.indices, id: \.self) { index in
-                    if  self.userInfo.id == chatService.writers[index] {
-                        HStack{
-                            Spacer()
-                            Text(chatService.messages[index])
-                                .padding(.horizontal)
-                                .padding(.vertical,10)
-                                .background(Color(hex: "A9BCE8"))
-                                .foregroundColor(Color(hex: "ffffff"))
-                            
-                                .cornerRadius(10)
-                        }.padding(.leading, 60)
-                            .padding(.vertical, 2)
-                            .padding(.trailing, 30)
-                    }
-                    else {
-                        HStack{
-                            Text(chatService.messages[index])
-                                .padding(.horizontal)
-                                .padding(.vertical,10)
-                                .background(Color(hex: "F0F4FF"))
-                                .foregroundColor(Color(hex: "6279B8"))
-                            
-                                .cornerRadius(10)
-                            Spacer()
-                        }.padding(.trailing, 60)
-                            .padding(.vertical, 2)
-                            .padding(.leading, 30)
-                    }
-                    
-                }.onAppear(perform: {
-                })
+//                ForEach(chatService.writers.indices, id: \.self) { index in
+//                    if  self.userInfo.id == chatService.writers[index] {
+//                        HStack{
+//                            Spacer()
+//                            Text(chatService.messages[index])
+//                                .padding(.horizontal)
+//                                .padding(.vertical,10)
+//                                .background(Color(hex: "A9BCE8"))
+//                                .foregroundColor(Color(hex: "ffffff"))
+//
+//                                .cornerRadius(10)
+//                        }.padding(.leading, 60)
+//                            .padding(.vertical, 2)
+//                            .padding(.trailing, 30)
+//                    }
+//                    else {
+//                        HStack{
+//                            Text(chatService.messages[index])
+//                                .padding(.horizontal)
+//                                .padding(.vertical,10)
+//                                .background(Color(hex: "F0F4FF"))
+//                                .foregroundColor(Color(hex: "6279B8"))
+//
+//                                .cornerRadius(10)
+//                            Spacer()
+//                        }.padding(.trailing, 60)
+//                            .padding(.vertical, 2)
+//                            .padding(.leading, 30)
+//                    }
+//
+//                }.onAppear(perform: {
+//                })
                 Spacer()
             }
             HStack{
@@ -156,7 +156,7 @@ struct DialogScreen: View {
                     .overlay(RoundedRectangle(cornerRadius: 50).stroke(Color.gray, lineWidth: 0.5))
                 Button(action: {
                     print("Msg: ", msg)
-                    chatService.sendMessage(message: msg, roomId: roomId)
+//                    chatService.sendMessage(message: msg, roomId: roomId)
                     
                     print("messages: ", messages)
                     chatViewModel.updateMessage(parameters: ["writer": self.userInfo.id, "roomId": roomId, "message": msg])
@@ -193,9 +193,9 @@ struct DialogScreen: View {
     }
     var leading: some View{
         Button(action:{
-            chatService.messages = []
-            chatService.writers = []
-            chatService.contents = []
+//            chatService.messages = []
+//            chatService.writers = []
+//            chatService.contents = []
             
             presentationMode.wrappedValue.dismiss()
         } , label: {

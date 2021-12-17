@@ -45,7 +45,7 @@ struct DetailGoodsScreen: View {
     
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack{
                 // 상단바 - 닫기, 수정
                 Button(action: {
@@ -82,11 +82,15 @@ struct DetailGoodsScreen: View {
                                 imageURL = URL + goodsItem.image[goodsItem.image.count - 1]
                             })
                     }
+                    VStack(alignment: .leading){
                     Text(viewModel.oneGoodsItem?.title ?? "게시물을 가져오지 못했습니다.")
                         .fontWeight(.bold)
                         .font(.system(size: 20))
                         .padding([.top, .bottom], 10)
-                    Divider()
+                    Text("10분전")
+                            .foregroundColor(Color(hex: "838383"))
+                        .font(.system(size: 13))
+                 
                     
                     
                     Text(viewModel.oneGoodsItem?.content ?? "게시물을 가져오지 못했습니다.")
@@ -96,6 +100,8 @@ struct DetailGoodsScreen: View {
                     
                     Divider()
                     
+                }
+                        .padding([.leading, .trailing], 20)
                     LazyVStack(alignment: .leading,spacing: 10){
                         ForEach(chips.indices,id: \.self){index in
                             
@@ -128,7 +134,8 @@ struct DetailGoodsScreen: View {
                             }
                         }
                     }
-                    
+                   
+                    .padding([.leading, .trailing], 20)
                     Spacer()
                     if goodsItem.sellerId == self.userInfo.id && goodsItem.state != "판매완료"{
                         
@@ -216,7 +223,7 @@ struct DetailGoodsScreen: View {
                     }
                     
                 } // end of VStack
-                .padding([.leading, .trailing], 20)
+//                .padding([.leading, .trailing], 20)
                 
             }
             // end of ScrollView
@@ -246,7 +253,34 @@ struct DetailGoodsScreen: View {
             }
             print(chips)
         }
-            
+            HStack(spacing: 7){
+              Spacer()
+//                HStack{
+                    Text("예약하기")
+                    .font(.system(size: 14))
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .foregroundColor(Color(hex: "6279B8"))
+                        .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color(hex: "A9BCE8"), lineWidth: 1.5)
+                                )
+                Text("판매완료")
+                
+                .font(.system(size: 14))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .foregroundColor(Color(hex: "6279B8"))
+                    .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color(hex: "A9BCE8"), lineWidth: 1.5)
+                            )
+            }
+            .frame( alignment: .center)
+            .padding([.leading, .trailing], 15)
+            .padding(.leading, 5)
+            .padding(.bottom, 7)
+//            .background(Color.green)
             HStack{
                 if goodsItem.sellerId != self.userInfo.id && goodsItem.state != "판매완료"{
                     Button(action:{
@@ -267,11 +301,13 @@ struct DetailGoodsScreen: View {
                                 .resizable()
                                 .frame(width:20, height: 15)
                                 .foregroundColor(Color(hex: "A9BCE8"))
+//                                .padding(.trailing, 5)
                         } else {
                             Image(systemName: "heart")
                                 .resizable()
                                 .frame(width:20, height: 15)
                                 .foregroundColor(Color(hex: "c4c4c4"))
+                            
                         }
                     })
                         .onAppear(perform: {
@@ -281,9 +317,7 @@ struct DetailGoodsScreen: View {
                                 isWished = true
                             }
                         })
-                    Divider()
-                        .padding(.leading, 5)
-                        .padding(.trailing, 5)
+                        .padding(.trailing, 10)
                 }
                 
                 Text("\(viewModel.oneGoodsItem?.price ?? 0 )원")
@@ -302,7 +336,7 @@ struct DetailGoodsScreen: View {
                                     Text("채팅 목록 보기")
                                         .fontWeight(.bold)
                                 }
-                                .frame(width: 120)
+                                .frame(width: 125)
                                 .padding(10)
                                 .background(Color(hex: "A9BCE8"))
                                 .cornerRadius(10)
@@ -342,9 +376,10 @@ struct DetailGoodsScreen: View {
                     )
                 }
             } // end of HStack
-            .frame(height: 50, alignment: .center)
+            .frame(height: 40, alignment: .top)
             .padding([.leading, .trailing], 15)
             .padding(.leading, 5)
+//            .background(Color.yellow)
             
             
         } // end of VStack
