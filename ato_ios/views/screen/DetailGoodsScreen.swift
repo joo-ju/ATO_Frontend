@@ -43,11 +43,12 @@ struct DetailGoodsScreen: View {
     
     @State var GoodsChatListScreenActive = false
     
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+            // GoodsDetailHeader  상단바
             HStack{
-                // 상단바 - 닫기, 수정
+                // xmark  닫기
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
@@ -59,6 +60,7 @@ struct DetailGoodsScreen: View {
                 Spacer()
                 // seller 와 로그인한 유저가 같으면 수정 버튼 활성화
                 if goodsItem.sellerId == self.userInfo.id && goodsItem.state != "판매완료" {
+                    // GoodsDetailHeaderEdit  수정
                     NavigationLink(destination: EditGoodsDetailScreen(goodsItem: viewModel.oneGoodsItem ?? goodsItem), label: {
                         Text("수정")
                             .fontWeight(.bold)
@@ -83,31 +85,31 @@ struct DetailGoodsScreen: View {
                             })
                     }
                     VStack(alignment: .leading){
-                    Text(viewModel.oneGoodsItem?.title ?? "게시물을 가져오지 못했습니다.")
-                        .fontWeight(.bold)
-                        .font(.system(size: 20))
-                        .padding([.top, .bottom], 10)
-                    Text("10분전")
+                        Text(viewModel.oneGoodsItem?.title ?? "게시물을 가져오지 못했습니다.")
+                            .fontWeight(.bold)
+                            .font(.system(size: 20))
+                            .padding([.top, .bottom], 10)
+                        Text("10분전")
                             .foregroundColor(Color(hex: "838383"))
-                        .font(.system(size: 13))
-                 
-                    
-                    
-                    Text(viewModel.oneGoodsItem?.content ?? "게시물을 가져오지 못했습니다.")
-                        .padding([.top, .bottom], 10)
-                    
-                        .lineSpacing(5)
-                    
-                    Divider()
-                    
-                }
-                        .padding([.leading, .trailing], 20)
+                            .font(.system(size: 13))
+                        
+                        
+                        
+                        Text(viewModel.oneGoodsItem?.content ?? "게시물을 가져오지 못했습니다.")
+                            .padding([.top, .bottom], 10)
+                        
+                            .lineSpacing(5)
+                        
+                        Divider()
+                        
+                    }
+                    .padding([.leading, .trailing], 20)
                     LazyVStack(alignment: .leading,spacing: 10){
                         ForEach(chips.indices,id: \.self){index in
                             
                             HStack{
                                 ForEach(chips[index].indices,id: \.self){chipIndex in
-                                    MarketTag(tag:chips[index][chipIndex].chipText)
+                                    GoodsTag(tag:chips[index][chipIndex].chipText)
                                         .overlay(
                                             
                                             GeometryReader{reader -> Color in
@@ -118,7 +120,7 @@ struct DetailGoodsScreen: View {
                                                         chips[index][chipIndex].isExceeded = true
                                                         
                                                         let lastItem = chips[index][chipIndex]
-                                                       
+                                                        
                                                         chips.append([lastItem])
                                                         chips[index].remove(at: chipIndex)
                                                         
@@ -134,96 +136,28 @@ struct DetailGoodsScreen: View {
                             }
                         }
                     }
-                   
+                    
                     .padding([.leading, .trailing], 20)
                     Spacer()
-                    if goodsItem.sellerId == self.userInfo.id && goodsItem.state != "판매완료"{
+                    HStack{
+                        Text("관심")
+                            .font(.system(size: 14))
+                            .foregroundColor(Color(hex: "6c6c6c"))
+                        Text("\(wishCount)")
+                            .font(.system(size: 14))
+                            .foregroundColor(Color(hex: "6c6c6c"))
+                           
+                        Text("채팅")
+                            .font(.system(size: 14))
+                            .padding(.leading, 5)
+                            .foregroundColor(Color(hex: "6c6c6c"))
+                        Text("\(chat)")
+                            .font(.system(size: 14))
                         
-                        HStack(spacing: 15){
-                            Spacer()
-                            if goodsItem.state != "예약중" {
-                                Button(action: {
-                                    //
-                                    let parameters = ["id": goodsItem._id, "status": "예약중"]
-                                    viewModel.updateStatus(parameters: parameters)
-                                }, label: {
-                                    
-                                    HStack(alignment: .center){
-                                        Image(systemName: "clock.badge.checkmark.fill")
-                                            .resizable()
-                                            .frame(width:20, height: 18)
-                                            .foregroundColor(Color(hex: "6279B8"))
-                                            .padding(.trailing, 5)
-                                        Text("예약")
-                                            .fontWeight(.bold)
-                                    }
-                                    .frame(width: 120)
-                                    .padding(10)
-                                    .background(Color(hex: "E1E9FF"))
-                                    .cornerRadius(50)
-                                    .foregroundColor(Color(hex: "6279B8"))
-                                })
-                            } else {
-                                Button(action: {
-                                    let parameters = ["id": goodsItem._id, "status": "판매중"]
-                                    viewModel.updateStatus(parameters: parameters)
-                                }, label: {
-                                    
-                                    HStack(alignment: .center){
-                                        Image(systemName: "xmark")
-                                            .resizable()
-                                            .frame(width:12, height: 12)
-                                            .foregroundColor(Color(hex: "6279B8"))
-                                            .padding(.trailing, 5)
-                                        Text("예약취소")
-                                            .fontWeight(.bold)
-                                    }
-                                    .frame(width: 120)
-                                    .padding(10)
-                                    .background(Color(hex: "E1E9FF"))
-                                    .cornerRadius(50)
-                                    .foregroundColor(Color(hex: "6279B8"))
-                                })
-                            }
-                            NavigationLink(destination: GoodsChatUserListScreen(goodsItem: goodsItem), label: {
-                                
-                                HStack{
-                                    Image(systemName: "checkmark")
-                                        .resizable()
-                                        .frame(width:12, height: 12)
-                                        .foregroundColor(Color(hex: "6279B8"))
-                                        .padding(.trailing, 5)
-                                    Text("판매완료")
-                                        .fontWeight(.bold)
-                                }
-                                .frame(width: 120)
-                                .padding(10)
-                                .background(Color(hex: "E1E9FF"))
-                                .cornerRadius(50)
-                                .foregroundColor(Color(hex: "6279B8"))
-                            })
-                            Spacer()
-                        }
+                        .foregroundColor(Color(hex: "6c6c6c"))
                     }
-                    else if goodsItem.state == "판매완료" {
-                        VStack{
-                            HStack{
-                                Spacer()
-                                Text("판매완료 되었습니다.")
-                                    .foregroundColor(.white)
-                                Spacer()
-                            }
-                            //                            .padding()
-                            .padding(.vertical, 10)
-                            
-                            .background(Color(hex: "253153"))
-                            .cornerRadius(10)
-                        }
-                        .padding(.horizontal)
-                    }
-                    
+                    .padding([.leading, .trailing], 20)
                 } // end of VStack
-//                .padding([.leading, .trailing], 20)
                 
             }
             // end of ScrollView
@@ -253,34 +187,63 @@ struct DetailGoodsScreen: View {
             }
             print(chips)
         }
-            HStack(spacing: 7){
-              Spacer()
-//                HStack{
-                    Text("예약하기")
-                    .font(.system(size: 14))
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .foregroundColor(Color(hex: "6279B8"))
-                        .overlay(
+            if goodsItem.sellerId == self.userInfo.id  {
+                if goodsItem.state != "판매완료"{
+                    HStack(spacing: 7){
+                        Spacer()
+                        if goodsItem.state != "예약중" {
+                            Button(action: {
+                                //
+                                let parameters = ["id": goodsItem._id, "status": "예약중"]
+                                viewModel.updateStatus(parameters: parameters)
+                            }, label: {
+                                Text("예약하기")
+                                    .font(.system(size: 14))
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
+                                    .foregroundColor(Color(hex: "6279B8"))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .stroke(Color(hex: "A9BCE8"), lineWidth: 1.5)
+                                    )
+                            })
+                        } else {
+                            Button(action: {
+                                let parameters = ["id": goodsItem._id, "status": "판매중"]
+                                viewModel.updateStatus(parameters: parameters)
+                            }, label: {
+                                Text("예약취소")
+                                    .font(.system(size: 14))
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
+                                    .foregroundColor(Color(hex: "6279B8"))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .stroke(Color(hex: "A9BCE8"), lineWidth: 1.5)
+                                    )
+                            })
+                        }
+                        NavigationLink(destination: GoodsChatUserListScreen(goodsItem: goodsItem), label: {
+                            
+                            Text("판매완료")
+                            
+                                .font(.system(size: 14))
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 5)
+                                .foregroundColor(Color(hex: "6279B8"))
+                                .overlay(
                                     RoundedRectangle(cornerRadius: 5)
                                         .stroke(Color(hex: "A9BCE8"), lineWidth: 1.5)
                                 )
-                Text("판매완료")
-                
-                .font(.system(size: 14))
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .foregroundColor(Color(hex: "6279B8"))
-                    .overlay(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(Color(hex: "A9BCE8"), lineWidth: 1.5)
-                            )
+                            
+                        })
+                    }
+                    .frame( alignment: .center)
+                    .padding([.leading, .trailing], 15)
+                    .padding(.leading, 5)
+                    .padding(.bottom, 7)
+                }
             }
-            .frame( alignment: .center)
-            .padding([.leading, .trailing], 15)
-            .padding(.leading, 5)
-            .padding(.bottom, 7)
-//            .background(Color.green)
             HStack{
                 if goodsItem.sellerId != self.userInfo.id && goodsItem.state != "판매완료"{
                     Button(action:{
@@ -301,7 +264,7 @@ struct DetailGoodsScreen: View {
                                 .resizable()
                                 .frame(width:20, height: 15)
                                 .foregroundColor(Color(hex: "A9BCE8"))
-//                                .padding(.trailing, 5)
+                            //                                .padding(.trailing, 5)
                         } else {
                             Image(systemName: "heart")
                                 .resizable()
@@ -324,8 +287,9 @@ struct DetailGoodsScreen: View {
                 
                     .fontWeight(.bold)
                 Spacer()
-                if goodsItem.sellerId == self.userInfo.id  && goodsItem.state != "판매완료" {
-                        
+                //                if goodsItem.sellerId == self.userInfo.id  && goodsItem.state != "판매완료" {
+                if goodsItem.sellerId == self.userInfo.id  {
+                    
                     HStack{
                         
                         NavigationLink(
@@ -343,7 +307,7 @@ struct DetailGoodsScreen: View {
                                 .foregroundColor(.white)
                             })
                     }
-                        
+                    
                     
                 }
                 else if goodsItem.state != "판매완료" {
@@ -379,7 +343,6 @@ struct DetailGoodsScreen: View {
             .frame(height: 40, alignment: .top)
             .padding([.leading, .trailing], 15)
             .padding(.leading, 5)
-//            .background(Color.yellow)
             
             
         } // end of VStack

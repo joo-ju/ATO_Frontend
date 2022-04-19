@@ -68,3 +68,83 @@ extension String {
         return UIImage()
     }
 }
+//extension TextField {
+//func textFieldDidChangeSelection(_ textField: UITextField) {
+//    let formatter = NumberFormatter()
+//    formatter.numberStyle = .decimal
+//    formatter.locale = .current
+//    formatter.maximumFractionDigits = 0
+//    
+//    //textField.text = formatter.number(from: self.numInput!)
+//    print("numInput: \(self.numInput)")
+//    if self.inputDeleteFlag {
+//        if let formattedNumber = formatter.number(from:     String(self.numInput!)),
+//           let formattedString = formatter.string(from: formattedNumber){
+//            print("FFFFFFFF : \(formattedString)")
+//            textField.text = formattedString
+//        }
+//    }
+//    print("TEXTFIELD DID CHANGE SELECTION : \(textField.text!)")
+//}
+//
+//
+//func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//
+//    self.isComparable = false
+//    
+//    let formatter = NumberFormatter()
+//    formatter.numberStyle = .decimal
+//    formatter.locale = Locale.current
+//    formatter.maximumFractionDigits = 0//소숫점은 없어요
+//    
+//    if (string.first == "0" && textField.text == "") {
+//        print("0은 앞에 올 수 없어")
+//        return false
+//    } else {
+//        
+//        if (!(minTextField.text!.isEmpty) && !(maxTextField.text!.isEmpty)) {
+//            self.isComparable = true
+//        } else {
+//            self.isComparable = false
+//        }
+//
+//
+//        if let removeAllSeperator = textField.text?.replacingOccurrences(of: formatter.groupingSeparator, with: "") {
+//            
+//            //print("RemoveAllSeperator : \(removeAllSeperator)")//그냥 쉼표없는 쌩값임 ex) 123456
+//            
+//            var beforeFormattedString = removeAllSeperator + string
+//            //쌓이는값 + 현재누른값(string) = beforeFormattedString
+//            print("\n\n removeAllSeperatoe : \(removeAllSeperator), string : \(string) \n beforeFormattedString : \(beforeFormattedString)\n" )
+//            
+//            print("formatter.number(from: string) : \(formatter.number(from: string))")
+//            
+//            if formatter.number(from: string) != nil {//누른 값이 있다면!
+//                
+//                self.inputDeleteFlag = false
+//                if let formattedNumber = formatter.number(from: beforeFormattedString),
+//                   let formattedString = formatter.string(from: formattedNumber) {
+//                    
+//                    print("formattedNumber : \(formattedNumber)")
+//                    print("formattedString : \(formattedString)")
+//                    
+//                    textField.text = formattedString
+//                    return false
+//                }
+//            } else {//지운다면!
+//                self.inputDeleteFlag = true
+//                self.numInput = String(beforeFormattedString.dropLast())
+//
+//                
+//            }
+//            
+//        
+//
+//        }
+//        
+//        
+//        return true
+//    }
+//}
+//
+//}

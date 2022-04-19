@@ -27,7 +27,7 @@ struct MarcketWriteChips: View {
                         
                         HStack{
                             ForEach(chips[index].indices,id: \.self){chipIndex in
-                                MarketTag(tag:chips[index][chipIndex].chipText)
+                                GoodsTag(tag:chips[index][chipIndex].chipText)
                                     .overlay(
                                     
                                         GeometryReader{reader -> Color in

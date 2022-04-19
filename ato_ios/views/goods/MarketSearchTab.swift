@@ -22,19 +22,18 @@ struct MarketSearchTab: View {
                     .padding([.top, .bottom], 10)
                 
                 HStack{
-                    MarketTag(tag:"샤이니")
-                    MarketTag(tag:"태민")
+                    GoodsTag(tag:"샤이니")
+                    GoodsTag(tag:"태민")
                 }
                 .padding([.leading], 20)
-                
                 .padding([.bottom], 5)
                 HStack{
-                    MarketTag(tag:"샤이니")
-                    MarketTag(tag:"태민")
+                    GoodsTag(tag:"샤이니")
+                    GoodsTag(tag:"태민")
                 }
                 .padding([.leading], 20)
                 .padding([.bottom], 10)
-//                Divider()
+//                Divider()ㅔ
                 
                 } // end VStack
                 .padding([.top, .bottom])
@@ -86,7 +85,6 @@ struct MarketSearchTab: View {
                  
                 }
                 .padding([.leading], 20)
-                
                 .padding([.bottom], 5)
                 HStack{
                     Keyword(text: "앨범")

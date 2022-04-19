@@ -25,17 +25,45 @@ struct WalletChargeScreen: View {
     @State var balance = 0
     @Environment(\.presentationMode) var presentationMode
     
+    let formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+    
     var body: some View {
         VStack{
      
             HStack{
-                Text("충전 금액")
+                Text("충전할 금액")
                     .fontWeight(.bold)
                     .font(.system(size: 22))
                     .padding()
                     .padding(.leading, 10)
                 Spacer()
             }
+            
+            HStack {
+                HStack{
+                TextField("", value: $price, format: .number)
+                        .font(.system(size: 20, weight: .bold))
+                    .lineLimit(1)
+                    .multilineTextAlignment(.trailing)
+                    .keyboardType(.decimalPad)
+                    
+                   
+                Text("원")
+                    .padding(.horizontal, 5)
+                    
+                    .font(.system(size: 20))
+                }
+                .padding(.vertical, 10)
+                
+                .border(width:1 , edges: [.bottom], color: Color(hex: "828282"))
+            }
+            .padding(.horizontal, 30)
+            .padding(.bottom, 20)
+            
             HStack (spacing: 30){
                 Button(action: {
                     if isClick5 == false {

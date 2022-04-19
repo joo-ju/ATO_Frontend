@@ -41,10 +41,11 @@ struct MarketMain : View {
             // 전체 화면 색상 변경
             Color(hex: "C3D3FE").edgesIgnoringSafeArea(.all)
             
+          
             VStack(spacing: 15){
                 // 검색바
                 
-                
+                // GoodsMainBar
                 VStack{
                     TextField("검색어를 입력해주세요.", text: $keyword)
                         .padding()
@@ -57,6 +58,7 @@ struct MarketMain : View {
                 .padding(.top, 20)
                 .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
+                // end GoodsMainBar
                 
                 // 상품 목록
                 if keyword == "" {
@@ -67,7 +69,7 @@ struct MarketMain : View {
                                 
                                 NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
                                     
-                                    GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state, image: goodsItem.image)
+                                    Goods(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state, image: goodsItem.image)
                                     
                                 })
                             }
@@ -93,7 +95,7 @@ struct MarketMain : View {
                         ForEach(viewModel.goodsItems.filter({$0.title.contains(keyword) }), id: \._id){ goodsItem in
                             
                             NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
-                                GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
+                                Goods(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
                                 
                             })
                         }

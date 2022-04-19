@@ -22,6 +22,7 @@ struct UserRegisterModel: Decodable {
 struct UserModel: Decodable {
     let user:User
 }
+
 struct User: Decodable {
     var id:String
     var username:String

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct GoodsItemView: View {
+struct Goods: View {
     
     @State var title = ""
     @State var price = 0
@@ -22,7 +22,7 @@ struct GoodsItemView: View {
     var body: some View {
         VStack(alignment: .leading){
             HStack (alignment: .top){
-                
+                // GoodsThumbnail
                 if image.count > 0 {
                     VStack{
                     Image(uiImage:imageURL.load())
@@ -41,11 +41,11 @@ struct GoodsItemView: View {
                 Rectangle().frame(width: 110, height: 120)
                     .foregroundColor(Color(hex: "C4C4C4"))
                     .background(Color(hex: "C4C4C4"))
-                    .cornerRadius(20)
                     .padding(.trailing, 15)
                     .padding(.top, 7)
+                    .cornerRadius(20)
                 }
-                
+                // GoodsItemContent
                 VStack(alignment: .leading){
                     Text(title)
                         .font(.system(size: 15))
@@ -59,11 +59,11 @@ struct GoodsItemView: View {
                         if tags.count > 0{
                             if tags.count > 3 {
                                 ForEach(0..<3){idx in
-                                    MarketTag(tag: tags[idx])
+                                    GoodsTag(tag: tags[idx])
                                 }
                             } else {
                                 ForEach(0..<tags.count){idx in
-                                    MarketTag(tag: tags[idx])
+                                    GoodsTag(tag: tags[idx])
                                 }
                                 
                             }
@@ -84,19 +84,21 @@ struct GoodsItemView: View {
                         Text("\(price)원")
                             .font(.system(size: 16))
                             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                        //                        .padding(.top, 10)
                     }
                     Spacer()
                     
                     HStack(spacing:2){
                         Spacer()
                         
+                        // GoodsItemHeart
                         Image(systemName: "suit.heart")
                             .resizable()
                             .frame(width:15, height: 13)
                         Text("\(wishCount)")
                             .font(.system(size: 14))
                             .padding(.trailing, 5)
+                        
+                        // GoodsItemChat
                         Image(systemName: "message")
                             .resizable()
                             .frame(width:15, height: 13)

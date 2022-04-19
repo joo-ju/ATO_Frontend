@@ -8,8 +8,9 @@
 import Foundation
 import SwiftUI
 
-struct MarketTag: View {
+struct GoodsTag: View {
     let tag: String
+    
     var body: some View {
         VStack(alignment: .leading){
             Text(tag)
@@ -23,7 +24,7 @@ struct MarketTag: View {
 
 struct MarketTag_Previews: PreviewProvider {
     static var previews: some View {
-        MarketTag(tag: "NCT")
+        GoodsTag(tag: "NCT")
     }
 }
 
