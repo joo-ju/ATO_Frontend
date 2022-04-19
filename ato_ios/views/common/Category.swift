@@ -20,7 +20,6 @@ struct Category: View {
         .background(Color(hex: "F2F1F1"))
         .cornerRadius(10)
         .foregroundColor(Color(hex: "838282"))
-//        .padding(30)
        
         
     }

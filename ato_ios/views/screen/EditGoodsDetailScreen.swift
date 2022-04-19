@@ -49,9 +49,6 @@ struct EditGoodsDetailScreen: View {
                         .padding([.leading, .trailing])
                         .padding([.top, .bottom], 15)
                         .foregroundColor(Color(hex: "838383"))
-                    //                Image(systemName: "xmark")
-                    //                    .imageScale(.large)
-                    //                    .padding()
                 })
                     .accentColor(.black)
                 Spacer()
@@ -76,7 +73,6 @@ struct EditGoodsDetailScreen: View {
                 VStack{
                     TextField("제목", text: $title)
                         .padding(10)
-                    //                    .padding(.top, 5)
                         .padding([.leading, .trailing], 20)
                     
                     Divider()
@@ -91,7 +87,6 @@ struct EditGoodsDetailScreen: View {
                             
                             Spacer()
                             Image(systemName: "chevron.right")
-                            //                            .imageScale(.large)
                                 .padding(10)
                             
                                 .padding(.trailing, 20)
@@ -118,72 +113,38 @@ struct EditGoodsDetailScreen: View {
                 VStack(spacing: 10){
                     
                     ScrollView{
-                        // Chips View...
                         LazyVStack(alignment: .leading,spacing: 10){
-                            
-                            // Since Were Using Indices So WE Need To Specify Id....
                             ForEach(chips.indices,id: \.self){index in
                                 
                                 HStack{
-                                    
-                                    // some times it asks us to specify hashable in Data Model...
                                     ForEach(chips[index].indices,id: \.self){chipIndex in
-                                        MarketTag(tag:chips[index][chipIndex].chipText)
-                                        // Main Logic......
+                                        GoodsTag(tag:chips[index][chipIndex].chipText)
                                             .overlay(
                                             
                                                 GeometryReader{reader -> Color in
                                                     
-                                                    // By Using MaxX Parameter We Can Use Logic And Determine if its exceeds or not....
-                                                    
                                                     let maxX = reader.frame(in: .global).maxX
-                                                    
-                                                    // Both Paddings  = 30+ 30 = 60
-                                                    // Plus 10 For Extra....
-                                                    
-                                                    // Doing Action Only If The Item Exceeds...
                                                     
                                                     if maxX > UIScreen.main.bounds.width - 70 && !chips[index][chipIndex].isExceeded{
                                                         
-                                                        // It is updating to each user interaction....
-                                                        
                                                         DispatchQueue.main.async {
-                                                            print(chips)
-                                                            print(index, chipIndex)
-                                                            print("chips[index][chipIndex] : ", chips[index][chipIndex])
-                                                            // Toggling That...
                                                             chips[index][chipIndex].isExceeded = true
                                                             
-                                                            // Getting Last Item...
                                                             let lastItem = chips[index][chipIndex]
-                                                            // removing Item From Current Row...
-                                                            // inserting it as new item...
                                                             chips.append([lastItem])
                                                             chips[index].remove(at: chipIndex)
-                                                          
                                                         }
                                                     }
-                                                    
                                                     return Color.clear
                                                 },
                                                 alignment: .trailing
                                             )
                                             .clipShape(Capsule())
                                             .onTapGesture {
-                                                // Removing Data...
-                                                
-                                                print("index : ", index, "\tchipIndex : ", chipIndex)
-                                                print("\n chips[index] : ", chips[index][chipIndex])
                                                 tags.remove(at: chips[index][chipIndex].idx )
                                                 chips[index].remove(at: chipIndex)
                                               
                                                 
-                                                print("\n--------- remove tags : \n\t", tags)
-                                                print("--------- chips : \n\t", chips)
-        //                                        print("\n chips[index] : ", chips[index][chipIndex])
-        //                                        tags[index].remove(at: index)
-        //                                        tags[index].remove(at: chipIndex)
-                                                // If the Inside Array is empty removing that also...
                                                 if chips[index].isEmpty{
                                                     chips.remove(at: index)
                                                 }
@@ -202,24 +163,12 @@ struct EditGoodsDetailScreen: View {
                         .frame(alignment: .topLeading)
                         .padding(10)
                         .padding([.leading, .trailing], 20)
-                    // Add Button...
                     Button(action: {
-
-                        // Adding Empty Array if there is Nothing....
-                        if chips.isEmpty{
-//                            chips.append([])
-        //                    tags.append("")
-                        }
-                        
-                        // Adding Chip To Last Array....
                         self.chips[chips.count-1].append(ChipData(chipText: text, idx: idx))
                         idx = idx + 1
                         tags.append(text)
                   
                         
-                        print("\n--------- add tags : \n\t", tags)
-                        print("\nchips : ", chips)
-                        // Clearing Old Text In Editor
                         text = ""
                         
                     }, label: {
@@ -232,13 +181,11 @@ struct EditGoodsDetailScreen: View {
                             .background(Color.purple)
                             .cornerRadius(4)
                     })
-                    // Disabling Button When Text is Empty...
                     .disabled(text == "")
                     .opacity(text == "" ? 0.45 : 1)
                     .padding(.trailing)
                     }
                 }
-//                MarcketWriteChips(tags: $tags)
             } // end ScrollView
             Spacer()
         }// end Vstack
@@ -250,31 +197,14 @@ struct EditGoodsDetailScreen: View {
             self.content = goodsItem.content
             self.price = goodsItem.price
             self.tags = goodsItem.tags
-//            if tags[0] == "" {
-       
-//            }
             for text in tags {
-//                if text == "" {
-//                    tags.removeFirst()
-//                }
                 if chips.isEmpty{
                     chips.append([])
                 }
             
-//                if text == "" {
-//                    tags.removeFirst()
-//                }
-//                else {
-                print("Chips : ", chips)
-                print("chips.count : ", chips.count)
-                print("text: ", text)
-                print("tags: ", tags)
                 chips[chips.count-1].append(ChipData(chipText: text, idx: idx))
                 idx = idx + 1
-//                }
             }
-            print("\n===== final Chips : ", chips)
-            
         })
     }
 }

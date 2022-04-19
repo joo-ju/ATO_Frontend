@@ -13,7 +13,6 @@ struct ReviewGoodsModel: Decodable {
     let goodsId: String
     let content: String
     let score: Int
-    let tags: Array<String>
 //    let enrollTime: Date
 //    let updateTime: Date
 }

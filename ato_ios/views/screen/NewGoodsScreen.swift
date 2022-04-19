@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Alamofire
 
 struct NewGoodsScreen : View {
     
@@ -25,9 +26,12 @@ struct NewGoodsScreen : View {
     @Binding var wishCount: Int
     @Binding var chat: Int
     @Binding var review: Bool
-    
+    @State var goodsId: String = ""
     @State var text:String = ""
     @State var isAlert = false
+    @State private var cost = 0
+    @State var textViewHeight:CGFloat = 50.0
+    @State var containerHeight: CGFloat = 400
     
     // price의 Int 형을 입력받기 위한 formatter
     let formatter: NumberFormatter = {
@@ -35,8 +39,14 @@ struct NewGoodsScreen : View {
         formatter.numberStyle = .decimal
         return formatter
     }()
-    
+    @State private var sscore = 0
+
     @Environment(\.presentationMode) var presentationMode
+    
+    @State var showImagePicker: Bool = false
+    @State var selectedImage: Image? = Image("")
+    @State var isUpload: Bool = true           // 사진 저장 버튼을 활성화 하기 위한 변수
+        
     var body: some View {
         NavigationView{
             VStack(spacing: 0){
@@ -49,44 +59,115 @@ struct NewGoodsScreen : View {
                     Spacer()
                     trailing
                 }
+                // select image
+                Divider()
+                                          .padding([.leading, .trailing], 20)
                 ScrollView{
+                    VStack{
+                        HStack{
+                    Text("사진")
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                            Spacer()
+                        }
+                        .padding([.top, .leading, .trailing])
+                            .padding(.horizontal, 10)
+
+                        
+                      
+                        
+                       
+                        
+                        if isUpload == false{
+                            // 선택한 사진 조회
+                            self.selectedImage?.resizable().scaledToFit().frame( maxHeight: 300, alignment: .center)
+                                .padding(.horizontal)
+                        // 사진 저장 버튼
+                        Button(action: {
+
+                            let uiImge: UIImage = self.selectedImage.asUIImage()
+                            let imageData = uiImge.jpegData(compressionQuality: 0.1)!
+                            
+                            let url = "http://localhost:4000/goods/image"
+                            AF.upload(multipartFormData: { multipartFormData in
+                                multipartFormData.append(imageData, withName: "image", fileName: "a.jpg", mimeType: "image/jpg")
+                                print(multipartFormData)
+                            }, to: url)
+                                .responseData { response in
+                                   guard let data = response.data else { return }
+                                   let result = try? JSONDecoder().decode(GoodsModel.self, from: data)
+                                    goodsId = result?._id ?? ""
+                                }
+                        }, label: {
+                            VStack{
+                            HStack{
+                                Spacer()
+                            Text("저장하기")
+                                    .foregroundColor(.white)
+                                Spacer()
+                            }
+                                .padding(.vertical, 10)
+                            
+                            .background(Color(hex: "C3D3FE"))
+                            .cornerRadius(10)
+                            }
+                            .padding(.horizontal)
+                            
+                        })
+                    }
+                        else {
+                            // 사진 추가 버튼
+                            Button(action: {
+                                self.showImagePicker.toggle()
+                                isUpload = false
+                            }, label: {
+                                VStack(alignment: .leading){
+                                    HStack{
+                                Text("+")
+                                        .font(.system(size: 30))
+                                        .padding(.horizontal, 40)
+                                        .padding(.vertical, 30)
+                                        .background(Color(hex: "C3D3FE"))
+                                        .foregroundColor(Color(hex: "ffffff"))
+                                        .cornerRadius(10)
+                                        Spacer()
+                                }
+                                }
+                         
+                                .padding(.horizontal, 30)
+                            })
+                        }
+                      
+                    }
+                    .sheet(isPresented: $showImagePicker , content: {
+                        ImagePicker(image: $selectedImage)
+                    })
+                    Divider()
+                                              .padding([.leading, .trailing], 20)
                     VStack{
                         TextField("제목", text: $title)
                             .padding(10)
-                        //                    .padding(.top, 5)
                             .padding([.leading, .trailing], 20)
                         
                         Divider()
                             .padding([.leading, .trailing], 20)
-                        NavigationLink(destination: Login()){
-                            HStack{
-                                Text("카테고리 선택")
-                                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                                    .padding(10)
-                                    .padding(.leading, 20)
-                                    .foregroundColor(.black)
-                                
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                //                            .imageScale(.large)
-                                    .padding(10)
-                                
-                                    .padding(.trailing, 20)
-                            } // end HStack
-                        } // end NavigationLink
-                        Divider()
-                            .padding([.leading, .trailing], 20)
+                        
+                             
                         TextField("₩ 가격", value: $price, formatter: formatter)
                             .padding(10)
                             .padding([.leading, .trailing], 20)
                         Divider()
                             .padding([.leading, .trailing], 20)
-                        ScrollView{
-                            TextField("판매 글의 내용을 작성해주세요.", text: $content)
-                                .frame(height: 400, alignment: .topLeading)
-                                .padding(10)
-                                .padding([.leading, .trailing], 20)
-                        } // end ScrollView
+                        VStack{
+                            AutoSizingTF(hint: "판매 글의 내용을 작성해주세요.", text: $content,containerHeight: $containerHeight, onEnd: {
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            })
+                                .padding(.horizontal)
+                                .frame(height: 400)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .padding()
+                        }
                         Divider()
                             .padding([.leading, .trailing], 20)
                         
@@ -104,6 +185,11 @@ struct NewGoodsScreen : View {
     
     var leading: some View{
         Button(action:{
+            title = ""
+            price = 0
+            tags = [""]
+            content = ""
+            selectedImage = Image("")
             isPresented.toggle()
         } , label: {
             Text("닫기")
@@ -116,9 +202,16 @@ struct NewGoodsScreen : View {
         Button(action:{
             if title != "" && content != ""{
                 tags.removeFirst()
-                let parameters: [String: Any] = ["title": title, "content": content, "price": price, "tags": tags, "sellerId":self.userInfo.id, "buyerId": "", "score": score, "count": count, "categoryId": categoryId, "wishCount":wishCount, "chat":chat, "review":review]
                 print("tags : ", tags)
-                viewModel.createGoods(parameters: parameters)
+                if selectedImage == Image("") {
+                let parameters: [String: Any] = ["title": title, "content": content, "price": price, "tags": tags, "sellerId":self.userInfo.id, "buyerId": "", "score": score, "count": count, "categoryId": categoryId, "wishCount":wishCount, "chat":chat, "review":review]
+                    viewModel.createGoods(parameters: parameters)
+                } else {
+                    let parameters: [String: Any] = ["id": goodsId, "title": title, "content": content, "price": price, "tags": tags, "sellerId":self.userInfo.id]
+                    viewModel.updateGoods(parameters: parameters)
+                    print("updateGoods done")
+                }
+         
                 viewModel.fetchAllGoods()
                 
                 isPresented.toggle()
@@ -135,10 +228,4 @@ struct NewGoodsScreen : View {
                 .foregroundColor(Color(hex: "6279B8"))
         })
     }
-} // end WriteGoodsScreen
-
-//struct WriteGoodsScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WriteGoodsScreen()
-//    }
-//}
+}

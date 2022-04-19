@@ -22,7 +22,7 @@ struct Login : View {
         VStack{
             
             Text("로그인")
-                
+            
                 .font(.system(size: 40))
                 .fontWeight(.bold)
                 .padding(.top, 25)
@@ -36,13 +36,9 @@ struct Login : View {
                     Text("아이디")
                         .padding(.leading, 45)
                         .padding(.top, 15)
-                    //                        .foregroundColor(Color(hex:"828282"))
-                    //                        .padding(.top)
                     TextField("6 ~ 20자 영문, 숫자", text: $username)
                         .padding()
-                        //                        .textFieldStyle()
                         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(hex: "828282"), lineWidth: 1))
-                        //                        .padding()
                         .padding(.leading, 40)
                         .padding(.trailing, 40)
                 }
@@ -60,24 +56,13 @@ struct Login : View {
                 }
             }
             Spacer()
+            
             Button(action:{
                 if username != "" && password != ""{
-            
                     let parameters: [String: Any] = ["username": username, "password": password]
-              
                     userViewModel.loginUser(parameters: parameters)
-                    print(parameters)
-                    ContentView()
-//                    presentationMode.wrappedValue.dismiss()
-//                            viewModel.fetchAllGoods()
-                    
                 }
-                else {
-//                            isAlert.toggle()
-                }
-                
             } , label: {
-                
                 VStack{
                     Rectangle().frame(height: 0)
                     Text("로그인하기")
@@ -90,6 +75,8 @@ struct Login : View {
                 .foregroundColor(.white)
                 .padding(30)
             })
+            
+            
             NavigationLink(destination: Register()){
                 VStack{
                     Rectangle().frame(height: 0)
@@ -103,7 +90,6 @@ struct Login : View {
                 .foregroundColor(.white)
                 .padding(30)
             }
-//            .navigationBarHidden(true)
             .navigationBarTitleDisplayMode(.inline)
         }
     }

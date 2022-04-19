@@ -22,7 +22,7 @@ extension View {
         // here is the call to the function that converts UIView to UIImage: `.asImage()`
         let image = controller.view.asUIImage()
         controller.view.removeFromSuperview()
-        return image 
+        return image
     }
 }
  

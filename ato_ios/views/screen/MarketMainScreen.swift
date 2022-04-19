@@ -14,7 +14,9 @@ struct MarketMain : View {
     @ObservedObject var userInfo = UserInfo()
     @EnvironmentObject var viewModel: ViewModel
     @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var chatViewModel: ChatViewModel
     @State var isPresentedNewPost = false
+    
     @State var title = ""
     @State var content = ""
     @State var price = 0
@@ -34,18 +36,16 @@ struct MarketMain : View {
     
     @State var keyword = ""
     
-    //    @State var buyerId = ""
-    
     var body: some View {
-        //        NavigationView{
         ZStack{
             // 전체 화면 색상 변경
             Color(hex: "C3D3FE").edgesIgnoringSafeArea(.all)
             
+          
             VStack(spacing: 15){
                 // 검색바
                 
-                
+                // GoodsMainBar
                 VStack{
                     TextField("검색어를 입력해주세요.", text: $keyword)
                         .padding()
@@ -58,6 +58,7 @@ struct MarketMain : View {
                 .padding(.top, 20)
                 .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
+                // end GoodsMainBar
                 
                 // 상품 목록
                 if keyword == "" {
@@ -67,18 +68,21 @@ struct MarketMain : View {
                             ForEach(viewModel.goodsItems.reversed(), id: \._id){ goodsItem in
                                 
                                 NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
-                                    GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
+                                    
+                                    Goods(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state, image: goodsItem.image)
+                                    
                                 })
                             }
                         } onUpdate: {
                             viewModel.fetchAllGoods()
+                            
+                            userViewModel.fetchUserHistory(parameters: self.userInfo.id)
                         }
                         
                     }
                     .onAppear {
                         UITableView.appearance().separatorStyle = .none
                     }
-//                    .listSeparatorStyle(style: .none)
                     .listStyle(InsetListStyle())
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
@@ -86,23 +90,18 @@ struct MarketMain : View {
                     .padding(.bottom, 40)
                     
                 }
-                //                List(viewModel.goodsItems.reversed().filter({$0.name.contains(keyword)}))
-                //
                 else {
                     List{
                         ForEach(viewModel.goodsItems.filter({$0.title.contains(keyword) }), id: \._id){ goodsItem in
                             
                             NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
-                                GoodsItemView(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
+                                Goods(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
+                                
                             })
                         }
                     }
                     .listStyle(InsetListStyle())
                 }
-                //                List(viewModel.goodsItems.filter({$0.title.contains(keyword) })) { item in
-                //                    Text(item.title)
-                //                }
-                
             }
             .sheet(isPresented: $isPresentedNewPost, content: {
                 NewGoodsScreen(isPresented: $isPresentedNewPost, title: $title, content: $content, price: $price, tags: $tags, sellerId: $sellerId, buyerId: $buyerId, categoryId: $categoryId, count: $count, score: $score, wishCount: $wishCount, chat: $chat, review: $review)
@@ -111,7 +110,6 @@ struct MarketMain : View {
                 viewModel.fetchAllGoods()
                 userViewModel.fetchUserHistory(parameters: self.userInfo.id)
             })
-            
             Spacer()
             
             VStack {
@@ -128,8 +126,6 @@ struct MarketMain : View {
                     .padding(.vertical, 20)
             }
         }// end ZStack
-        //        } // end NavigationView
-        
     } // end View
     
     

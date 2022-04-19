@@ -1,62 +1,23 @@
 //
-//  UserViewModel.swift
+//  WalletViewModel.swift
 //  ato_ios
 //
-//  Created by 김주희 on 2021/10/12.
-//  로그인, 회원가입 등 처리
+//  Created by 김주희 on 2021/10/31.
+//
 
 import Foundation
 import SwiftUI
-class UserViewModel: ObservableObject {
-    @ObservedObject var userInfo = UserInfo()
-    @Published var userRegisterModel = [UserRegisterModel]()
-    @Published var oneUserItem: UserRegisterModel?
-    @Published var userModel = [UserModel]()
-    @Published var userRoomItems = [RoomModel]()
-    @Published var userHistoryItem: UserHistoryModel?
+
+class WalletViewModel: ObservableObject {
     
+    @ObservedObject var userInfo = UserInfo()
+    @Published var walletItem: WalletModel?
+    @Published var walletHistoryItems = [WalletContentModel]()
     
     let prefixUrl = "http://localhost:4000"
     
-    // User Register...
-    func createUser(parameters: [String: Any]){
-        guard let url = URL(string: "\(prefixUrl)/user/signup") else {
-            print("Not Found url")
-            return
-        }
-        let data = try! JSONSerialization.data(withJSONObject: parameters)
-        
-        var request = URLRequest(url:url)
-        request.httpMethod = "POST"
-        request.httpBody = data
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        URLSession.shared.dataTask(with: request) { (data, res, error) in
-            if error != nil {
-                print("error", error?.localizedDescription ?? "")
-                return
-            }
-            
-            do {
-                if let data = data {
-                    let result = try JSONDecoder().decode(UserRegisterModel.self, from: data)
-                    DispatchQueue.main.async {
-//                        self.userInfo.id = result._id
-                        print(result)
-                    }
-                } else {
-                    print("No Data")
-                }
-            } catch let JsonError {
-                print("create create User json error : ", JsonError.localizedDescription)
-            }
-        }.resume()
-    }
-    
-    // User Login...
-    
-    func loginUser(parameters: [String: Any]){
-        guard let url = URL(string: "\(prefixUrl)/user/login") else {
+    func createWallet(parameters: [String: Any]){
+        guard let url = URL(string: "\(prefixUrl)/wallet/") else {
             print("Not Found url")
             return
         }
@@ -74,18 +35,16 @@ class UserViewModel: ObservableObject {
             }
             do {
                 if let data = data {
-                    let result = try JSONDecoder().decode(UserModel.self, from: data)
-                    
-                    self.userInfo.id = result.user.id
-                    self.userInfo.username = result.user.username
-                    
+                    let result = try JSONDecoder().decode(WalletModel.self, from: data)
+                    self.userInfo.wallet = result._id
                     DispatchQueue.main.async {
-                        print(result)
+                        print("result = ", result)
+                        self.userInfo.wallet = result._id
+                        print(self.userInfo.wallet)
                     }
                 } else {
                     print("No Data")
                 }
-
             } catch let DecodingError.dataCorrupted(context) {
                 print(context)
             } catch let DecodingError.keyNotFound(key, context) {
@@ -101,26 +60,26 @@ class UserViewModel: ObservableObject {
                 print("error: ", error)
             }
         }.resume()
+        
+        
     }
-    
-    
-    func fetchOneUser(parameters: String) {
+    func fetchOneWallet() {
         //      let api = "https://jsonplaceholder.typicode.com/todos"
         // let api = "http://3.34.140.23:4000/goods"
-        let api = "http://localhost:4000/user/" + parameters
+        let api = "\(prefixUrl)/wallet/" + self.userInfo.wallet
         guard let url = URL(string: api) else { return }
-        print("-----fetch One User -----")
+        print("----- fetch one wallet -----")
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             do {
                 if let data = data {
-                    let result = try JSONDecoder().decode(UserRegisterModel.self, from: data)
+                    let result = try JSONDecoder().decode(WalletModel.self, from: data)
                     print("\nresult------------\n", result)
                     DispatchQueue.main.async {
-                        self.oneUserItem = result
-                        print("One User------------\n", self.oneUserItem)
+                        self.walletItem = result
+                        print("walletItem ------------\n", self.walletItem)
                     }
                 } else {
-                    print("No data--- userhistory")
+                    print("No data--- walletItem")
                 }
             } catch let DecodingError.dataCorrupted(context) {
                     print(context)
@@ -138,25 +97,23 @@ class UserViewModel: ObservableObject {
                 }
         }.resume()
     }
-    
-    func fetchUserHistory(parameters: String) {
+    func fetchWalletHistory() {
         //      let api = "https://jsonplaceholder.typicode.com/todos"
         // let api = "http://3.34.140.23:4000/goods"
-        let api = "http://localhost:4000/userHistory/user/" + parameters
+        let api = "\(prefixUrl)/wallet/history/" + self.userInfo.wallet
         guard let url = URL(string: api) else { return }
-        print("-----fetch UserHistory-----")
+        print("----- fetch wallet history -----")
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             do {
                 if let data = data {
-                    let result = try JSONDecoder().decode(UserHistoryModel.self, from: data)
+                    let result = try JSONDecoder().decode([WalletContentModel].self, from: data)
                     print("\nresult------------\n", result)
                     DispatchQueue.main.async {
-                        self.userHistoryItem = result
-//                        self.userRoomItems = self.userHistoryItem?.chatRooms
-//                        print("userHistoryItem------------\n", self.userHistoryItem.chatRooms)
+                        self.walletHistoryItems = result
+                        print("walletHistoryItems ------------\n", self.walletHistoryItems)
                     }
                 } else {
-                    print("No data--- userhistory")
+                    print("No data--- walletHistoryItems")
                 }
             } catch let DecodingError.dataCorrupted(context) {
                     print(context)
@@ -174,10 +131,8 @@ class UserViewModel: ObservableObject {
                 }
         }.resume()
     }
-    
-    // userhistory wish에 goods 추가
-    func createUserHistoryWish(parameters: [String: Any]){
-        guard let url = URL(string: "\(prefixUrl)/userHistory/wishGoods") else {
+    func updateWallet(parameters: [String: Any]){
+        guard let url = URL(string: "\(prefixUrl)/wallet/updateWallet") else {
             print("Not Found url")
             return
         }
@@ -196,7 +151,7 @@ class UserViewModel: ObservableObject {
             
             do {
                 if let data = data {
-                    let result = try JSONDecoder().decode(UserHistoryModel.self, from: data)
+                    let result = try JSONDecoder().decode(WalletModel.self, from: data)
                     DispatchQueue.main.async {
                         print(result)
                     }
@@ -204,40 +159,7 @@ class UserViewModel: ObservableObject {
                     print("No Data")
                 }
             } catch let JsonError {
-                print("UserHistory에 wishGoods 추가 json error : ", JsonError.localizedDescription)
-            }
-        }.resume()
-    }
-    // userhistory wish에 goods 제거
-    func deleteUserHistoryWish(parameters: [String: Any]){
-        guard let url = URL(string: "\(prefixUrl)/userHistory/wishGoods/delete") else {
-            print("Not Found url")
-            return
-        }
-        let data = try! JSONSerialization.data(withJSONObject: parameters)
-        
-        var request = URLRequest(url:url)
-        request.httpMethod = "PUT"
-        request.httpBody = data
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        URLSession.shared.dataTask(with: request) { (data, res, error) in
-            if error != nil {
-                print("error", error?.localizedDescription ?? "")
-                return
-            }
-            
-            do {
-                if let data = data {
-                    let result = try JSONDecoder().decode(UserHistoryModel.self, from: data)
-                    DispatchQueue.main.async {
-                        print(result)
-                    }
-                } else {
-                    print("No Data")
-                }
-            } catch let JsonError {
-                print("UserHistory에 wishGoods 추가 json error : ", JsonError.localizedDescription)
+                print("update fetch json error : ", JsonError.localizedDescription)
             }
         }.resume()
     }

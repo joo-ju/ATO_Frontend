@@ -13,7 +13,7 @@ struct UserRegisterModel: Decodable {
     let name: String
     let nickname: String
     let email: String
-    let phone: String
+    let phone: Int
     let score: Int
     let count: Int
 //    let enrollTime: Date
@@ -22,8 +22,9 @@ struct UserRegisterModel: Decodable {
 struct UserModel: Decodable {
     let user:User
 }
+
 struct User: Decodable {
-    let id:String
-    let username:String
+    var id:String
+    var username:String
     let authorized: Bool
 }

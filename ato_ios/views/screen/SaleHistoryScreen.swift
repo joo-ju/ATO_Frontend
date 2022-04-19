@@ -37,6 +37,7 @@ struct SaleTab: View {
     
     @State var tabIndex = 0
     @EnvironmentObject var viewModel: ViewModel
+    @ObservedObject var userInfo = UserInfo()
     @State var isPresentedNewPost = false
     @State var title = ""
     @State var content = ""
@@ -62,7 +63,7 @@ struct SaleTab: View {
                         ForEach(viewModel.saleGoodsItems.reversed(), id: \._id){ saleGoodsItem in
                             
                             NavigationLink(destination: GoodsDetailViewScreen(goodsItem: saleGoodsItem), label: {
-                                GoodsItemView(title: saleGoodsItem.title, price: saleGoodsItem.price, tags: saleGoodsItem.tags, wishCount: saleGoodsItem.wishCount, chat: saleGoodsItem.chat, state: saleGoodsItem.state)
+                                Goods(title: saleGoodsItem.title, price: saleGoodsItem.price, tags: saleGoodsItem.tags, wishCount: saleGoodsItem.wishCount, chat: saleGoodsItem.chat, state: saleGoodsItem.state, image: saleGoodsItem.image)
                             })
                         }
                         
@@ -83,7 +84,7 @@ struct SaleTab: View {
             }
         }
         .onAppear(perform: {
-            viewModel.fetchGoodsSaleSellerId(parameters: sellerId)
+            viewModel.fetchGoodsSaleSellerId(parameters: self.userInfo.id)
         })
         
     }
@@ -93,11 +94,13 @@ struct SoldTab: View {
     
     @State var tabIndex = 0
     @EnvironmentObject var viewModel: ViewModel
+    @ObservedObject var userInfo = UserInfo()
+    
     @State var isPresentedNewPost = false
     @State var title = ""
     @State var content = ""
     @State var price = 0
-    @State var sellerId = "joo"
+    @State var sellerId = ""
     @State var buyerId = ""
     @State var categoryId = ""
     @State var score = 0
@@ -117,8 +120,8 @@ struct SoldTab: View {
                         
                         ForEach(viewModel.soldGoodsItems.reversed(), id: \._id){ soldGoodsItem in
                             
-                            NavigationLink(destination: GoodsDetailViewScreen(goodsItem: soldGoodsItem), label: {
-                                GoodsItemView(title: soldGoodsItem.title, price: soldGoodsItem.price, tags: soldGoodsItem.tags, wishCount: soldGoodsItem.wishCount, chat: soldGoodsItem.chat, state: soldGoodsItem.state)
+                            NavigationLink(destination: DetailGoodsScreen(goodsItem: soldGoodsItem), label: {
+                                Goods(title: soldGoodsItem.title, price: soldGoodsItem.price, tags: soldGoodsItem.tags, wishCount: soldGoodsItem.wishCount, chat: soldGoodsItem.chat, state: soldGoodsItem.state, image: soldGoodsItem.image)
                             })
                         }
                         
@@ -139,7 +142,7 @@ struct SoldTab: View {
             }
         }
         .onAppear(perform: {
-            viewModel.fetchGoodsSoldSellerId(parameters: sellerId)
+            viewModel.fetchGoodsSoldSellerId(parameters: self.userInfo.id)
         })
         
     }
@@ -174,7 +177,7 @@ struct HidingTab: View {
                         ForEach(viewModel.hidingGoodsItems.reversed(), id: \._id){ hidingGoodsItem in
                             
                             NavigationLink(destination: GoodsDetailViewScreen(goodsItem: hidingGoodsItem), label: {
-                                GoodsItemView(title: hidingGoodsItem.title, price: hidingGoodsItem.price, tags: hidingGoodsItem.tags, wishCount: hidingGoodsItem.wishCount, chat: hidingGoodsItem.chat, state: hidingGoodsItem.state)
+                                Goods(title: hidingGoodsItem.title, price: hidingGoodsItem.price, tags: hidingGoodsItem.tags, wishCount: hidingGoodsItem.wishCount, chat: hidingGoodsItem.chat, state: hidingGoodsItem.state, image: hidingGoodsItem.image)
                             })
                         }
                         

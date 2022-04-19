@@ -10,6 +10,7 @@ import SwiftUI
 class ReviewViewModel: ObservableObject {
     @Published var reviewGoodsItems = [ReviewGoodsModel]()
     
+    @Published var oneReviewGoodsItem: ReviewGoodsModel?
     let prefixUrl = "http://localhost:4000"
     // let prefixUrl = "http://3.34.140.23:4000"
 
@@ -47,5 +48,39 @@ class ReviewViewModel: ObservableObject {
         }.resume()
     }
     
-    // Update Data...
+    // Fetch Data...
+    func fetchOneReviewGoods(userId: String, goodsId: String) {
+        //      let api = "https://jsonplaceholder.typicode.com/todos"
+        // let api = "http://3.34.140.23:4000/goods"
+        let api = "http://localhost:4000/reviewGoods/user/one/" + userId + "/" + goodsId
+        guard let url = URL(string: api) else { return }
+        print("----- fetch one reviewGoods -----")
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+                if let data = data {
+                    let result = try JSONDecoder().decode(ReviewGoodsModel.self, from: data)
+                    print("\nresult------------\n", result)
+                    DispatchQueue.main.async {
+                        self.oneReviewGoodsItem = result
+                    }
+                } else {
+                    print("No data--- oneGoodsItem")
+                }
+            } catch let DecodingError.dataCorrupted(context) {
+                    print(context)
+                } catch let DecodingError.keyNotFound(key, context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.valueNotFound(value, context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.typeMismatch(type, context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
+        }.resume()
+    }
+
 }

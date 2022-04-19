@@ -9,10 +9,13 @@ import SwiftUI
 
 struct MyAtoMainScreen: View {
     @ObservedObject var userInfo = UserInfo()
+    @EnvironmentObject var walletViewModel: WalletViewModel
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         VStack(alignment: .leading){
             HStack{
                 Text("나의 ATO")
+                    .font(.system(size: 20))
                     .fontWeight(.bold)
                     .padding(.horizontal)
                 
@@ -40,25 +43,22 @@ struct MyAtoMainScreen: View {
                     
                     .padding()
                 } // end NavigationLink
-//                .navigationBarHidden(true)
-//                .navigationBarBackButtonHidden(true)
                 Divider()
                 Spacer()
                 HStack(spacing: 20){
                     NavigationLink(destination: SaleHistoryScreen().navigationBarTitleDisplayMode(.inline)){
-                    MyAtoMenuButton(name: "판매내역", image: "scroll", isGoods: true)
+                        MyAtoMenuButton(name: "판매내역", image: "scroll", isGoods: true)
                     }
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
                     NavigationLink(destination: BuyHistoryScreen().navigationBarTitleDisplayMode(.inline)){
-                    MyAtoMenuButton(name: "구매내역", image: "bag", isGoods: true)
-                    //                    MyAtoMenuButton(name: "", image: "bag", isGoods: true)
+                        MyAtoMenuButton(name: "구매내역", image: "bag", isGoods: true)
+                   
                     }
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
                     NavigationLink(destination: WishlistScreen().navigationBarTitleDisplayMode(.inline)){
                         VStack(spacing: 0){
-                            //            Rectangle().frame(height: 0)
                             
                             Image(systemName: "heart")
                                 .resizable()
@@ -76,46 +76,62 @@ struct MyAtoMainScreen: View {
                             
                             
                         }
-                        //        .frame(width: .infinity)
                         .padding(10)
                     } // end HStack
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
-                   
+                    
                 }
-                    HStack(spacing: 20){
-                        MyAtoMenuButton(name: "전시회내역", image: "photo", isGoods: false)
-                        MyAtoMenuButton(name: "예매내역", image: "calendar", isGoods: false)
-                        MyAtoMenuButton(name: "리뷰관리", image: "ellipsis.bubble", isGoods: false)
-                        //                    MyAtoMenuButton(name: "", image: "bag", isGoods: true)
+                HStack(spacing: 20){
+                    if self.userInfo.wallet == "" {         // 지갑 정보가 없을 때
+                        Button(action: {
+                            walletViewModel.createWallet(parameters: ["userId": self.userInfo.id])
+                            print("실행 됨")
+                        }, label: {
+                            
+                            MyAtoMenuButton(name: "지갑생성", image: "rectangle.badge.plus", isGoods: false)
+                            
+                        })
+                    } else {
+                        NavigationLink(destination: WalletChargeScreen()){
+                            MyAtoMenuButton(name: "지갑 충전", image: "creditcard.fill", isGoods: false)
+                        }
+                        NavigationLink(destination:Login().navigationBarTitleDisplayMode(.inline)){
+                            MyAtoMenuButton(name: "지갑 내역", image: "list.bullet.rectangle", isGoods: false)
+                            
+                        }
+                    }
+                    MyAtoMenuButton(name: "리뷰관리", image: "ellipsis.bubble", isGoods: false)
+                  
+                } // end HStack
+                VStack{
+                    
+                }
+                Divider()
+                NavigationLink(destination: Login()){
+                    HStack{
+                        Text("환경설정")
+                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                            .padding(10)
+                            .padding(.leading, 20)
+                            .foregroundColor(.black)
                         
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                        //                            .imageScale(.large)
+                            .padding(10)
+                        
+                            .padding(.trailing, 20)
                     } // end HStack
-                    Divider()
-                    NavigationLink(destination: Login()){
-                        HStack{
-                            Text("환경설정")
-                                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                                .padding(10)
-                                .padding(.leading, 20)
-                                .foregroundColor(.black)
-                            
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                            //                            .imageScale(.large)
-                                .padding(10)
-                            
-                                .padding(.trailing, 20)
-                        } // end HStack
-                    } // end NavigationLink
-                } // end ScrollView
-                //            .background(Color.green)
-            } // end VStack
-//        .navigationBarTitleDisplayMode(.inline)
+                } // end NavigationLink
+                
+                
+            } // end ScrollView
+        } // end VStack
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
         
     }
-//
 }
 
 struct MyAtoMainScreen_Previews: PreviewProvider {

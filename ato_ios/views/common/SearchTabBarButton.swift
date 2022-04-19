@@ -21,7 +21,6 @@ struct SearchTabBarButton: View {
                     .fontWeight(isSelected ? .heavy : .regular)
                     .font(.system( size: 20))
                     .frame(maxWidth: .infinity)
-                    //            .padding(.bottom,10)
                     .padding()
                     .foregroundColor(Color(hex: "6279B8"))
                     .border(width:4 , edges: [.bottom], color: Color(hex: "6279B8"))
@@ -32,10 +31,8 @@ struct SearchTabBarButton: View {
                     .fontWeight(isSelected ? .heavy : .regular)
                     .font(.system( size: 20))
                     .frame(maxWidth: .infinity)
-                    //            .padding(.bottom,10)
                     .padding()
                     .foregroundColor(Color(hex: "76C598"))
-                    //                    .foregroundColor(text == "아토 마켓" && isSelected ? Color(hex: "6279B8") : Color(hex: "c4c4c4"))
                     .border(width:4 , edges: [.bottom], color: Color(hex: "76C598"))
             }
             else {
@@ -46,7 +43,6 @@ struct SearchTabBarButton: View {
                     .frame(maxWidth: .infinity)
                     .padding()
                     .foregroundColor( Color(hex: "c4c4c4"))
-                //                    .border(width: isSelected ? 3 : 1, edges: [.bottom], color: .black)
             }
         } // end VStack
     }

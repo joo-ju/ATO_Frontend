@@ -17,11 +17,14 @@ struct RoomModel: Decodable{
 struct ChatModel: Decodable {
     let _id: String
     let roomId: String
+    let goodsId: String
     let content: Content
 }
 
-struct Content: Decodable {
-    let userId: String
-    let sendTime: String
-    let message: String
+struct Content: Decodable, Hashable {
+//    var id: ObjectIdentifier
+    
+    var userId: String
+    var sendTime: String
+    var message: String
 }

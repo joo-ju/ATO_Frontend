@@ -18,10 +18,8 @@ struct Keyword: View {
                 .font(.system(size: 15))
         }
         .padding(10)
-//        .background(Color(hex: "F2F1F1"))
         .cornerRadius(10)
         .foregroundColor(Color(hex: "8EA4D2"))
-//        .padding(30)
         .background(RoundedRectangle(cornerRadius: 10).stroke(Color(hex: "8EA4D2"), lineWidth: 2))
         
     }
