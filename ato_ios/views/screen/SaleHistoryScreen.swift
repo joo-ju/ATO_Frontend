@@ -63,7 +63,7 @@ struct SaleTab: View {
                         ForEach(viewModel.saleGoodsItems.reversed(), id: \._id){ saleGoodsItem in
                             
                             NavigationLink(destination: GoodsDetailViewScreen(goodsItem: saleGoodsItem), label: {
-                                Goods(title: saleGoodsItem.title, price: saleGoodsItem.price, tags: saleGoodsItem.tags, wishCount: saleGoodsItem.wishCount, chat: saleGoodsItem.chat, state: saleGoodsItem.state, image: saleGoodsItem.image)
+                                Goods(title: saleGoodsItem.title, price: saleGoodsItem.price, tags: saleGoodsItem.tags, wishCount: saleGoodsItem.wishCount, chat: saleGoodsItem.chat, updateTime: saleGoodsItem.updateTime, state: saleGoodsItem.state, image: saleGoodsItem.image)
                             })
                         }
                         
@@ -121,7 +121,7 @@ struct SoldTab: View {
                         ForEach(viewModel.soldGoodsItems.reversed(), id: \._id){ soldGoodsItem in
                             
                             NavigationLink(destination: DetailGoodsScreen(goodsItem: soldGoodsItem), label: {
-                                Goods(title: soldGoodsItem.title, price: soldGoodsItem.price, tags: soldGoodsItem.tags, wishCount: soldGoodsItem.wishCount, chat: soldGoodsItem.chat, state: soldGoodsItem.state, image: soldGoodsItem.image)
+                                Goods(title: soldGoodsItem.title, price: soldGoodsItem.price, tags: soldGoodsItem.tags, wishCount: soldGoodsItem.wishCount, chat: soldGoodsItem.chat, updateTime: soldGoodsItem.updateTime, state: soldGoodsItem.state, image: soldGoodsItem.image)
                             })
                         }
                         
@@ -177,7 +177,7 @@ struct HidingTab: View {
                         ForEach(viewModel.hidingGoodsItems.reversed(), id: \._id){ hidingGoodsItem in
                             
                             NavigationLink(destination: GoodsDetailViewScreen(goodsItem: hidingGoodsItem), label: {
-                                Goods(title: hidingGoodsItem.title, price: hidingGoodsItem.price, tags: hidingGoodsItem.tags, wishCount: hidingGoodsItem.wishCount, chat: hidingGoodsItem.chat, state: hidingGoodsItem.state, image: hidingGoodsItem.image)
+                                Goods(title: hidingGoodsItem.title, price: hidingGoodsItem.price, tags: hidingGoodsItem.tags, wishCount: hidingGoodsItem.wishCount, chat: hidingGoodsItem.chat, updateTime: hidingGoodsItem.updateTime, state: hidingGoodsItem.state, image: hidingGoodsItem.image)
                             })
                         }
                         

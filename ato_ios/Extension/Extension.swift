@@ -39,7 +39,34 @@ extension String {
             
         }
     }
-    
+    func stringToDate(date:String) ->  NSDate {
+        let formatter = DateFormatter()
+
+        // Format 1
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        if let parsedDate = formatter.date(from: date) {
+            return parsedDate as NSDate
+        }
+
+        // Format 2
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:SSSZ"
+        if let parsedDate = formatter.date(from: date) {
+            return parsedDate as NSDate
+        }
+
+        // Couldn't parsed with any format. Just get the date
+//        let splitedDate = date.componentsSeparatedByString("T")
+//        if splitedDate.count > 0 {
+//          formatter.dateFormat = "yyyy-MM-dd"
+//          if let parsedDate = formatter.dateFromString(splitedDate[0]) {
+//            return parsedDate
+//          }
+//        }
+
+        // Nothing worked!
+        return Date() as NSDate
+      }
+   
 }
 extension Date {
     func toString() -> String {
@@ -49,6 +76,7 @@ extension Date {
         return dateFormatter.string(from: self)
         
     }
+    
     
 }
 

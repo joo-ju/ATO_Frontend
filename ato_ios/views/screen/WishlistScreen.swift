@@ -68,7 +68,7 @@ struct MarketTab: View {
                         ForEach(viewModel.wishedGoodsItems.reversed(), id: \._id){ wishedGoodsItem in
                             
                             NavigationLink(destination: GoodsDetailViewScreen(goodsItem: wishedGoodsItem), label: {
-                                Goods(title: wishedGoodsItem.title, price: wishedGoodsItem.price, tags: wishedGoodsItem.tags, wishCount: wishedGoodsItem.wishCount, chat: wishedGoodsItem.chat, state: wishedGoodsItem.state)
+                                Goods(title: wishedGoodsItem.title, price: wishedGoodsItem.price, tags: wishedGoodsItem.tags, wishCount: wishedGoodsItem.wishCount, chat: wishedGoodsItem.chat, updateTime: wishedGoodsItem.updateTime, state: wishedGoodsItem.state)
                             })
                         }
                         

@@ -15,10 +15,12 @@ struct Goods: View {
     @State var tags = [""]
     @State var wishCount = 0
     @State var chat = 0
+    @State var updateTime = ""
     @State var state = ""
     @State var image = [""]
     @State var URL = "http://localhost:4000/goods/image/"
     @State var imageURL = ""
+    @State var dateString = ""
     var body: some View {
         VStack(alignment: .leading){
             HStack (alignment: .top){
@@ -50,11 +52,38 @@ struct Goods: View {
                     Text(title)
                         .font(.system(size: 15))
                         .padding(.top, 10)
-                    //                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                         .padding(.bottom, 3)
-                    Text("3분전")
+                 
+                    Text("\(dateString)")
                         .font(.system(size: 13))
                         .foregroundColor(Color(hex: "828282"))
+                        .onAppear{
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.locale = Locale(identifier: "ko")
+                            let _today = Date.now.toString(format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                            
+                            let lastTime = dateFormatter.date(from:updateTime)!
+                            let currentTime = dateFormatter.date(from:_today ?? "")!
+
+                            var diff = Int(currentTime.timeIntervalSince(lastTime))
+                        
+                            
+                            if diff >= 86400 {
+                                let day = diff / 86400
+                                dateString = "\(day)일전"
+                                print("\(day)일 전")
+                            }
+                            else if diff >= 3600 {
+                                let hour = diff / 3600
+                                dateString = "\(hour)시간 전"
+                            }
+                            else if diff >= 60 {
+                                let minute = diff / 60
+                                dateString = "\(minute)분 전"
+                            }
+                        }
+                    
                     HStack{
                         if tags.count > 0{
                             if tags.count > 3 {

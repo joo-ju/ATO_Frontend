@@ -49,7 +49,7 @@ struct BuyHistoryScreen: View {
                                 VStack{
                                     Divider()
                                     NavigationLink(destination: GoodsDetailViewScreen(goodsItem: buyGoodsItem), label: {
-                                        Goods(title: buyGoodsItem.title, price: buyGoodsItem.price, tags: buyGoodsItem.tags, wishCount: buyGoodsItem.wishCount, chat: buyGoodsItem.chat, state: buyGoodsItem.state, image: buyGoodsItem.image)
+                                        Goods(title: buyGoodsItem.title, price: buyGoodsItem.price, tags: buyGoodsItem.tags, wishCount: buyGoodsItem.wishCount, chat: buyGoodsItem.chat, updateTime: buyGoodsItem.updateTime, state: buyGoodsItem.state, image: buyGoodsItem.image)
                                     })
                                     if !buyGoodsItem.review {
                                             Button(action: {

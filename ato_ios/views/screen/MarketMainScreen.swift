@@ -69,7 +69,7 @@ struct MarketMain : View {
                                 
                                 NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
                                     
-                                    Goods(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state, image: goodsItem.image)
+                                    Goods(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, updateTime: goodsItem.updateTime, state: goodsItem.state, image: goodsItem.image)
                                     
                                 })
                             }
@@ -95,7 +95,7 @@ struct MarketMain : View {
                         ForEach(viewModel.goodsItems.filter({$0.title.contains(keyword) }), id: \._id){ goodsItem in
                             
                             NavigationLink(destination: DetailGoodsScreen(goodsItem: goodsItem), label: {
-                                Goods(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, state: goodsItem.state)
+                                Goods(title: goodsItem.title, price: goodsItem.price, tags: goodsItem.tags, wishCount: goodsItem.wishCount, chat: goodsItem.chat, updateTime: goodsItem.updateTime, state: goodsItem.state)
                                 
                             })
                         }
